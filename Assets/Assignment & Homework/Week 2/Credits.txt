@@ -1,0 +1,6 @@
+This assignment uses the following art assets from https://opengameart.org/, with some modifications in PhotoShop:
+
+1. cloud and background:  https://https://opengameart.org//content/horizontal-2d-backgrounds
+2. temples: https://opengameart.org/content/sunset-temple-tiles
+3. The player: https://opengameart.org/content/2d-knight-chibi
+4. BGM: https://drive.google.com/drive/u/2/folders/0B5Hp6XEIB3GiSFQxdHZlWXdjUVE?resourcekey=0-ka-fCKxj45Ub0jjKPR5TWA

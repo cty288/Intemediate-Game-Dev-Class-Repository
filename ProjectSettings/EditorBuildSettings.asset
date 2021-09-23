@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Assignment & Homework/Week 2/Scenes/Week2 Scene.unity
+    guid: 7e2b250e49f8c444bbe1faa356fd2664
+  - enabled: 0
     path: Assets/Assignment & Homework/Week 1/A Place in NYC.unity
     guid: d2b7ab2b5bfb87f45af1cb40f56c4113
   - enabled: 0
