@@ -3,18 +3,17 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags:
-  - SmallBall
+  tags: []
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Temp
+  - 
   - Water
   - UI
-  - Player
-  - Roll
-  - SmallBall
+  - 
+  - 
+  - 
   - 
   - 
   - 

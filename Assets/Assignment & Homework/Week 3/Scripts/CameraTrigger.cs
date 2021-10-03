@@ -15,8 +15,6 @@ public class CameraTrigger : MonoBehaviour {
             cameraControl.TargetPosition = TargetPosition;
             cameraControl.lerp = lerp;
             cameraControl.targetSize = size;
-
-            Week3GameManager.Singleton.Stage++;
         }
     }
 }
