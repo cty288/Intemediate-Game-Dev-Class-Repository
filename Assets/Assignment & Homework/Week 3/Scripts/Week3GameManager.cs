@@ -11,6 +11,7 @@ public class Week3GameManager : MonoBehaviour {
     public static Week3GameManager Singleton;
 
     public float TimeSpeed = 1;
+    public int Stage = 1;
     public GameState state=GameState.Menu;
 
     private void Awake() {
@@ -18,6 +19,7 @@ public class Week3GameManager : MonoBehaviour {
     }
 
     private void Update() {
+        Stage = Mathf.Clamp(Stage, 1, 5);
         if (Input.GetKeyDown(KeyCode.Space)) {
             state = GameState.Start;
         }
