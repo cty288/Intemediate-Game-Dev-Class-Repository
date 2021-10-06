@@ -33,9 +33,16 @@ namespace Week4{
         private TriggerCheck jumpCheck;
 
         [SerializeField] private PlayerState playerState;
+        private PlayerState lastState;
+
         public PlayerState PlayerState => playerState;
 
-        
+
+        /// <summary>
+        ///   event triggered when player state changed. Pass old and new state to the callback function
+        /// </summary>
+        public Action<PlayerState,PlayerState> OnPlayerStateUpdate;
+
         public bool Grounded {
             get {
                 return jumpCheck.Triggered;
@@ -50,6 +57,7 @@ namespace Week4{
 
         private void Start() {
             playerState = PlayerState.Idle;
+            lastState = playerState;
         }
 
         private void FixedUpdate() {
@@ -58,9 +66,11 @@ namespace Week4{
             if (moveX == 0) {
                 speed *= friction;
             }
-           
 
-            rigidbody.velocity = new Vector2(speed, rigidbody.velocity.y);
+            if (Mathf.Abs(rigidbody.velocity.x) >= 0.5 || Grounded) {
+                rigidbody.velocity = new Vector2(speed, rigidbody.velocity.y);
+            }
+           
         }
 
 
@@ -78,6 +88,12 @@ namespace Week4{
                 playerState = PlayerState.Jump;
             }else if (Mathf.Abs(speed) >= 0.5) {
                 playerState = PlayerState.Run;
+            }
+
+            if (lastState != playerState) {
+                OnPlayerStateUpdate?.Invoke(lastState, playerState);
+                lastState = playerState;
+                
             }
         }
 

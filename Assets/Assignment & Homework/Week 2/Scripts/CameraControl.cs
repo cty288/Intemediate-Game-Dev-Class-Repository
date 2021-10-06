@@ -9,12 +9,15 @@ public class CameraControl : MonoBehaviour {
     [SerializeField]
     private float lerpSpeed=20;
 
+    private bool dead = true;
     private void Awake() {
         player = GameObject.FindGameObjectWithTag("Player").transform;
         camera = GetComponent<Camera>();
     }
 
     private void Update() {
+
+
         float targetX = transform.position.x;
 
         targetX = Mathf.Lerp(targetX, player.position.x,lerpSpeed*Time.deltaTime);

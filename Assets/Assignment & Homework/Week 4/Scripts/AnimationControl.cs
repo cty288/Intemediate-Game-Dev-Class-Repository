@@ -19,39 +19,40 @@ namespace Week4
         private int currentSpriteIndex = 0;
         private Sprite[] currentSprites;
 
-        private PlayerState currentPlayerState;
-        private PlayerState lastPlayerState;
+        
 
         private void Awake() {
             player = GetComponent<PlayerControl>();
-            currentPlayerState = player.PlayerState;
-            lastPlayerState = currentPlayerState;
+            player.OnPlayerStateUpdate += OnPlayerStateChanged;
+        }
+
+        private void Start() {
+            currentSprites = idleSprites;
+        }
+
+        private void OnPlayerStateChanged(PlayerState oldState, PlayerState newState) {
+            timer = 0;
+            currentSpriteIndex = 0;
+            UpdateSpriteAtlas(newState);
         }
 
         private void Update() {
-            currentPlayerState = player.PlayerState;
-            if (lastPlayerState != currentPlayerState) {
+            
+            timer += Time.deltaTime;
+            if (timer >= frameLength) {
                 timer = 0;
-                currentSpriteIndex = 0;
-                lastPlayerState = currentPlayerState;
-            }
-            else {
-                timer += Time.deltaTime;
-                if (timer >= frameLength) {
-                    timer = 0;
 
-                    currentSpriteIndex++;
-                    currentSpriteIndex %= currentSprites.Length;
-                }
+                currentSpriteIndex++;
+                currentSpriteIndex %= currentSprites.Length;
             }
 
-            UpdateSpriteAtlas();
+            
 
             transform.localScale = faceRight ? new Vector3(6, 6, 1) : new Vector3(-6, 6, 1);
             player.gameObject.GetComponent<SpriteRenderer>().sprite = currentSprites[currentSpriteIndex];
         }
 
-        private void UpdateSpriteAtlas() {
+        private void UpdateSpriteAtlas(PlayerState currentPlayerState) {
             switch (currentPlayerState) {
                 case PlayerState.Idle:
                     currentSprites = idleSprites;
