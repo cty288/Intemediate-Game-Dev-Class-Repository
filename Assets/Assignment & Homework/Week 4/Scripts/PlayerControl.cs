@@ -28,6 +28,7 @@ namespace Week4{
         private float moveX = 0;
         [SerializeField]
         private float speed = 0;
+        public float Speed => speed;
 
         private TriggerCheck jumpCheck;
 
@@ -67,10 +68,17 @@ namespace Week4{
         private void Update()
         {
             MovementControl();
+            UpdateState();
         }
 
         private void UpdateState() {
-
+            if (Mathf.Abs(speed) <= 0.5 && Mathf.Abs(rigidbody.velocity.y) <= 0.5 && playerState!=PlayerState.Dead) {
+                playerState = PlayerState.Idle;
+            }else if (!Grounded) {
+                playerState = PlayerState.Jump;
+            }else if (Mathf.Abs(speed) >= 0.5) {
+                playerState = PlayerState.Run;
+            }
         }
 
         private void MovementControl()
