@@ -1,8 +1,16 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Week4{
+    public enum PlayerState {
+        Idle,
+        Run,
+        Jump,
+        Dead
+    }
+
     public class PlayerControl : MonoBehaviour {
         
         [SerializeField]
@@ -20,13 +28,29 @@ namespace Week4{
         private float moveX = 0;
         [SerializeField]
         private float speed = 0;
-        private bool canJump = false;
+
+        private TriggerCheck jumpCheck;
+
+        [SerializeField] private PlayerState playerState;
+        public PlayerState PlayerState => playerState;
+
+        
+        public bool Grounded {
+            get {
+                return jumpCheck.Triggered;
+            }
+        }
 
         private void Awake() {
             Time.timeScale = 1;
             rigidbody = GetComponent<Rigidbody2D>();
+            jumpCheck = transform.Find("JumpCheck").GetComponent<TriggerCheck>();
         }
-        
+
+        private void Start() {
+            playerState = PlayerState.Idle;
+        }
+
         private void FixedUpdate() {
             speed += moveX * acceleration;
             speed = Mathf.Clamp(speed, -maxSpeed, maxSpeed);
@@ -45,6 +69,10 @@ namespace Week4{
             MovementControl();
         }
 
+        private void UpdateState() {
+
+        }
+
         private void MovementControl()
         {
             moveX = Input.GetAxis("Horizontal");
@@ -57,11 +85,13 @@ namespace Week4{
 
         private void Jump()
         {
-            if (canJump)
+            if (Grounded)
             {
                 rigidbody.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             }
         }
+
+        
     }
 }
 
