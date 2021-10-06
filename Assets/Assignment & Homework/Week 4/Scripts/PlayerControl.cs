@@ -38,10 +38,8 @@ namespace Week4{
         public PlayerState PlayerState => playerState;
 
 
-        /// <summary>
-        ///   event triggered when player state changed. Pass old and new state to the callback function
-        /// </summary>
-        public Action<PlayerState,PlayerState> OnPlayerStateUpdate;
+ 
+        
 
         public bool Grounded {
             get {
@@ -91,7 +89,7 @@ namespace Week4{
             }
 
             if (lastState != playerState) {
-                OnPlayerStateUpdate?.Invoke(lastState, playerState);
+                SimpleEventSystem.OnPlayerStateUpdate?.Invoke(lastState, playerState);
                 lastState = playerState;
                 
             }

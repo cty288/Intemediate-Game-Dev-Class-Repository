@@ -1,0 +1,16 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Week4
+{
+    public static class SimpleEventSystem {
+        /// <summary>
+        ///   event triggered when player state changed. Pass old and new state to the callback function
+        /// </summary>
+        public static Action<PlayerState, PlayerState> OnPlayerStateUpdate;
+
+    }
+}

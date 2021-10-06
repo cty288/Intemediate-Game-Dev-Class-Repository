@@ -26,7 +26,7 @@ namespace Week4
         }
 
         private void Start() {
-            player.GetComponent<PlayerControl>().OnPlayerStateUpdate += OnPlayerStateUpdate;
+            SimpleEventSystem.OnPlayerStateUpdate += OnPlayerStateUpdate;
         }
 
         private void OnPlayerStateUpdate(PlayerState oldState, PlayerState newState) {
@@ -56,6 +56,10 @@ namespace Week4
                 }
             }
             
+        }
+
+        private void OnDestroy() {
+            SimpleEventSystem.OnPlayerStateUpdate -= OnPlayerStateUpdate;
         }
     }
 }

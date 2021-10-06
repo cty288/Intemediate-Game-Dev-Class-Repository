@@ -23,7 +23,7 @@ namespace Week4
 
         private void Awake() {
             player = GetComponent<PlayerControl>();
-            player.OnPlayerStateUpdate += OnPlayerStateChanged;
+            SimpleEventSystem.OnPlayerStateUpdate += OnPlayerStateChanged;
         }
 
         private void Start() {
@@ -74,6 +74,10 @@ namespace Week4
             if (player.Speed < 0) {
                 faceRight = false;
             }
+        }
+
+        private void OnDestroy() {
+            SimpleEventSystem.OnPlayerStateUpdate -= OnPlayerStateChanged;
         }
     }
 }
