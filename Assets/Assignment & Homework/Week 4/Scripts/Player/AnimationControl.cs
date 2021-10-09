@@ -65,6 +65,10 @@ namespace Week4
                     break;
                 case PlayerState.Dead:
                     break;
+                case PlayerState.Talking:
+                    currentSprites = idleSprites;
+                    break;
+                
             }
 
             if (player.Speed > 0) {

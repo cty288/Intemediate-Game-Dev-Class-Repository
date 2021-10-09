@@ -8,6 +8,7 @@ namespace Week4{
         Idle,
         Run,
         Jump,
+        Talking,
         Dead
     }
 
@@ -35,9 +36,12 @@ namespace Week4{
         [SerializeField] private PlayerState playerState;
         private PlayerState lastState;
 
-        public PlayerState PlayerState => playerState;
+        public PlayerState PlayerState {
+            get => playerState;
+            set => playerState = value;
+        }
 
-
+        public static PlayerControl PlayerSingleton;
  
         
 
@@ -48,7 +52,7 @@ namespace Week4{
         }
 
         private void Awake() {
-            Time.timeScale = 1;
+            PlayerSingleton = this;
             rigidbody = GetComponent<Rigidbody2D>();
             jumpCheck = transform.Find("JumpCheck").GetComponent<TriggerCheck>();
         }
@@ -59,6 +63,7 @@ namespace Week4{
         }
 
         private void FixedUpdate() {
+
             speed += moveX * acceleration;
             speed = Mathf.Clamp(speed, -maxSpeed, maxSpeed);
             if (moveX == 0) {
@@ -75,18 +80,30 @@ namespace Week4{
 
         private void Update()
         {
+            Time.timeScale = 1;
             MovementControl();
             UpdateState();
         }
 
         private void UpdateState() {
-            if (Mathf.Abs(speed) <= 0.5 && Mathf.Abs(rigidbody.velocity.y) <= 0.5 && playerState!=PlayerState.Dead) {
-                playerState = PlayerState.Idle;
-            }else if (!Grounded) {
-                playerState = PlayerState.Jump;
-            }else if (Mathf.Abs(speed) >= 0.5) {
-                playerState = PlayerState.Run;
+
+            if (playerState != PlayerState.Talking) {
+                if (Mathf.Abs(speed) <= 0.5 && Mathf.Abs(rigidbody.velocity.y) <= 0.5 && playerState != PlayerState.Dead)
+                {
+                    playerState = PlayerState.Idle;
+                }
+                else if (!Grounded)
+                {
+                    playerState = PlayerState.Jump;
+                }
+                else if (Mathf.Abs(speed) >= 0.5)
+                {
+                    playerState = PlayerState.Run;
+                }
+
             }
+
+
 
             if (lastState != playerState) {
                 SimpleEventSystem.OnPlayerStateUpdate?.Invoke(lastState, playerState);
@@ -97,12 +114,18 @@ namespace Week4{
 
         private void MovementControl()
         {
-            moveX = Input.GetAxis("Horizontal");
+            if (playerState != PlayerState.Talking) {
+                moveX = Input.GetAxis("Horizontal");
 
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                Jump();
+                if (Input.GetKeyDown(KeyCode.Space))
+                {
+                    Jump();
+                }
             }
+            else {
+                moveX = 0;
+            }
+          
         }
 
         private void Jump()

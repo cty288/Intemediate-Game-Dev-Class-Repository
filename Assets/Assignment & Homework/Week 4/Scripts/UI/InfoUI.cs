@@ -10,7 +10,7 @@ namespace Week4
 
         [SerializeField]
         private float lerp = 0.3f;
-
+        
         private Vector3 activeScale;
         private Vector3 targetScale;
         private Transform child;

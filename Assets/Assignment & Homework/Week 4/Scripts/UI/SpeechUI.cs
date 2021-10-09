@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Codice.CM.Client.Differences.Merge;
+using TMPro;
 using UnityEngine;
+
 
 namespace Week4
 {
@@ -9,14 +12,21 @@ namespace Week4
         [SerializeField]
         private float lerp = 0.3f;
 
-        
+        [SerializeField] private float timePerCharacter = 0.1f;
+
+        private float characterTimer = 0;
+        private int currentCharacterPos = -1;
+
         private Vector3 targetScale;
         private Transform child;
         private bool activated = false;
+        private TMP_Text speechText;
+        private string printerTargetText;
         public bool Activated => activated;
         private void Awake()
         {
             child = transform.Find("SpeechUIRoot/SpeechUI");
+            speechText = GetComponentInChildren<TMP_Text>();
         }
 
         private void Start()
@@ -28,6 +38,17 @@ namespace Week4
         private void Update()
         {
             child.localScale = Vector3.Lerp(child.localScale, targetScale, lerp);
+            if (activated) {
+                characterTimer += Time.deltaTime;
+                if (characterTimer > timePerCharacter) {
+                    characterTimer = 0;
+                    currentCharacterPos++;
+                    
+                    if (currentCharacterPos < printerTargetText.Length) {
+                        speechText.text = printerTargetText.Substring(0, currentCharacterPos + 1);
+                    }
+                }
+            }
         }
 
         public void Activate(bool state, Vector2 position)
@@ -58,5 +79,19 @@ namespace Week4
                 GetComponentInChildren<Animation>().Stop();
             }
         }
+
+        public void SetText(string text) {
+            printerTargetText = text;
+            characterTimer = 0;
+            currentCharacterPos = -1;
+        }
+
+        public void ResetMsg() {
+            printerTargetText = "";
+            speechText.text = "";
+            characterTimer = 0;
+            currentCharacterPos = -1;
+        }
+        
     }
 }
