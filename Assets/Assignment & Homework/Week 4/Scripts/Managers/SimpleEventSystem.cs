@@ -12,5 +12,7 @@ namespace Week4
         /// </summary>
         public static Action<PlayerState, PlayerState> OnPlayerStateUpdate;
 
+        public static Action<int,int> OnLifeChange;
+
     }
 }

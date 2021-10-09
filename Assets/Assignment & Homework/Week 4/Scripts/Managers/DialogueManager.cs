@@ -76,7 +76,8 @@ namespace Week4
             else {
                 page = -1;
                 CloseUI();
-               
+                player.PlayerState = PlayerState.Idle;
+
             }
 
             return page;
@@ -108,7 +109,7 @@ namespace Week4
 
         public void CloseUI() {
             page = -1;
-            player.PlayerState = PlayerState.Idle;
+            //player.PlayerState = PlayerState.Idle;
             switch (currentDialogueType)
             {
                 case DialogueType.Bubble:

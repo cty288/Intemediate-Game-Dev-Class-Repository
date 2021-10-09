@@ -10,29 +10,51 @@ namespace Week4
 
         private PlayerControl player;
 
-        public int Life = 3;
+        [SerializeField]
+        private int life = 3;
+        public int Life => life;
         public int Diamond = 0;
         
 
+
         private void Awake() {
-            Singleton = this;
-            player = PlayerControl.PlayerSingleton;
-            DontDestroyOnLoad(this.gameObject);
-            player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerControl>();
+            if (Singleton != null) {
+                DestroyImmediate(this.gameObject);
+            }
+            else {
+                Singleton = this;
+                player = PlayerControl.PlayerSingleton;
+                DontDestroyOnLoad(this.gameObject);
+                player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerControl>();
+            }
+
+           
         }
 
-        private void Update() {
-            if (player.PlayerState != PlayerState.Dead) {
-                if (player.transform.position.y <= 50) {
-                    player.PlayerState = PlayerState.Dead;
-                    AddLife(-1);
-                }
+        private void Start() {
+            SimpleEventSystem.OnPlayerStateUpdate += OnPlayerStateUpdate;
+        }
+
+        private void OnPlayerStateUpdate(PlayerState old, PlayerState newState) {
+            if (newState == PlayerState.Dead)
+            {
+                AddLife(-1);
             }
         }
 
+
         public void AddLife(int num) {
-            Life += num;
-            Life = Mathf.Clamp(Life,0,10);
+            int oldLife = life;
+            life += num;
+            life = Mathf.Clamp(Life,0,10);
+            if (life != oldLife) {
+                SimpleEventSystem.OnLifeChange?.Invoke(oldLife, life);
+            }
+            
+        }
+
+        private void OnDestroy() {
+            SimpleEventSystem.OnPlayerStateUpdate -= OnPlayerStateUpdate;
         }
     }
 }

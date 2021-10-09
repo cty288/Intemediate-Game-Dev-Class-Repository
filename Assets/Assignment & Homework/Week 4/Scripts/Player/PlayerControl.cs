@@ -34,6 +34,7 @@ namespace Week4{
         private TriggerCheck jumpCheck;
 
         [SerializeField] private PlayerState playerState;
+        [SerializeField]
         private PlayerState lastState;
 
         public PlayerState PlayerState {
@@ -86,14 +87,16 @@ namespace Week4{
         }
 
         private void UpdateState() {
+            
 
-            if (playerState != PlayerState.Talking) {
+            if (playerState != PlayerState.Talking && playerState!= PlayerState.Dead) {
                 if (Mathf.Abs(speed) <= 0.5 && Mathf.Abs(rigidbody.velocity.y) <= 0.5 && playerState != PlayerState.Dead)
                 {
                     playerState = PlayerState.Idle;
                 }
-                else if (!Grounded)
+                else if (!Grounded && playerState != PlayerState.Dead)
                 {
+                   
                     playerState = PlayerState.Jump;
                 }
                 else if (Mathf.Abs(speed) >= 0.5)
@@ -103,18 +106,22 @@ namespace Week4{
 
             }
 
+            if (transform.position.y <= -20)
+            {
+                playerState = PlayerState.Dead;
+            }
 
 
             if (lastState != playerState) {
                 SimpleEventSystem.OnPlayerStateUpdate?.Invoke(lastState, playerState);
                 lastState = playerState;
-                
+
             }
         }
 
         private void MovementControl()
         {
-            if (playerState != PlayerState.Talking) {
+            if (playerState != PlayerState.Talking && playerState!= PlayerState.Dead) {
                 moveX = Input.GetAxis("Horizontal");
 
                 if (Input.GetKeyDown(KeyCode.Space))

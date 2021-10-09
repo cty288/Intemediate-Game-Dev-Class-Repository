@@ -51,7 +51,7 @@ namespace Week4
 
         private void Update() {
           
-            if (Vector3.Distance(transform.position, playerTransform.position) <= 3) {
+            if (Vector3.Distance(transform.position, playerTransform.position) <= 3 || dialogueTriggered) {
                 
                 if (triggeredBefore)
                 {
