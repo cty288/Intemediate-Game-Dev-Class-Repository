@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Codice.CM.Client.Differences.Merge;
 using TMPro;
 using UnityEngine;
 
@@ -91,6 +90,10 @@ namespace Week4
             speechText.text = "";
             characterTimer = 0;
             currentCharacterPos = -1;
+        }
+
+        public void SetColor(Color color) {
+            speechText.color = color;
         }
         
     }

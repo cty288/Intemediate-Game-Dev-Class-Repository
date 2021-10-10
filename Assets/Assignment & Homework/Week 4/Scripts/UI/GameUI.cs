@@ -17,6 +17,8 @@ namespace Week4
         [SerializeField] 
         private GameObject dieBG;
 
+       
+
         [SerializeField] private Button restartButton;
 
         private void Awake()
@@ -36,6 +38,21 @@ namespace Week4
 
             SimpleEventSystem.OnKeyChange += OnKeyChanged;
             OnKeyChanged(GameManager.Singleton.Key, GameManager.Singleton.Key);
+
+            SimpleEventSystem.OnGameEnds += OnGameEnds;
+
+        }
+
+        private void OnGameEnds(int heartAdded, int levelNum) {
+            GameObject gamePassBG = GameObject.Find("LevelPassBG");
+            gamePassBG.gameObject.SetActive(true);
+            gamePassBG.GetComponent<Animation>().Play();
+            gamePassBG.transform.Find("InfoText").GetComponent<Text>().text = $"Level {levelNum} Passed!";
+            gamePassBG.transform.Find("AddHeartText").GetComponent<Text>().text = $"+{heartAdded}";
+
+            gamePassBG.transform.Find("RestartButton").GetComponent<Button>().onClick.AddListener(() => {
+                GameManager.Singleton.RestartCurrentLevel();
+            });
         }
 
         private void OnKeyChanged(int old, int cur) {
@@ -56,24 +73,29 @@ namespace Week4
         void OnLifeChanged(int oldlife, int newLife) {
            UpdateHeartUI(newLife);
            if (newLife < oldlife) {
-               dieBG.SetActive(true);
-               
-               restartButton.onClick.RemoveAllListeners();
-
-               if (newLife > 0) {
-                   restartButton.onClick.AddListener(() => {
-                       GameManager.Singleton.RestartCurrentLevel();
-                   });
-                }
-               else {
-                   //TODO
-                   restartButton.onClick.AddListener(() => {
-                       Debug.Log("Lose all life");
-                   });
-               }
+               StartCoroutine(ShowDieBG(newLife));
            }
         }
+        IEnumerator ShowDieBG(int newLife) {
+            yield return new WaitForSeconds(1);
+            dieBG.SetActive(true);
 
+            restartButton.onClick.RemoveAllListeners();
+
+            if (newLife > 0)
+            {
+                restartButton.onClick.AddListener(() => {
+                    GameManager.Singleton.RestartCurrentLevel();
+                });
+            }
+            else
+            {
+                //TODO
+                restartButton.onClick.AddListener(() => {
+                    Debug.Log("Lose all life");
+                });
+            }
+        }
         void UpdateHeartUI(int life) {
             for (int i = 0; i < 10; i++)
             {

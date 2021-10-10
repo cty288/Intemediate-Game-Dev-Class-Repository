@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Random = UnityEngine.Random;
 
 namespace Week4
 {
@@ -11,7 +12,8 @@ namespace Week4
 
         private PlayerControl player;
 
-        private int life = 3;
+        [SerializeField]
+        private int life = 5;
         public int Life => life;
         private int diamond = 0;
         public int Diamond => diamond;
@@ -19,19 +21,26 @@ namespace Week4
         private int key = 0;
         public int Key => key;
 
-
+        private int level = 1;
+        public int Level => level;
         private void Awake() {
             if (Singleton != null) {
                 DestroyImmediate(this.gameObject);
             }
             else {
                 Singleton = this;
-                player = PlayerControl.PlayerSingleton;
+                //player = PlayerControl.PlayerSingleton;
                 DontDestroyOnLoad(this.gameObject);
                 player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerControl>();
             }
 
            
+        }
+
+        private void Update() {
+            if (!player) {
+                player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerControl>();
+            }
         }
 
         private void Start() {
@@ -54,6 +63,14 @@ namespace Week4
                 SimpleEventSystem.OnLifeChange?.Invoke(oldLife, life);
             }
             
+        }
+
+        public void EndLevel() {
+            level++;
+            player.PlayerState = PlayerState.End;
+            int lifeAdd = Random.Range(1, 6);
+            AddLife(lifeAdd);
+            SimpleEventSystem.OnGameEnds?.Invoke(lifeAdd,level-1);
         }
 
         public void ChangeKey(int num) {

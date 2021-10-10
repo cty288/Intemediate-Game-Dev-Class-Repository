@@ -30,6 +30,8 @@ namespace Week4
         [SerializeField] 
         protected bool canRepeatTrigger = true;
 
+        [SerializeField] protected float minimumTriggerDistance = 3;
+
         private bool triggeredBefore = false;
 
         private int stage = 0;
@@ -51,7 +53,7 @@ namespace Week4
 
         private void Update() {
           
-            if (Vector3.Distance(transform.position, playerTransform.position) <= 3 || dialogueTriggered) {
+            if (Vector3.Distance(transform.position, playerTransform.position) <= minimumTriggerDistance || dialogueTriggered) {
                 
                 if (triggeredBefore)
                 {
@@ -85,6 +87,7 @@ namespace Week4
 
                 }
             }
+           
 
 
         }

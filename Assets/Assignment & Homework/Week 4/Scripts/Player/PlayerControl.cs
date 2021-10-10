@@ -9,6 +9,7 @@ namespace Week4{
         Run,
         Jump,
         Talking,
+        End,
         Dead
     }
 
@@ -95,7 +96,7 @@ namespace Week4{
         private void UpdateState() {
             
 
-            if (playerState != PlayerState.Talking && playerState!= PlayerState.Dead) {
+            if (playerState != PlayerState.Talking && playerState!= PlayerState.Dead && playerState!=PlayerState.End) {
                 if (Mathf.Abs(speed) <= 0.5 && Mathf.Abs(rigidbody.velocity.y) <= 0.5 && playerState != PlayerState.Dead)
                 {
                     playerState = PlayerState.Idle;
@@ -127,7 +128,7 @@ namespace Week4{
 
         private void MovementControl()
         {
-            if (playerState != PlayerState.Talking && playerState!= PlayerState.Dead) {
+            if (playerState != PlayerState.Talking && playerState!= PlayerState.Dead && playerState!=PlayerState.End) {
                 moveX = Input.GetAxis("Horizontal");
 
                 if (Input.GetKeyDown(KeyCode.Space))

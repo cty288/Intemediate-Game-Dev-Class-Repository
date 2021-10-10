@@ -12,6 +12,8 @@ namespace Week4
         [SerializeField] private Sprite[] idleSprites;
         [SerializeField] private Sprite[] runSprites;
         [SerializeField] private Sprite[] jumpSprites;
+        [SerializeField] private Sprite[] dieSprites;
+
         [SerializeField] private float frameLength = 0.3f;
 
         private float timer = 0;
@@ -73,6 +75,7 @@ namespace Week4
                     currentSprites = jumpSprites;
                     break;
                 case PlayerState.Dead:
+                    currentSprites = dieSprites;
                     break;
                 case PlayerState.Talking:
                     currentSprites = idleSprites;

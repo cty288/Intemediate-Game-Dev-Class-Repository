@@ -24,11 +24,26 @@ namespace Week4
         [SerializeField]
         private SpeechUI speechUI;
         private void Awake() {
-            Singleton = this;
-            player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerControl>();
+            if (Singleton != null) {
+                DestroyImmediate(this.gameObject);
+            }
+            else {
+                Singleton = this;
+                DontDestroyOnLoad(this);
+                player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerControl>();
+            }
+            
         }
 
         private void Update() {
+            if (!player) {
+                player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerControl>();
+            }
+
+            if (!speechUI) {
+                speechUI = GameObject.FindGameObjectWithTag("SpeechBubble").GetComponent<SpeechUI>();
+            }
+
             if (page >= 0) {
                 player.PlayerState = PlayerState.Talking;
                 switch (currentDialogueType)
@@ -89,6 +104,14 @@ namespace Week4
                     if (text.Contains("P:"))
                     {
                         text = text.Substring(2);
+                    }
+
+                    if (text.Contains("[R]")) {
+                        speechUI.SetColor(Color.red);
+                        text = text.Substring(3);
+                    }
+                    else {
+                        speechUI.SetColor(Color.black);
                     }
                     speechUI.SetText(text);
                     break;

@@ -18,5 +18,8 @@ namespace Week4
 
         public static Action<int, int> OnKeyChange;
 
+        //Pass life added and current level number
+        public static Action<int,int> OnGameEnds;
+
     }
 }
