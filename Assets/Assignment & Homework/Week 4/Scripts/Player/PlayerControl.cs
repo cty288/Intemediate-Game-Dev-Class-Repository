@@ -43,8 +43,8 @@ namespace Week4{
         }
 
         public static PlayerControl PlayerSingleton;
- 
-        
+
+        private TriggerCheck wallCheck;
 
         public bool Grounded {
             get {
@@ -56,6 +56,7 @@ namespace Week4{
             PlayerSingleton = this;
             rigidbody = GetComponent<Rigidbody2D>();
             jumpCheck = transform.Find("JumpCheck").GetComponent<TriggerCheck>();
+            wallCheck = transform.Find("WallCheck").GetComponent<TriggerCheck>();
         }
 
         private void Start() {
@@ -71,9 +72,7 @@ namespace Week4{
                 speed *= friction;
             }
 
-            if (Mathf.Abs(rigidbody.velocity.x) >= 0.5 || Grounded) {
-                rigidbody.velocity = new Vector2(speed, rigidbody.velocity.y);
-            }
+            
            
         }
 
@@ -84,6 +83,13 @@ namespace Week4{
             Time.timeScale = 1;
             MovementControl();
             UpdateState();
+            if (Mathf.Abs(rigidbody.velocity.x) >= 0.5 || Grounded || Mathf.Abs(moveX) >= 0)
+            {
+                if (!wallCheck.Triggered) {
+                     rigidbody.velocity = new Vector2(speed, rigidbody.velocity.y);
+                }
+               
+            }
         }
 
         private void UpdateState() {

@@ -14,5 +14,9 @@ namespace Week4
 
         public static Action<int,int> OnLifeChange;
 
+        public static Action<int, int> OnDiamondChange;
+
+        public static Action<int, int> OnKeyChange;
+
     }
 }

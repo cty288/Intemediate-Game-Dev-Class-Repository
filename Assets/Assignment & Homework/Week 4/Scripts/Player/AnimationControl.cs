@@ -46,7 +46,16 @@ namespace Week4
                 currentSpriteIndex %= currentSprites.Length;
             }
 
-            
+            if (player.Speed > 0)
+            {
+                faceRight = true;
+            }
+
+            if (player.Speed < 0)
+            {
+                faceRight = false;
+            }
+
 
             transform.localScale = faceRight ? new Vector3(6, 6, 1) : new Vector3(-6, 6, 1);
             player.gameObject.GetComponent<SpriteRenderer>().sprite = currentSprites[currentSpriteIndex];
@@ -71,13 +80,7 @@ namespace Week4
                 
             }
 
-            if (player.Speed > 0) {
-                faceRight = true;
-            }
-
-            if (player.Speed < 0) {
-                faceRight = false;
-            }
+           
         }
 
         private void OnDestroy() {

@@ -43,7 +43,7 @@ namespace Week4
             playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         }
 
-        private void Start() {
+        protected virtual void Start() {
             if (alwaysShowInfoUI) {
                 ActivateInfoUI(true);
             }
@@ -61,30 +61,34 @@ namespace Week4
                         return;
                     }
                 }
-                infoUI.Activate(!DialogueManager.Singleton.IsTalking());
+
+                if (infoUI) {
+                    infoUI.Activate(!DialogueManager.Singleton.IsTalking());
+                }
+               
 
                 if (Input.GetKeyDown(KeyCode.F)) {
-                    
 
-                    if (!dialogueTriggered)
-                    {
-                        dialogueTriggered = true;
-                        DialogueManager.Singleton.StartNewDialogue(dialogueType, dialogues,
-                            bubbleDialoguePosition);
+                    if (dialogues.Count > 0) {
+                        if (!dialogueTriggered)
+                        {
+                            dialogueTriggered = true;
+                            DialogueManager.Singleton.StartNewDialogue(dialogueType, dialogues,
+                                bubbleDialoguePosition);
+                        }
+                        else
+                        {
+                            ShowDialogue();
+                        }
                     }
-                    else
-                    {
-                        ShowDialogue();
-                    }
+                    OnInteract(stage);
 
                 }
             }
-            else {
-                DialogueManager.Singleton.CloseUI();
-            }
-          
-          
+
+
         }
+
 
         protected virtual void OnTriggerEnter2D(Collider2D other) {
             if (other.CompareTag("Player")) {
@@ -127,5 +131,7 @@ namespace Week4
         }
 
         protected abstract void OnStageChanged(int stage);
+
+        protected abstract void OnInteract(int stage);
     }
 }

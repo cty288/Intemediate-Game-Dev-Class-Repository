@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Week4
 {
@@ -10,11 +11,13 @@ namespace Week4
 
         private PlayerControl player;
 
-        [SerializeField]
         private int life = 3;
         public int Life => life;
-        public int Diamond = 0;
-        
+        private int diamond = 0;
+        public int Diamond => diamond;
+
+        private int key = 0;
+        public int Key => key;
 
 
         private void Awake() {
@@ -53,8 +56,24 @@ namespace Week4
             
         }
 
+        public void ChangeKey(int num) {
+            int oldKey = key;
+            key += num;
+            SimpleEventSystem.OnKeyChange?.Invoke(oldKey,key);
+        }
+
+        public void AddDiamond(int num) {
+            diamond += num;
+            SimpleEventSystem.OnDiamondChange?.Invoke(diamond - num, diamond);
+        }
+
         private void OnDestroy() {
             SimpleEventSystem.OnPlayerStateUpdate -= OnPlayerStateUpdate;
+        }
+
+        public void RestartCurrentLevel() {
+            diamond = 0;
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
 }

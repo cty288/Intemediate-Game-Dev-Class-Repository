@@ -11,5 +11,9 @@ namespace Week4
         protected override void OnStageChanged(int stage) {
             dialogues = stage2Dialogues;
         }
+
+        protected override void OnInteract(int stage) {
+            
+        }
     }
 }

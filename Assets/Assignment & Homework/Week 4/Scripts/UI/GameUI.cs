@@ -10,6 +10,10 @@ namespace Week4
     {
         private GridLayoutGroup gridLayoutGroup;
 
+        private Text diamondCountText;
+
+        private Text keyCountText;
+
         [SerializeField] 
         private GameObject dieBG;
 
@@ -18,18 +22,35 @@ namespace Week4
         private void Awake()
         {
             gridLayoutGroup = transform.Find("HeartDisplay").GetComponent<GridLayoutGroup>();
+            diamondCountText = transform.Find("DiamondDisplay/NumText").GetComponent<Text>();
+            keyCountText = transform.Find("KeyDisplay/NumText").GetComponent<Text>();
         }
 
         private void Start()
         {
             SimpleEventSystem.OnLifeChange += OnLifeChanged;
             OnLifeChanged(GameManager.Singleton.Life,GameManager.Singleton.Life);
+
+            SimpleEventSystem.OnDiamondChange += OnDiamondChanged;
+            OnDiamondChanged(GameManager.Singleton.Diamond,GameManager.Singleton.Diamond);
+
+            SimpleEventSystem.OnKeyChange += OnKeyChanged;
+            OnKeyChanged(GameManager.Singleton.Key, GameManager.Singleton.Key);
         }
 
+        private void OnKeyChanged(int old, int cur) {
+            keyCountText.text = "X " + cur;
+        }
+
+        private void OnDiamondChanged(int old, int newNum) {
+            diamondCountText.text = "X " + newNum;
+        }
 
         private void OnDestroy()
         {
             SimpleEventSystem.OnLifeChange -= OnLifeChanged;
+            SimpleEventSystem.OnDiamondChange -= OnDiamondChanged;
+            SimpleEventSystem.OnKeyChange -= OnKeyChanged;
         }
 
         void OnLifeChanged(int oldlife, int newLife) {
@@ -41,7 +62,7 @@ namespace Week4
 
                if (newLife > 0) {
                    restartButton.onClick.AddListener(() => {
-                       SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                       GameManager.Singleton.RestartCurrentLevel();
                    });
                 }
                else {

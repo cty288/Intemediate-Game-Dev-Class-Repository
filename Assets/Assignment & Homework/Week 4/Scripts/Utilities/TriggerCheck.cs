@@ -14,6 +14,7 @@ namespace Week4 {
        
         public List<Collider2D> Colliders => colliders;
 
+        [SerializeField] private bool ignoreTriggers = true;
         
         public bool Triggered
         {
@@ -41,6 +42,11 @@ namespace Week4 {
         private bool IsInLayer(GameObject obj, string[] targetLayerMasks) {
             foreach (string targetLayerMask in targetLayerMasks) {
                 if (LayerMask.LayerToName(obj.layer) == targetLayerMask) {
+                    if (obj.GetComponent<Collider2D>().isTrigger) {
+                        if (ignoreTriggers) {
+                            return false;
+                        }
+                    }
                     return true;
                 }
             }
