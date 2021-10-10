@@ -90,6 +90,7 @@ namespace Week4
 
         public void RestartCurrentLevel() {
             diamond = 0;
+            key = 0;
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }

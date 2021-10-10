@@ -79,20 +79,27 @@ namespace Week4
         IEnumerator ShowDieBG(int newLife) {
             yield return new WaitForSeconds(1);
             dieBG.SetActive(true);
+            
 
             restartButton.onClick.RemoveAllListeners();
 
             if (newLife > 0)
             {
+                dieBG.transform.Find("InfoText").gameObject.SetActive(true);
+
                 restartButton.onClick.AddListener(() => {
                     GameManager.Singleton.RestartCurrentLevel();
                 });
             }
             else
             {
+                dieBG.transform.Find("LoseAllLifeText").gameObject.SetActive(true);
                 //TODO
                 restartButton.onClick.AddListener(() => {
+                    
                     Debug.Log("Lose all life");
+                    GameManager.Singleton.RestartCurrentLevel();
+                    GameManager.Singleton.AddLife(5);
                 });
             }
         }
