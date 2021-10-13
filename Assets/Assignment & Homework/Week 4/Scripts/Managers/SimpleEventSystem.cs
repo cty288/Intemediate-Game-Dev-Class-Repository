@@ -21,5 +21,6 @@ namespace Week4
         //Pass life added and current level number
         public static Action<int,int> OnGameEnds;
 
+        public static Action OnPlayerRespawn;
     }
 }

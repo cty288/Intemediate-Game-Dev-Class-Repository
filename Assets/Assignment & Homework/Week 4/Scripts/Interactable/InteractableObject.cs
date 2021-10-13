@@ -52,8 +52,9 @@ namespace Week4
         }
 
         private void Update() {
-          
-            if (Vector3.Distance(transform.position, playerTransform.position) <= minimumTriggerDistance || dialogueTriggered) {
+            
+            if (Vector3.Distance(transform.position, playerTransform.position)
+                <= minimumTriggerDistance || dialogueTriggered) {
                 
                 if (triggeredBefore)
                 {
@@ -117,19 +118,13 @@ namespace Week4
         }
 
         protected void ShowDialogue() {
-            switch (dialogueType) {
-                case DialogueType.Bubble:
-                    int page = DialogueManager.Singleton.NextPage();
-                    if (page == -1) {
-                        triggeredBefore = true;
-                        dialogueTriggered = false;
-                        stage++;
-                        OnStageChanged(stage);
-                    }
-                    break;
-                case DialogueType.Textbox:
-                    break;
-                
+            int page = DialogueManager.Singleton.NextPage();
+            if (page == -1)
+            {
+                triggeredBefore = true;
+                dialogueTriggered = false;
+                stage++;
+                OnStageChanged(stage);
             }
         }
 

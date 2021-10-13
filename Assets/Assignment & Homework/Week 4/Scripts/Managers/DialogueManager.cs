@@ -23,6 +23,10 @@ namespace Week4
 
         [SerializeField]
         private SpeechUI speechUI;
+
+        [SerializeField] 
+        private MessageBox messageBoxUI;
+
         private void Awake() {
             if (Singleton != null) {
                 DestroyImmediate(this.gameObject);
@@ -116,6 +120,7 @@ namespace Week4
                     speechUI.SetText(text);
                     break;
                 case DialogueType.Textbox:
+                    messageBoxUI.Activate(text);
                     break;
             }
         }
@@ -140,6 +145,7 @@ namespace Week4
                     speechUI.ResetMsg();
                     break;
                 case DialogueType.Textbox:
+                    messageBoxUI.Disactivate();
                     break;
             }
         }

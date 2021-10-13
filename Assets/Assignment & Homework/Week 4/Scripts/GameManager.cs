@@ -23,6 +23,13 @@ namespace Week4
 
         private int level = 1;
         public int Level => level;
+
+        private RespawnInfo respawnInfo;
+
+
+
+
+
         private void Awake() {
             if (Singleton != null) {
                 DestroyImmediate(this.gameObject);
@@ -91,7 +98,22 @@ namespace Week4
         public void RestartCurrentLevel() {
             diamond = 0;
             key = 0;
+            respawnInfo = null;
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+
+        public void Respawn() {
+           
+            player.transform.position = respawnInfo.RespawnPoint;
+            player.PlayerState = PlayerState.Idle;
+            SimpleEventSystem.OnPlayerRespawn?.Invoke();
+        }
+
+        public void SetRespawnInfo(Vector2 respawnPoint) {
+
+            respawnInfo = new RespawnInfo() {
+                RespawnPoint = respawnPoint
+            };
         }
     }
 }

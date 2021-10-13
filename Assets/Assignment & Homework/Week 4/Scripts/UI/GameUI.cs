@@ -43,6 +43,7 @@ namespace Week4
 
         }
 
+
         private void OnGameEnds(int heartAdded, int levelNum) {
             GameObject gamePassBG = GameObject.Find("LevelPassBG");
             gamePassBG.gameObject.SetActive(true);
@@ -88,7 +89,8 @@ namespace Week4
                 dieBG.transform.Find("InfoText").gameObject.SetActive(true);
 
                 restartButton.onClick.AddListener(() => {
-                    GameManager.Singleton.RestartCurrentLevel();
+                    GameManager.Singleton.Respawn();
+                    dieBG.SetActive(false);
                 });
             }
             else
