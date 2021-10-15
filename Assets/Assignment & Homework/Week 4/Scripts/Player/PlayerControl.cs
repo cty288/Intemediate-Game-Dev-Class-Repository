@@ -12,14 +12,14 @@ namespace Week4{
         End,
         Dead
     }
-
+    //control improvement
     public class PlayerControl : MonoBehaviour {
         
         [SerializeField]
         private float jumpForce = 5;
 
-        [SerializeField] 
-        private float acceleration = 0.5f;
+        //[SerializeField] 
+       // private float acceleration = 0.5f;
         [SerializeField] 
         private float maxSpeed = 3;
         [SerializeField] 
@@ -66,15 +66,24 @@ namespace Week4{
         }
 
         private void FixedUpdate() {
-
-            speed += moveX * acceleration;
+            if (moveX != 0) {
+                speed = moveX * maxSpeed;
+            }
+            
             speed = Mathf.Clamp(speed, -maxSpeed, maxSpeed);
             if (moveX == 0) {
                 speed *= friction;
             }
 
-            
-           
+            if (Mathf.Abs(rigidbody.velocity.x) >= 0.5 || Grounded || Mathf.Abs(moveX) >= 0)
+            {
+                if (!wallCheck.Triggered)
+                {
+                    rigidbody.velocity = new Vector2(speed, rigidbody.velocity.y);
+                }
+
+            }
+
         }
 
 
@@ -84,13 +93,7 @@ namespace Week4{
             Time.timeScale = 1;
             MovementControl();
             UpdateState();
-            if (Mathf.Abs(rigidbody.velocity.x) >= 0.5 || Grounded || Mathf.Abs(moveX) >= 0)
-            {
-                if (!wallCheck.Triggered) {
-                     rigidbody.velocity = new Vector2(speed, rigidbody.velocity.y);
-                }
-               
-            }
+            
         }
 
         private void UpdateState() {
