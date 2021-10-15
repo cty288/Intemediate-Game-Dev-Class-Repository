@@ -57,7 +57,7 @@ namespace Week4
             gamePassBG.transform.Find("AddHeartText").GetComponent<Text>().text = $"+{heartAdded}";
 
             gamePassBG.transform.Find("RestartButton").GetComponent<Button>().onClick.AddListener(() => {
-                GameManager.Singleton.RestartCurrentLevel();
+                GameManager.Singleton.GoToNextLevel();
             });
 
             selfMadeNextLevelButton.Activate();
@@ -91,12 +91,12 @@ namespace Week4
             dieBG.SetActive(true);
             
             selfMadeRestartButton.Activate();
-            restartButton.onClick.RemoveAllListeners();
-            selfMadeRestartButton.onClicked.RemoveAllListeners();
+           
 
             if (newLife > 0)
             {
                 dieBG.transform.Find("InfoText").gameObject.SetActive(true);
+                dieBG.transform.Find("LoseAllLifeText").gameObject.SetActive(false);
 
                 restartButton.onClick.AddListener(() => {
                     GameManager.Singleton.Respawn();
@@ -107,11 +107,12 @@ namespace Week4
             else
             {
                 dieBG.transform.Find("LoseAllLifeText").gameObject.SetActive(true);
+                dieBG.transform.Find("InfoText").gameObject.SetActive(false);
                 //TODO
                 restartButton.onClick.AddListener(() => {
                     
                     Debug.Log("Lose all life");
-                    GameManager.Singleton.RestartCurrentLevel();
+                    GameManager.Singleton.ResetToFirstLevel();
                     GameManager.Singleton.AddLife(5);
                 });
 

@@ -11,6 +11,7 @@ namespace Week4
         public static GameManager Singleton;
 
         private PlayerControl player;
+        public PlayerControl Player => player;
 
         [SerializeField]
         private int life = 5;
@@ -95,17 +96,28 @@ namespace Week4
             SimpleEventSystem.OnPlayerStateUpdate -= OnPlayerStateUpdate;
         }
 
-        public void RestartCurrentLevel() {
+        public void ResetToFirstLevel() {
             diamond = 0;
             key = 0;
             respawnInfo = null;
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            life = 5;
+            SceneManager.LoadScene(0);
+        }
+
+        public void GoToNextLevel() {
+            int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+
+            SceneManager.LoadScene(currentSceneIndex+1);
         }
 
         public void Respawn() {
-           
+            player.GetComponent<Rigidbody2D>().simulated = false;
+            player.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+
             player.transform.position = respawnInfo.RespawnPoint;
             player.PlayerState = PlayerState.Idle;
+
+            player.GetComponent<Rigidbody2D>().simulated = true;
             SimpleEventSystem.OnPlayerRespawn?.Invoke();
         }
 

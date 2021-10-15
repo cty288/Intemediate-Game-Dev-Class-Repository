@@ -80,6 +80,10 @@ namespace Week4
                 case PlayerState.Talking:
                     currentSprites = idleSprites;
                     break;
+                case PlayerState.End:
+                    currentSprites = idleSprites;
+                    break;
+                
                 
             }
 

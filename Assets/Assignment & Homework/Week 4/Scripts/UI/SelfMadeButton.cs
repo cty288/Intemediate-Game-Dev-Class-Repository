@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -74,16 +75,19 @@ namespace Week4
         }
 
         public void RestartCurrentLevel() {
-            GameManager.Singleton.Respawn();
-            if (GameManager.Singleton.Life <= 0) {
-                GameManager.Singleton.AddLife(5);
-            }
             DisActive();
+            if (GameManager.Singleton.Life <= 0) {
+                GameManager.Singleton.ResetToFirstLevel();
+            }
+            else {
+                GameManager.Singleton.Respawn();
+            }
+
         }
 
         public void NextLevel() {
             DisActive();
-            GameManager.Singleton.RestartCurrentLevel();
+            GameManager.Singleton.GoToNextLevel();
         }
     }
 }

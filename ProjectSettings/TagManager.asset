@@ -6,6 +6,7 @@ TagManager:
   tags:
   - SmallBall
   - SpeechBubble
+  - RaycastButton
   layers:
   - Default
   - TransparentFX
