@@ -20,6 +20,8 @@ namespace Week4
        
 
         [SerializeField] private Button restartButton;
+        [SerializeField] private SelfMadeButton selfMadeRestartButton;
+        [SerializeField] private SelfMadeButton selfMadeNextLevelButton;
 
         private void Awake()
         {
@@ -40,9 +42,12 @@ namespace Week4
             OnKeyChanged(GameManager.Singleton.Key, GameManager.Singleton.Key);
 
             SimpleEventSystem.OnGameEnds += OnGameEnds;
-
+            SimpleEventSystem.OnPlayerRespawn += OnPlayerRespawn;
         }
 
+        private void OnPlayerRespawn() {
+            dieBG.SetActive(false);
+        }
 
         private void OnGameEnds(int heartAdded, int levelNum) {
             GameObject gamePassBG = GameObject.Find("LevelPassBG");
@@ -54,6 +59,9 @@ namespace Week4
             gamePassBG.transform.Find("RestartButton").GetComponent<Button>().onClick.AddListener(() => {
                 GameManager.Singleton.RestartCurrentLevel();
             });
+
+            selfMadeNextLevelButton.Activate();
+
         }
 
         private void OnKeyChanged(int old, int cur) {
@@ -69,6 +77,7 @@ namespace Week4
             SimpleEventSystem.OnLifeChange -= OnLifeChanged;
             SimpleEventSystem.OnDiamondChange -= OnDiamondChanged;
             SimpleEventSystem.OnKeyChange -= OnKeyChanged;
+            SimpleEventSystem.OnPlayerRespawn -= OnPlayerRespawn;
         }
 
         void OnLifeChanged(int oldlife, int newLife) {
@@ -81,8 +90,9 @@ namespace Week4
             yield return new WaitForSeconds(1);
             dieBG.SetActive(true);
             
-
+            selfMadeRestartButton.Activate();
             restartButton.onClick.RemoveAllListeners();
+            selfMadeRestartButton.onClicked.RemoveAllListeners();
 
             if (newLife > 0)
             {
@@ -92,6 +102,7 @@ namespace Week4
                     GameManager.Singleton.Respawn();
                     dieBG.SetActive(false);
                 });
+
             }
             else
             {
@@ -103,6 +114,7 @@ namespace Week4
                     GameManager.Singleton.RestartCurrentLevel();
                     GameManager.Singleton.AddLife(5);
                 });
+
             }
         }
         void UpdateHeartUI(int life) {
