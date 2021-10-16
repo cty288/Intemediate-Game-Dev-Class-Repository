@@ -27,10 +27,11 @@ namespace Week4
         private PlayerControl player;
 
         private void Awake() {
-            player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerControl>();
+            
         }
 
         private void Start() {
+            player = GameObject.Find("Player").GetComponent<PlayerControl>();
             endHeight = transform.position.y;
             if (moveUp) {
                 startHeight = endHeight + 0.7f;
@@ -61,7 +62,7 @@ namespace Week4
         }
 
         private void OnTriggerEnter2D(Collider2D other) {
-            if (other.CompareTag("Player")) {
+            if (other.gameObject.name=="Player") {
                 player.PlayerState = PlayerState.Dead;
             }
         }

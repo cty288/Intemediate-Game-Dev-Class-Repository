@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Random = UnityEngine.Random;
 
 namespace Week4
 {
@@ -18,9 +19,14 @@ namespace Week4
         protected float targetX;
         protected Rigidbody2D mRigidbody;
         protected PlayerControl player;
-
+        
         private bool directionSwitched = false;
-       
+
+        public bool Alive {
+            get {
+                return health > 0;
+            }
+        }
 
         [SerializeField] 
         protected int health = 100;
@@ -45,7 +51,9 @@ namespace Week4
 
         [SerializeField] 
         protected Transform groundDetectorTransform;
-        
+
+        [SerializeField]
+        protected int awardDiamondCount = 1;
         private void Awake() {
             animator = GetComponent<Animator>();
             mRigidbody = GetComponent<Rigidbody2D>();
@@ -81,8 +89,14 @@ namespace Week4
             if (player.PlayerState != PlayerState.Dead) {
                 MovementControl();
             }
+
+            if (Alive) {
+                AnimationControl();
+            }
+            else {
+                animator.enabled = false;
+            }
             
-            AnimationControl();
             ChangeDirection();
         }
 
@@ -99,10 +113,42 @@ namespace Week4
           
         }
 
+        private void OnTriggerEnter2D(Collider2D other) {
+            if (other.gameObject.name=="Player" && Alive)
+            {
+                if (other.GetComponent<PlayerControl>().GetComponent<Rigidbody2D>().
+                    velocity.y<=0) {
+                    health = 0;
+                    OnKilled();
+                }
+               
+            }
+        }
+
+        private void OnKilled() {
+            
+            for (int i = 0; i < awardDiamondCount; i++) {
+                float randomPos = Random.Range(-1f, 1f);
+                GameManager.Singleton.SpawnDiamond(transform.position + new Vector3(0, 4, 0) +
+                                                    new Vector3(randomPos, randomPos, randomPos));
+            }
+           
+
+            GetComponent<CircleCollider2D>().isTrigger = true;
+            GetComponent<Rigidbody2D>().velocity = new Vector2(0, -15);
+            player.GetComponent<Rigidbody2D>().velocity += new Vector2(0, 10);
+            Destroy(this.gameObject,5);
+        }
+
+       
+
         private void OnCollisionStay2D(Collision2D other) {
-            if (other.collider.CompareTag("Player")) {
+           
+            if (other.collider.CompareTag("Player") && Alive) {
                 player.PlayerState = PlayerState.Dead;
             }
+
+            
         }
 
         private void CheckStateSwitch() {

@@ -21,10 +21,9 @@ namespace Week4
         [SerializeField]
         private Vector3 npcBubblePosition;
 
-        [SerializeField]
+        
         private SpeechUI speechUI;
 
-        [SerializeField] 
         private MessageBox messageBoxUI;
 
         private void Awake() {
@@ -41,11 +40,15 @@ namespace Week4
 
         private void Update() {
             if (!player) {
-                player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerControl>();
+                player = GameManager.Singleton.GetPlayer();
             }
 
             if (!speechUI) {
                 speechUI = GameObject.FindGameObjectWithTag("SpeechBubble").GetComponent<SpeechUI>();
+            }
+
+            if (!messageBoxUI) {
+                messageBoxUI = GameObject.Find("MessageBox").GetComponent<MessageBox>();
             }
 
             if (page >= 0) {

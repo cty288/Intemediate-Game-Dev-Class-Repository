@@ -39,7 +39,7 @@ namespace Week4
                 Singleton = this;
                 //player = PlayerControl.PlayerSingleton;
                 DontDestroyOnLoad(this.gameObject);
-                player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerControl>();
+                player = GameObject.Find("Player").GetComponent<PlayerControl>();
             }
 
            
@@ -47,7 +47,7 @@ namespace Week4
 
         private void Update() {
             if (!player) {
-                player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerControl>();
+                player = GameObject.Find("Player").GetComponent<PlayerControl>();
             }
 
             if (Input.GetKeyDown(KeyCode.F1)) {
@@ -77,6 +77,26 @@ namespace Week4
             
         }
 
+        [SerializeField] 
+        private GameObject diamondPrefab;
+        public void SpawnDiamonds(Vector3 position,int count) {
+            for (int i = 0; i < count; i++)
+            {
+
+                GameObject diamondGo = Instantiate(diamondPrefab, position,
+                    Quaternion.identity);
+
+                diamondGo.GetComponent<BoxCollider2D>().isTrigger = false;
+                diamondGo.GetComponent<Diamond>().useRigidbody = true;
+
+            }
+        }
+        public void SpawnDiamond(Vector3 position)
+        {
+        
+            SpawnDiamonds(position,1);
+        }
+
         public void EndLevel() {
             level++;
             player.PlayerState = PlayerState.End;
@@ -89,6 +109,10 @@ namespace Week4
             int oldKey = key;
             key += num;
             SimpleEventSystem.OnKeyChange?.Invoke(oldKey,key);
+        }
+
+        public PlayerControl GetPlayer() {
+            return GameObject.Find("Player").GetComponent<PlayerControl>();
         }
 
         public void AddDiamond(int num) {

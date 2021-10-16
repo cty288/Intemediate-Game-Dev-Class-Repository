@@ -51,7 +51,7 @@ namespace Week4
             }
         }
 
-        private void Update() {
+        protected virtual void Update() {
             
             if (Vector3.Distance(transform.position, playerTransform.position)
                 <= minimumTriggerDistance || dialogueTriggered) {
