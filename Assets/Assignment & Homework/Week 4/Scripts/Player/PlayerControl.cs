@@ -26,7 +26,7 @@ namespace Week4{
         private float friction = 0.3f;
 
 
-        private Rigidbody2D rigidbody;
+        private Rigidbody2D mRigidbody;
         private float moveX = 0;
         [SerializeField]
         private float speed = 0;
@@ -55,7 +55,7 @@ namespace Week4{
 
         private void Awake() {
             PlayerSingleton = this;
-            rigidbody = GetComponent<Rigidbody2D>();
+            mRigidbody = GetComponent<Rigidbody2D>();
             jumpCheck = transform.Find("JumpCheck").GetComponent<TriggerCheck>();
             wallCheck = transform.Find("WallCheck").GetComponent<TriggerCheck>();
         }
@@ -75,11 +75,11 @@ namespace Week4{
                 speed *= friction;
             }
 
-            if (Mathf.Abs(rigidbody.velocity.x) >= 0.5 || Grounded || Mathf.Abs(moveX) >= 0)
+            if (Mathf.Abs(mRigidbody.velocity.x) >= 0.5 || Grounded || Mathf.Abs(moveX) >= 0)
             {
                 if (!wallCheck.Triggered)
                 {
-                    rigidbody.velocity = new Vector2(speed, rigidbody.velocity.y);
+                    mRigidbody.velocity = new Vector2(speed, mRigidbody.velocity.y);
                 }
 
             }
@@ -100,7 +100,7 @@ namespace Week4{
             
 
             if (playerState != PlayerState.Talking && playerState!= PlayerState.Dead && playerState!=PlayerState.End) {
-                if (Mathf.Abs(speed) <= 0.5 && Mathf.Abs(rigidbody.velocity.y) <= 0.5 && playerState != PlayerState.Dead)
+                if (Mathf.Abs(speed) <= 0.5 && Mathf.Abs(mRigidbody.velocity.y) <= 0.5 && playerState != PlayerState.Dead)
                 {
                     playerState = PlayerState.Idle;
                 }
@@ -149,7 +149,7 @@ namespace Week4{
         {
             if (Grounded)
             {
-                rigidbody.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+                mRigidbody.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             }
         }
 

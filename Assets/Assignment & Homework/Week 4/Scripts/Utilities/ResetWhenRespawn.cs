@@ -9,10 +9,10 @@ namespace Week4
         private Vector2 originalPosition;
         private Quaternion originalRotation;
         private Vector3 originalScale;
-        private Rigidbody2D rigidbody;
+        private Rigidbody2D mRigidbody;
 
         private void Awake() {
-            rigidbody = GetComponent<Rigidbody2D>();
+            mRigidbody = GetComponent<Rigidbody2D>();
         }
 
         private void Start() {
@@ -24,17 +24,17 @@ namespace Week4
         }
 
         private void OnPlayerRespawn() {
-            if (rigidbody) {
-                rigidbody.simulated = false;
-                rigidbody.velocity = Vector2.zero;
+            if (mRigidbody) {
+                mRigidbody.simulated = false;
+                mRigidbody.velocity = Vector2.zero;
             }
             transform.position = originalPosition;
             transform.rotation = originalRotation;
             transform.localScale = originalScale;
 
-            if (rigidbody)
+            if (mRigidbody)
             {
-                rigidbody.simulated = true;
+                mRigidbody.simulated = true;
             }
         }
 

@@ -8,7 +8,7 @@ namespace Week4
     public class CameraControl : MonoBehaviour
     {
         private Transform player;
-        private Camera camera;
+        private Camera cam;
         [SerializeField]
         private float lerpSpeed = 20;
 
@@ -22,7 +22,7 @@ namespace Week4
         private void Awake()
         {
             player = GameObject.FindGameObjectWithTag("Player").transform;
-            camera = GetComponent<Camera>();
+            cam = GetComponent<Camera>();
         }
 
         private void Start() {

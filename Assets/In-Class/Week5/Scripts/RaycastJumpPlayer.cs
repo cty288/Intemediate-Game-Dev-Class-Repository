@@ -5,7 +5,7 @@ using UnityEngine;
 using Week4;
 
 public class RaycastJumpPlayer : MonoBehaviour {
-    private Rigidbody2D rigidbody;
+    private Rigidbody2D mRig;
 
     [SerializeField] private float jumpStrength = 5f;
     [SerializeField] private float movementSpeed = 5f;
@@ -17,7 +17,7 @@ public class RaycastJumpPlayer : MonoBehaviour {
     public float raycastDistance = 1f;
 
     private void Awake() {
-        rigidbody = GetComponent<Rigidbody2D>();
+        mRig = GetComponent<Rigidbody2D>();
     }
 
     private void Start() {

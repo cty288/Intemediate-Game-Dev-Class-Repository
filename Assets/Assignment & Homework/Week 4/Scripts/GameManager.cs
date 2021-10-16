@@ -49,6 +49,10 @@ namespace Week4
             if (!player) {
                 player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerControl>();
             }
+
+            if (Input.GetKeyDown(KeyCode.F1)) {
+                GoToNextLevel();
+            }
         }
 
         private void Start() {
@@ -106,8 +110,8 @@ namespace Week4
 
         public void GoToNextLevel() {
             int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-
-            SceneManager.LoadScene(currentSceneIndex+1);
+            int totalScenes = SceneManager.sceneCountInBuildSettings;
+            SceneManager.LoadScene((currentSceneIndex+1) % totalScenes);
         }
 
         public void Respawn() {

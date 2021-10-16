@@ -16,7 +16,7 @@ namespace Week4
         protected EnemyState lastState = EnemyState.Patrol;
         [SerializeField]
         protected float targetX;
-        protected Rigidbody2D rigidbody;
+        protected Rigidbody2D mRigidbody;
         protected PlayerControl player;
 
         private bool directionSwitched = false;
@@ -32,6 +32,12 @@ namespace Week4
         protected float viewDistance = 5;
 
         [SerializeField] 
+        protected float chasingSpeed = 4f;
+
+        [SerializeField] 
+        protected float patrolSpeed = 2f;
+
+        
         protected float moveSpeed = 2f;
 
         [SerializeField] 
@@ -42,20 +48,61 @@ namespace Week4
         
         private void Awake() {
             animator = GetComponent<Animator>();
-            rigidbody = GetComponent<Rigidbody2D>();
+            mRigidbody = GetComponent<Rigidbody2D>();
             player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerControl>();
         }
 
         private void Start() {
             targetX = posXLimit.y;
-           
+            SimpleEventSystem.OnPlayerStateUpdate += OnPlayerStateUpdate;
+            SimpleEventSystem.OnPlayerRespawn += OnPlayerRespawn;
+        }
+
+        private void OnPlayerRespawn() {
+            animator.SetTrigger("PlayerRespawn");
+            mRigidbody.simulated = true;
+        }
+
+        private void OnPlayerStateUpdate(PlayerState old, PlayerState state) {
+            if (state == PlayerState.Dead) {
+                animator.SetTrigger("Idle");
+                mRigidbody.simulated = false;
+            }
+        }
+
+        private void OnDestroy() {
+            SimpleEventSystem.OnPlayerStateUpdate -= OnPlayerStateUpdate;
+            SimpleEventSystem.OnPlayerRespawn -= OnPlayerRespawn;
         }
 
         private void Update() {
             DetectPlayer();
             CheckStateSwitch();
-            MovementControl();
+            if (player.PlayerState != PlayerState.Dead) {
+                MovementControl();
+            }
+            
+            AnimationControl();
             ChangeDirection();
+        }
+
+        private void AnimationControl() {
+            switch (state) {
+                case EnemyState.Chasing:
+                    animator.SetBool("ChasePlayer", true);
+                    break;
+                case EnemyState.Patrol:
+                    animator.SetBool("ChasePlayer",false);
+                    break;
+            }
+
+          
+        }
+
+        private void OnCollisionStay2D(Collision2D other) {
+            if (other.collider.CompareTag("Player")) {
+                player.PlayerState = PlayerState.Dead;
+            }
         }
 
         private void CheckStateSwitch() {
@@ -98,20 +145,20 @@ namespace Week4
                         Vector3.Normalize(-transform.right + new Vector3(0, -1, 0)),
                         0.5f);
                     if (hitGround.collider && blindTimer<=0) {
-                        Debug.Log("Hit Player");
                         state = EnemyState.Chasing;
                         OnChasingPlayer();
                     }
                     else {
-                        Debug.Log("Detected player, but can't reach him");
                         state = EnemyState.Patrol;
                         blindTimer = 0.5f;
+                        OnPatroling();
                     }
 
                 }
             }
             else {
                 state = EnemyState.Patrol;
+                OnPatroling();
             }
         }
 
@@ -119,12 +166,16 @@ namespace Week4
 
         }
 
+        protected virtual void OnPatroling() {
+
+        }
+
         private void MovementControl() {
             float distanceToTargetX = 0;
 
-            if (state == EnemyState.Patrol)
-            {
-                 distanceToTargetX = targetX - transform.position.x;
+            if (state == EnemyState.Patrol) {
+                moveSpeed = patrolSpeed;
+                distanceToTargetX = targetX - transform.position.x;
 
                 if (Mathf.Abs(distanceToTargetX) <= 1 && !directionSwitched)
                 {
@@ -138,11 +189,12 @@ namespace Week4
                 }
             }
             else {
+                moveSpeed = chasingSpeed;
                 targetX = player.transform.position.x;
                 distanceToTargetX = targetX - transform.position.x;
             }
 
-            rigidbody.velocity = new Vector2(Mathf.Sign(distanceToTargetX) * moveSpeed, rigidbody.velocity.y);
+            mRigidbody.velocity = new Vector2(Mathf.Sign(distanceToTargetX) * moveSpeed, mRigidbody.velocity.y);
         }
     }
 }

@@ -13,15 +13,15 @@ namespace Week4
         private SpriteRenderer spriteRenderer;
         [SerializeField]
         private BoxCollider2D boxCollider;
-        private Animation animation;
+        private Animation anim;
 
         public UnityEvent onClicked;
-        private Camera camera;
+        private Camera cam;
         private void Awake()
         {
-            camera = Camera.main;
+            cam = Camera.main;
 
-            animation = GetComponent<Animation>();
+            anim = GetComponent<Animation>();
             spriteRenderer = GetComponent<SpriteRenderer>();
           
 
@@ -37,7 +37,7 @@ namespace Week4
         {
             if (Input.GetMouseButtonDown(0) && activated)
             {
-                RaycastHit2D ray = Physics2D.GetRayIntersection(camera.ScreenPointToRay(Input.mousePosition));
+                RaycastHit2D ray = Physics2D.GetRayIntersection(cam.ScreenPointToRay(Input.mousePosition));
 
                 Collider2D collider = ray.collider;
 
@@ -54,8 +54,8 @@ namespace Week4
             activated = true;
             boxCollider.enabled = true;
 
-            if (animation) {
-                animation.Play();
+            if (anim) {
+                anim.Play();
             }
         }
 
@@ -64,9 +64,9 @@ namespace Week4
             boxCollider.enabled = false;
             spriteRenderer.color = new Color(1,1,1,0);
             
-            if (animation)
+            if (anim)
             {
-                animation.Stop();
+                anim.Stop();
             }
         }
 

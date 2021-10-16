@@ -25955,13 +25955,13 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1426197071}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: 0.0010918749, w: 0.9999994}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1891460870}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0.125}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -0.65, y: 1.05}
@@ -25992,7 +25992,12 @@ MonoBehaviour:
     Jump with <color=red>Space </color>
     key
 
-    Interact with <color=red> F </color> key'
+    Interact with <color=red> F </color> key
+
+    For Debugging:
+
+    Press
+    <color=red>F1 </color>to go to the next level'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d36f90963030cdf4d9c94792f415db2b, type: 2}
   m_sharedMaterial: {fileID: -6156678236544870392, guid: d36f90963030cdf4d9c94792f415db2b, type: 2}

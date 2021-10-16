@@ -10,17 +10,17 @@ namespace Week3 {
         public float lerp = 0.5f;
         public float targetSize = 5f;
 
-        private Camera camera;
+        private Camera cam;
 
         private void Awake() {
-            camera = GetComponent<Camera>();
+            cam = GetComponent<Camera>();
         }
 
         private void Update() {
             Vector3 target = new Vector3(TargetPosition.x, TargetPosition.y, -10);
             transform.position = Vector3.Lerp(transform.position, target, lerp*Time.deltaTime);
 
-            camera.orthographicSize = Mathf.Lerp(camera.orthographicSize, targetSize, lerp * Time.deltaTime);
+            cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, targetSize, lerp * Time.deltaTime);
         }
     }
 

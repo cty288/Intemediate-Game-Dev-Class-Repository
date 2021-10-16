@@ -7,14 +7,14 @@ namespace Week4
     public class RequireKeyInteractable : InteractableObject {
         [SerializeField] protected List<string> defaultDialogues = new List<string>();
 
-        private Animation animation;
+        private Animation anim;
 
         private bool activated = false;
 
         protected override void Start() {
             base.Start();
             SimpleEventSystem.OnKeyChange += OnPlayerKeyChanged;
-            animation = GetComponent<Animation>();
+            anim = GetComponent<Animation>();
             dialogues = defaultDialogues;
         }
 
@@ -36,8 +36,8 @@ namespace Week4
                 GameManager.Singleton.ChangeKey(-1);
                 activated = true;
                 infoUI.gameObject.SetActive(false);
-                if (animation) {
-                    animation.Play();
+                if (anim) {
+                    anim.Play();
                 }
             }
         }

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace Week4 {
     public class Move : MonoBehaviour {
-        private Rigidbody2D rigidbody;
+        private Rigidbody2D rig;
 
         [SerializeField] 
         private float speed=1, jumpForce=5;
@@ -14,11 +14,11 @@ namespace Week4 {
         private float moveX=0;
 
         private void Awake() {
-            rigidbody = GetComponent<Rigidbody2D>();
+            rig = GetComponent<Rigidbody2D>();
         }
 
         private void FixedUpdate() {
-            rigidbody.velocity += new Vector2(moveX * speed, 0);
+            rig.velocity += new Vector2(moveX * speed, 0);
         }
 
         private void Update() {
@@ -36,7 +36,7 @@ namespace Week4 {
 
         private void Jump() {
             if (grounded) {
-                rigidbody.AddForce(Vector2.up * jumpForce,ForceMode2D.Impulse);
+                rig.AddForce(Vector2.up * jumpForce,ForceMode2D.Impulse);
             }
         }
 
