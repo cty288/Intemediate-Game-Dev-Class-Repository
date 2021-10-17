@@ -6,17 +6,18 @@ using UnityEngine;
 namespace Week4
 {
     public class LevelEndDoor : MonoBehaviour {
-        private bool interacted = false;
+        protected bool interacted = false;
 
-        private void Start() {
-            
+        protected InfoUI infoUi;
+        private void Awake() {
+            infoUi = GetComponentInChildren<InfoUI>();
         }
 
-        private void Update() {
-            GetComponentInChildren<InfoUI>().Activate(true);
+        protected virtual void Update() {
+           infoUi.Activate(true);
         }
 
-        private void OnTriggerStay2D(Collider2D other) {
+        protected virtual void OnTriggerStay2D(Collider2D other) {
             if (other.CompareTag("Player")) {
                 if (Input.GetKey(KeyCode.F) && !interacted) {
                     interacted = true;

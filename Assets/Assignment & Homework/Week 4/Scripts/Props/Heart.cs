@@ -4,13 +4,13 @@ using UnityEngine;
 
 namespace Week4
 {
-    public class Key : MonoBehaviour
+    public class Heart : MonoBehaviour
     {
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.gameObject.name=="Player")
+            if (other.gameObject.name == "Player")
             {
-                GameManager.Singleton.ChangeKey(1);
+                GameManager.Singleton.AddLife(1);
                 Destroy(this.gameObject);
             }
         }

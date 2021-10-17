@@ -20,7 +20,7 @@ namespace Week4
         protected Rigidbody2D mRigidbody;
         protected PlayerControl player;
         
-        private bool directionSwitched = false;
+        protected bool directionSwitched = false;
 
         public bool Alive {
             get {
@@ -33,6 +33,10 @@ namespace Week4
 
         [SerializeField] 
         protected Vector2 posXLimit;
+        public Vector2 PosXLimit {
+            get => posXLimit;
+            set => posXLimit = value;
+        }
 
         [SerializeField] 
         protected float viewDistance = 5;
@@ -54,20 +58,27 @@ namespace Week4
 
         [SerializeField]
         protected int awardDiamondCount = 1;
+
+        public Action<Enemy> OnEnemyDie;
+
         private void Awake() {
             animator = GetComponent<Animator>();
             mRigidbody = GetComponent<Rigidbody2D>();
-            player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerControl>();
+           
         }
 
-        private void Start() {
+        protected virtual void Start() {
             targetX = posXLimit.y;
+            player = GameManager.Singleton.Player;
             SimpleEventSystem.OnPlayerStateUpdate += OnPlayerStateUpdate;
             SimpleEventSystem.OnPlayerRespawn += OnPlayerRespawn;
         }
 
+        
+
         private void OnPlayerRespawn() {
             animator.SetTrigger("PlayerRespawn");
+           // transform.position = new Vector2(posXLimit.y,transform.position.x);
             mRigidbody.simulated = true;
         }
 
@@ -84,6 +95,9 @@ namespace Week4
         }
 
         private void Update() {
+            if (!player) {
+                player = GameManager.Singleton.GetPlayer();
+            }
             DetectPlayer();
             CheckStateSwitch();
             if (player.PlayerState != PlayerState.Dead) {
@@ -100,7 +114,7 @@ namespace Week4
             ChangeDirection();
         }
 
-        private void AnimationControl() {
+        protected virtual void AnimationControl() {
             switch (state) {
                 case EnemyState.Chasing:
                     animator.SetBool("ChasePlayer", true);
@@ -113,13 +127,14 @@ namespace Week4
           
         }
 
-        private void OnTriggerEnter2D(Collider2D other) {
+        protected virtual void OnTriggerEnter2D(Collider2D other) {
             if (other.gameObject.name=="Player" && Alive)
             {
-                if (other.GetComponent<PlayerControl>().GetComponent<Rigidbody2D>().
+                if (GameManager.Singleton.Player.GetComponent<Rigidbody2D>().
                     velocity.y<=0) {
                     health = 0;
                     OnKilled();
+                    OnEnemyDie?.Invoke(this);
                 }
                
             }
@@ -129,7 +144,7 @@ namespace Week4
             
             for (int i = 0; i < awardDiamondCount; i++) {
                 float randomPos = Random.Range(-1f, 1f);
-                GameManager.Singleton.SpawnDiamond(transform.position + new Vector3(0, 4, 0) +
+                GameManager.Singleton.SpawnDiamond(transform.position + new Vector3(0, 2.5f, 0) +
                                                     new Vector3(randomPos, randomPos, randomPos));
             }
            
@@ -158,7 +173,7 @@ namespace Week4
             }
         }
 
-        private void OnStateChanged(EnemyState lastState, EnemyState newState) {
+        protected virtual void OnStateChanged(EnemyState lastState, EnemyState newState) {
             switch (newState) {
                 case EnemyState.Patrol:
                     targetX = posXLimit.x;
@@ -168,7 +183,7 @@ namespace Week4
             }
         }
 
-        private void ChangeDirection() {
+        protected virtual void ChangeDirection() {
             float distanceToTargetX = targetX - transform.position.x;
             if (distanceToTargetX > 0) {
                 transform.rotation = Quaternion.Euler(0,-180,0);
@@ -180,22 +195,28 @@ namespace Week4
         }
 
         private float blindTimer = 0;
-        private void DetectPlayer() {
+        protected virtual void DetectPlayer() {
             blindTimer -= Time.deltaTime;
             RaycastHit2D hit =  Physics2D.Raycast(playerDetectorTransform.position, -transform.right, viewDistance);
 
             if (hit.collider) {
+               
                 if (hit.collider.CompareTag("Player")) {
+                    
                     //check grounded
                     RaycastHit2D hitGround = Physics2D.Raycast(groundDetectorTransform.position,
                         Vector3.Normalize(-transform.right + new Vector3(0, -1, 0)),
                         0.5f);
+                   
                     if (hitGround.collider && blindTimer<=0) {
+                       
                         state = EnemyState.Chasing;
+
                         OnChasingPlayer();
                     }
                     else {
                         state = EnemyState.Patrol;
+                        
                         blindTimer = 0.5f;
                         OnPatroling();
                     }
@@ -216,7 +237,7 @@ namespace Week4
 
         }
 
-        private void MovementControl() {
+        protected virtual void MovementControl() {
             float distanceToTargetX = 0;
 
             if (state == EnemyState.Patrol) {

@@ -60,7 +60,10 @@ namespace Week4
                 GameManager.Singleton.GoToNextLevel();
             });
 
-            selfMadeNextLevelButton.Activate();
+            if (selfMadeNextLevelButton) {
+                selfMadeNextLevelButton.Activate();
+            }
+           
 
         }
 

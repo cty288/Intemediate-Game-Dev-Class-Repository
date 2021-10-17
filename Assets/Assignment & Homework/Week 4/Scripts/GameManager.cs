@@ -16,14 +16,14 @@ namespace Week4
         [SerializeField]
         private int life = 5;
         public int Life => life;
+        [SerializeField]
         private int diamond = 0;
         public int Diamond => diamond;
 
         private int key = 0;
         public int Key => key;
 
-        private int level = 1;
-        public int Level => level;
+      
 
         private RespawnInfo respawnInfo;
 
@@ -50,7 +50,7 @@ namespace Week4
                 player = GameObject.Find("Player").GetComponent<PlayerControl>();
             }
 
-            if (Input.GetKeyDown(KeyCode.F1)) {
+            if (Input.GetKeyDown(KeyCode.N)) {
                 GoToNextLevel();
             }
         }
@@ -77,6 +77,8 @@ namespace Week4
             
         }
 
+        
+
         [SerializeField] 
         private GameObject diamondPrefab;
         public void SpawnDiamonds(Vector3 position,int count) {
@@ -97,12 +99,16 @@ namespace Week4
             SpawnDiamonds(position,1);
         }
 
+        public int GetCurrentLevelNum() {
+            return SceneManager.GetActiveScene().buildIndex + 1;
+        }
+
         public void EndLevel() {
-            level++;
+            
             player.PlayerState = PlayerState.End;
             int lifeAdd = Random.Range(1, 6);
             AddLife(lifeAdd);
-            SimpleEventSystem.OnGameEnds?.Invoke(lifeAdd,level-1);
+            SimpleEventSystem.OnGameEnds?.Invoke(lifeAdd,GetCurrentLevelNum());
         }
 
         public void ChangeKey(int num) {
@@ -133,8 +139,10 @@ namespace Week4
         }
 
         public void GoToNextLevel() {
+            
             int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
             int totalScenes = SceneManager.sceneCountInBuildSettings;
+
             SceneManager.LoadScene((currentSceneIndex+1) % totalScenes);
         }
 

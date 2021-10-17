@@ -42,13 +42,14 @@ namespace Week4
                 Debug.LogError("Could not find InfoUI!");
             }
 
-            playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+            
         }
 
         protected virtual void Start() {
             if (alwaysShowInfoUI) {
                 ActivateInfoUI(true);
             }
+            playerTransform = GameManager.Singleton.GetPlayer().transform;
         }
 
         protected virtual void Update() {

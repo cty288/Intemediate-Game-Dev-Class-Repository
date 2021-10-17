@@ -28,7 +28,7 @@ namespace Week4
         }
 
         protected override void OnInteract(int stage) {
-            onGround = !onGround;
+            
             countDown = activationWaitTime;
             StartCoroutine(ChangeElevatorState());
         }
@@ -58,6 +58,7 @@ namespace Week4
 
         IEnumerator ChangeElevatorState() {
             yield return new WaitForSeconds(activationWaitTime);
+            onGround = !onGround;
             elevator.OnGround = onGround;
         }
     }
