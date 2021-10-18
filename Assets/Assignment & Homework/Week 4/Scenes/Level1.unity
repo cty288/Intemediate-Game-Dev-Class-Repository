@@ -32420,7 +32420,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   life: 5
   diamond: 0
-  diamondPrefab: {fileID: 0}
+  diamondPrefab: {fileID: 2359763904286825884, guid: 61eeee8a700e7874c9be7dfbbf66261a, type: 3}
 --- !u!4 &1758103475
 Transform:
   m_ObjectHideFlags: 0
