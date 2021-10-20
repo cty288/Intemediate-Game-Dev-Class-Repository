@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -37,6 +38,23 @@ namespace Week4 {
                 colliders.Remove(other);
             }
 
+        }
+
+        private void Update() {
+            CheckNull();
+        }
+
+        private void CheckNull() {
+            int index = 0;
+            foreach (Collider2D collider in colliders) {
+                if (!collider) {
+                    colliders.RemoveAt(index);
+                }
+                else {
+                    index++;
+                }
+
+            }
         }
 
         private bool IsInLayer(GameObject obj, string[] targetLayerMasks) {

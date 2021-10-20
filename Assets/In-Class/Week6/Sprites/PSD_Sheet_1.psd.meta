@@ -1,0 +1,840 @@
+fileFormatVersion: 2
+guid: 368db970978830c4ab1d9d33a1eacb82
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -7092231704305534446
+    second: PSD_Sheet_1_0
+  - first:
+      213: 2252417961050731078
+    second: PSD_Sheet_1_1
+  - first:
+      213: 6404558340714105136
+    second: PSD_Sheet_1_2
+  - first:
+      213: -8743556261613786455
+    second: PSD_Sheet_1_3
+  - first:
+      213: -4937823559481559732
+    second: PSD_Sheet_1_4
+  - first:
+      213: -6254037587560344496
+    second: PSD_Sheet_1_5
+  - first:
+      213: 9208929365689113962
+    second: PSD_Sheet_1_6
+  - first:
+      213: 369194809292993841
+    second: PSD_Sheet_1_7
+  - first:
+      213: 2921267759698165130
+    second: PSD_Sheet_1_8
+  - first:
+      213: -3412407951471217624
+    second: PSD_Sheet_1_9
+  - first:
+      213: -1955527351153025615
+    second: PSD_Sheet_1_10
+  - first:
+      213: -6366097942819336057
+    second: PSD_Sheet_1_11
+  - first:
+      213: 824970410505972445
+    second: PSD_Sheet_1_12
+  - first:
+      213: -8988070252029555472
+    second: PSD_Sheet_1_13
+  - first:
+      213: 6632998468739348681
+    second: PSD_Sheet_1_14
+  - first:
+      213: 95824550486938590
+    second: PSD_Sheet_1_15
+  - first:
+      213: 1841171179360270228
+    second: PSD_Sheet_1_16
+  - first:
+      213: 9175784490727455281
+    second: PSD_Sheet_1_17
+  - first:
+      213: -4794806061327712051
+    second: PSD_Sheet_1_18
+  - first:
+      213: 4365763660862243544
+    second: PSD_Sheet_1_19
+  - first:
+      213: -4836701006790913243
+    second: PSD_Sheet_1_20
+  - first:
+      213: 16038798741736741
+    second: PSD_Sheet_1_21
+  - first:
+      213: 8883594350855954629
+    second: PSD_Sheet_1_22
+  - first:
+      213: -2428147941018519825
+    second: PSD_Sheet_1_23
+  - first:
+      213: -2452848815504685762
+    second: PSD_Sheet_1_24
+  - first:
+      213: -1980007774251137090
+    second: PSD_Sheet_1_25
+  - first:
+      213: -8852457076264993781
+    second: PSD_Sheet_1_26
+  - first:
+      213: 9022403295980516123
+    second: PSD_Sheet_1_27
+  - first:
+      213: -7386668697768580647
+    second: PSD_Sheet_1_28
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: PSD_Sheet_1_0
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 535
+        width: 38
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 21afa1857d4539d90800000000000000
+      internalID: -7092231704305534446
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PSD_Sheet_1_1
+      rect:
+        serializedVersion: 2
+        x: 230
+        y: 532
+        width: 36
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6427326a332324f10800000000000000
+      internalID: 2252417961050731078
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PSD_Sheet_1_2
+      rect:
+        serializedVersion: 2
+        x: 331
+        y: 532
+        width: 36
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0398789c0ef81e850800000000000000
+      internalID: 6404558340714105136
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PSD_Sheet_1_3
+      rect:
+        serializedVersion: 2
+        x: 432
+        y: 532
+        width: 36
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9aa2ed8c7e5a8a680800000000000000
+      internalID: -8743556261613786455
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PSD_Sheet_1_4
+      rect:
+        serializedVersion: 2
+        x: 26
+        y: 426
+        width: 40
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c45fb8562a3597bb0800000000000000
+      internalID: -4937823559481559732
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PSD_Sheet_1_5
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 431
+        width: 38
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 054568d03f13539a0800000000000000
+      internalID: -6254037587560344496
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PSD_Sheet_1_6
+      rect:
+        serializedVersion: 2
+        x: 230
+        y: 439
+        width: 38
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a6d10939770bccf70800000000000000
+      internalID: 9208929365689113962
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PSD_Sheet_1_7
+      rect:
+        serializedVersion: 2
+        x: 329
+        y: 431
+        width: 40
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 135b3d419b4af1500800000000000000
+      internalID: 369194809292993841
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PSD_Sheet_1_8
+      rect:
+        serializedVersion: 2
+        x: 430
+        y: 429
+        width: 40
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a8d3c96cc8d6a8820800000000000000
+      internalID: 2921267759698165130
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PSD_Sheet_1_9
+      rect:
+        serializedVersion: 2
+        x: 26
+        y: 320
+        width: 40
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 824f6df3c01b4a0d0800000000000000
+      internalID: -3412407951471217624
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PSD_Sheet_1_10
+      rect:
+        serializedVersion: 2
+        x: 127
+        y: 323
+        width: 40
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1bd96f52c329cd4e0800000000000000
+      internalID: -1955527351153025615
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PSD_Sheet_1_11
+      rect:
+        serializedVersion: 2
+        x: 228
+        y: 320
+        width: 40
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 78098e866a317a7a0800000000000000
+      internalID: -6366097942819336057
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PSD_Sheet_1_12
+      rect:
+        serializedVersion: 2
+        x: 329
+        y: 320
+        width: 40
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ddaaa6ca732e27b00800000000000000
+      internalID: 824970410505972445
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PSD_Sheet_1_13
+      rect:
+        serializedVersion: 2
+        x: 432
+        y: 320
+        width: 38
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0fcc5830ab5f34380800000000000000
+      internalID: -8988070252029555472
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PSD_Sheet_1_14
+      rect:
+        serializedVersion: 2
+        x: 26
+        y: 219
+        width: 40
+        height: 73
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9c83be4d6f42d0c50800000000000000
+      internalID: 6632998468739348681
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PSD_Sheet_1_15
+      rect:
+        serializedVersion: 2
+        x: 127
+        y: 219
+        width: 40
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ed31984cbef645100800000000000000
+      internalID: 95824550486938590
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PSD_Sheet_1_16
+      rect:
+        serializedVersion: 2
+        x: 228
+        y: 237
+        width: 40
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 497b474ce672d8910800000000000000
+      internalID: 1841171179360270228
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PSD_Sheet_1_17
+      rect:
+        serializedVersion: 2
+        x: 329
+        y: 219
+        width: 40
+        height: 73
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 13a3951016fe65f70800000000000000
+      internalID: 9175784490727455281
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PSD_Sheet_1_18
+      rect:
+        serializedVersion: 2
+        x: 430
+        y: 217
+        width: 40
+        height: 78
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dc00cab8a4d657db0800000000000000
+      internalID: -4794806061327712051
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PSD_Sheet_1_19
+      rect:
+        serializedVersion: 2
+        x: 26
+        y: 118
+        width: 40
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8d2c0033bee469c30800000000000000
+      internalID: 4365763660862243544
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PSD_Sheet_1_20
+      rect:
+        serializedVersion: 2
+        x: 124
+        y: 121
+        width: 48
+        height: 65
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 523147d6f0690ecb0800000000000000
+      internalID: -4836701006790913243
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PSD_Sheet_1_21
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 118
+        width: 46
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 52d00a5d33bf83000800000000000000
+      internalID: 16038798741736741
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PSD_Sheet_1_22
+      rect:
+        serializedVersion: 2
+        x: 326
+        y: 121
+        width: 46
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5c0af6baefdd84b70800000000000000
+      internalID: 8883594350855954629
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PSD_Sheet_1_23
+      rect:
+        serializedVersion: 2
+        x: 427
+        y: 118
+        width: 46
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fe6be71005c7d4ed0800000000000000
+      internalID: -2428147941018519825
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PSD_Sheet_1_24
+      rect:
+        serializedVersion: 2
+        x: 26
+        y: 20
+        width: 43
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e350b108ffab5fdd0800000000000000
+      internalID: -2452848815504685762
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PSD_Sheet_1_25
+      rect:
+        serializedVersion: 2
+        x: 127
+        y: 17
+        width: 40
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eb7cf3b7b699584e0800000000000000
+      internalID: -1980007774251137090
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PSD_Sheet_1_26
+      rect:
+        serializedVersion: 2
+        x: 228
+        y: 17
+        width: 40
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b0cf4d30131c52580800000000000000
+      internalID: -8852457076264993781
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PSD_Sheet_1_27
+      rect:
+        serializedVersion: 2
+        x: 331
+        y: 20
+        width: 38
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b137b35bef3063d70800000000000000
+      internalID: 9022403295980516123
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PSD_Sheet_1_28
+      rect:
+        serializedVersion: 2
+        x: 430
+        y: 22
+        width: 40
+        height: 63
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9d9a104a4f74d7990800000000000000
+      internalID: -7386668697768580647
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
