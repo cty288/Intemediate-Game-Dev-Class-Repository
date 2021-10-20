@@ -195,5 +195,15 @@ namespace Week4
                 RespawnPoint = respawnPoint
             };
         }
+
+        public bool CanShoot() {
+            foreach (ItemType itemType in ItemsPicked) {
+                if (itemType == ItemType.Bullet) {
+                    return true;
+                }
+            }
+
+            return false;
+        }
     }
 }

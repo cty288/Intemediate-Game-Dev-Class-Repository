@@ -24,5 +24,7 @@ namespace Week4
         public static Action OnPlayerRespawn;
 
         public static Action<ItemType> OnPlayerPickItem;
+
+        public static Action<string> OnShot;
     }
 }

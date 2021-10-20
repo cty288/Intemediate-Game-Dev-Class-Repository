@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1388606794163501673}
   - component: {fileID: 1388606794163501590}
   - component: {fileID: 1388606794163501591}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: JumpCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -111,6 +111,7 @@ Transform:
   - {fileID: 1388606794163501673}
   - {fileID: 1388606795348070878}
   - {fileID: 527406820316582500}
+  - {fileID: 4061158204814028983}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -275,6 +276,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17bbaae2f47f93240a66bff7e2a44296, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShootingBulletPrefab: {fileID: 330052250897901100, guid: 24cf5fd0d7981e24584fc527af571c00, type: 3}
+  shootSpeed: 10
+  shootAngle: {x: 1, y: 0.5}
+  shootInterval: 0.5
 --- !u!1 &1388606795348070865
 GameObject:
   m_ObjectHideFlags: 0
@@ -286,7 +291,7 @@ GameObject:
   - component: {fileID: 1388606795348070878}
   - component: {fileID: 1388606795348070879}
   - component: {fileID: 1388606795348070876}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: WallCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -350,6 +355,63 @@ MonoBehaviour:
   - Ground
   colliders: []
   ignoreTriggers: 1
+--- !u!1 &8332637501946820249
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4061158204814028983}
+  - component: {fileID: 2782167893213283073}
+  m_Layer: 0
+  m_Name: EnemyJumpCheck
+  m_TagString: Player
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4061158204814028983
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8332637501946820249}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.12, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1388606795042035740}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &2782167893213283073
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8332637501946820249}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.14, y: -0.40831417}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.005331874, y: 0.99641}
+  m_EdgeRadius: 0
 --- !u!1 &8966742907672117152
 GameObject:
   m_ObjectHideFlags: 0
@@ -359,7 +421,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 527406820316582500}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: FirePos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -374,7 +436,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8966742907672117152}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.119, y: -0.1, z: 0}
+  m_LocalPosition: {x: 0.119, y: -0.022, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1388606795042035740}

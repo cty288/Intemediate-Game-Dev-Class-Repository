@@ -1550,6 +1550,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dieBG: {fileID: 6901923764066454460}
   restartButton: {fileID: 6901923764194819771}
+  itemSprites:
+  - {fileID: 21300000, guid: d700391178f61c3488cd257e7e7a81bf, type: 3}
 --- !u!1 &6901923762665638861
 GameObject:
   m_ObjectHideFlags: 0

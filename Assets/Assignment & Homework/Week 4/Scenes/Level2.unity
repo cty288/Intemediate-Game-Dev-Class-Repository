@@ -6037,7 +6037,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dieBG: {fileID: 1041023644}
   restartButton: {fileID: 1883480902}
-  itemSprites: []
+  itemSprites:
+  - {fileID: 21300000, guid: d700391178f61c3488cd257e7e7a81bf, type: 3}
 --- !u!114 &1270543040
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8663,6 +8664,36 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1820716844}
   m_CullTransparentMesh: 1
+--- !u!1 &1825856345
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1825856346}
+  m_Layer: 6
+  m_Name: FirePos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1825856346
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1825856345}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.119, y: -0.022, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1932697159}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1830692513
 GameObject:
   m_ObjectHideFlags: 0
@@ -9280,6 +9311,7 @@ GameObject:
   - component: {fileID: 1932697156}
   - component: {fileID: 1932697155}
   - component: {fileID: 1932697154}
+  - component: {fileID: 1932697160}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -9450,9 +9482,26 @@ Transform:
   - {fileID: 799860759}
   - {fileID: 1265243491}
   - {fileID: 1979454985}
+  - {fileID: 1825856346}
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1932697160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1932697153}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17bbaae2f47f93240a66bff7e2a44296, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShootingBulletPrefab: {fileID: 330052250897901100, guid: 24cf5fd0d7981e24584fc527af571c00, type: 3}
+  shootSpeed: 10
+  shootAngle: {x: 1, y: 1}
+  shootInterval: 0.2
 --- !u!1 &1935733445
 GameObject:
   m_ObjectHideFlags: 0

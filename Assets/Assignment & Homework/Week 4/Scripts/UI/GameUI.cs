@@ -77,6 +77,7 @@ namespace Week4
 
         private void OnPlayerRespawn() {
             dieBG.SetActive(false);
+            UpdateItemPickedUI();
         }
 
         private void OnGameEnds(int heartAdded, int levelNum) {

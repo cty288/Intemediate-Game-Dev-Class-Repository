@@ -28,6 +28,7 @@ namespace Week4{
 
         private Rigidbody2D mRigidbody;
         private float moveX = 0;
+       
         [SerializeField]
         private float speed = 0;
         public float Speed => speed;
