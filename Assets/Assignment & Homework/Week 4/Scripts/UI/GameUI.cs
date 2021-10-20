@@ -20,8 +20,8 @@ namespace Week4
        
 
         [SerializeField] private Button restartButton;
-        [SerializeField] private SelfMadeButton selfMadeRestartButton;
-        [SerializeField] private SelfMadeButton selfMadeNextLevelButton;
+        //[SerializeField] private SelfMadeButton selfMadeRestartButton;
+       // [SerializeField] private SelfMadeButton selfMadeNextLevelButton;
 
         private void Awake()
         {
@@ -60,9 +60,9 @@ namespace Week4
                 GameManager.Singleton.GoToNextLevel();
             });
 
-            if (selfMadeNextLevelButton) {
-                selfMadeNextLevelButton.Activate();
-            }
+           // if (selfMadeNextLevelButton) {
+              //  selfMadeNextLevelButton.Activate();
+            //}
            
 
         }
@@ -93,7 +93,7 @@ namespace Week4
             yield return new WaitForSeconds(1);
             dieBG.SetActive(true);
             
-            selfMadeRestartButton.Activate();
+            //selfMadeRestartButton.Activate();
            
 
             if (newLife > 0)
