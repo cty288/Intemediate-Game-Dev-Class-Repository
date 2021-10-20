@@ -22,5 +22,7 @@ namespace Week4
         public static Action<int,int> OnGameEnds;
 
         public static Action OnPlayerRespawn;
+
+        public static Action<ItemType> OnPlayerPickItem;
     }
 }

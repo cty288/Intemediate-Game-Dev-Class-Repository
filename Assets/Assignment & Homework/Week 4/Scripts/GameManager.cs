@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
@@ -18,6 +19,7 @@ namespace Week4
         public int Life => life;
         [SerializeField]
         private int diamond = 0;
+        [SerializeField] private int maxBackpackCapacity = 10;
         public int Diamond => diamond;
 
         private int key = 0;
@@ -28,7 +30,7 @@ namespace Week4
         private RespawnInfo respawnInfo;
 
 
-
+        public List<ItemType> ItemsPicked = new List<ItemType>();
 
 
         private void Awake() {
@@ -135,8 +137,37 @@ namespace Week4
             key = 0;
             respawnInfo = null;
             life = 5;
+            ItemsPicked.Clear();
             SceneManager.LoadScene(0);
         }
+
+        public void PickItem(Item itemPicked) {
+            bool canPick = true;
+            int insertIndex = -1;
+            for (int i=0; i< ItemsPicked.Count; i++) {
+                if (ItemsPicked[i] == itemPicked.ItemType) {
+                    canPick = itemPicked.CanPickMultipleTime;
+                    insertIndex = i;
+                    break;
+                }
+            }
+
+            if (canPick) {
+                if (ItemsPicked.Count < maxBackpackCapacity) {
+                    if (insertIndex != -1)
+                    {
+                        ItemsPicked.Insert(insertIndex, itemPicked.ItemType);
+                    }
+                    else
+                    {
+                        ItemsPicked.Add(itemPicked.ItemType);
+                    }
+                    SimpleEventSystem.OnPlayerPickItem?.Invoke(itemPicked.ItemType);
+                }
+            }
+          
+        }
+
 
         public void GoToNextLevel() {
             
@@ -154,6 +185,7 @@ namespace Week4
             player.PlayerState = PlayerState.Idle;
 
             player.GetComponent<Rigidbody2D>().simulated = true;
+            ItemsPicked.Clear();
             SimpleEventSystem.OnPlayerRespawn?.Invoke();
         }
 

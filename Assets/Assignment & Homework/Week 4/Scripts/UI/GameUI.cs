@@ -8,7 +8,8 @@ namespace Week4
 {
     public class GameUI : MonoBehaviour
     {
-        private GridLayoutGroup gridLayoutGroup;
+        private GridLayoutGroup heartLayoutGroup;
+        private GridLayoutGroup itemLayoutGroup;
 
         private Text diamondCountText;
 
@@ -23,15 +24,19 @@ namespace Week4
         //[SerializeField] private SelfMadeButton selfMadeRestartButton;
        // [SerializeField] private SelfMadeButton selfMadeNextLevelButton;
 
+       [SerializeField] 
+       private List<Sprite> itemSprites= new List<Sprite>();
         private void Awake()
         {
-            gridLayoutGroup = transform.Find("HeartDisplay").GetComponent<GridLayoutGroup>();
+            heartLayoutGroup = transform.Find("HeartDisplay").GetComponent<GridLayoutGroup>();
+            itemLayoutGroup = transform.Find("ItemsDisplay").GetComponent<GridLayoutGroup>();
             diamondCountText = transform.Find("DiamondDisplay/NumText").GetComponent<Text>();
             keyCountText = transform.Find("KeyDisplay/NumText").GetComponent<Text>();
         }
 
         private void Start()
         {
+            UpdateItemPickedUI();
             SimpleEventSystem.OnLifeChange += OnLifeChanged;
             OnLifeChanged(GameManager.Singleton.Life,GameManager.Singleton.Life);
 
@@ -43,6 +48,31 @@ namespace Week4
 
             SimpleEventSystem.OnGameEnds += OnGameEnds;
             SimpleEventSystem.OnPlayerRespawn += OnPlayerRespawn;
+
+            SimpleEventSystem.OnPlayerPickItem += OnPlayerPickItem;
+        }
+
+        private void OnPlayerPickItem(ItemType item) {
+            UpdateItemPickedUI();
+        }
+
+        private void UpdateItemPickedUI() {
+            if (itemLayoutGroup) {
+                List<ItemType> itemTypes = GameManager.Singleton.ItemsPicked;
+
+                for (int i = 0; i < 10; i++) {
+                    GameObject itemObj = itemLayoutGroup.transform.GetChild(i).gameObject;
+                    if (i < itemTypes.Count) {
+                        itemObj.SetActive(true);
+                        itemObj.GetComponent<Image>().sprite = itemSprites[(int) itemTypes[i]];
+                    }
+                    else {
+                        itemObj.SetActive(false);
+                    }
+                    
+                }
+            }
+           
         }
 
         private void OnPlayerRespawn() {
@@ -81,6 +111,7 @@ namespace Week4
             SimpleEventSystem.OnDiamondChange -= OnDiamondChanged;
             SimpleEventSystem.OnKeyChange -= OnKeyChanged;
             SimpleEventSystem.OnPlayerRespawn -= OnPlayerRespawn;
+            SimpleEventSystem.OnPlayerPickItem -= OnPlayerPickItem;
         }
 
         void OnLifeChanged(int oldlife, int newLife) {
@@ -122,9 +153,9 @@ namespace Week4
             }
         }
         void UpdateHeartUI(int life) {
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 20; i++)
             {
-                gridLayoutGroup.transform.GetChild(i).gameObject.SetActive(i < life);
+                heartLayoutGroup.transform.GetChild(i).gameObject.SetActive(i < life);
             }
         }
     }
