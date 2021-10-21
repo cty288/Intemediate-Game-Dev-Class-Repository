@@ -228,7 +228,7 @@ namespace Week4
                     //check grounded
                     RaycastHit2D hitGround = Physics2D.Raycast(groundDetectorTransform.position,
                         Vector3.Normalize(-transform.right + new Vector3(0, -1, 0)),
-                        0.5f);
+                        0.3f);
                    
                     if (hitGround.collider && blindTimer<=0) {
                        

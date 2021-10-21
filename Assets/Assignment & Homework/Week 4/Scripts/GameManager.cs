@@ -205,5 +205,17 @@ namespace Week4
 
             return false;
         }
+
+        public bool HasBoot() {
+            foreach (ItemType itemType in ItemsPicked)
+            {
+                if (itemType == ItemType.Boot)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
     }
 }

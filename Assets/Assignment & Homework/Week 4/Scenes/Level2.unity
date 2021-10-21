@@ -6039,6 +6039,7 @@ MonoBehaviour:
   restartButton: {fileID: 1883480902}
   itemSprites:
   - {fileID: 21300000, guid: d700391178f61c3488cd257e7e7a81bf, type: 3}
+  - {fileID: 21300000, guid: ad45b5d312d8d78498554b53169a67f8, type: 3}
 --- !u!114 &1270543040
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7839,7 +7840,7 @@ MonoBehaviour:
   m_StartCorner: 0
   m_StartAxis: 0
   m_CellSize: {x: 100, y: 100}
-  m_Spacing: {x: -14.7, y: 0}
+  m_Spacing: {x: -1.4, y: 0}
   m_Constraint: 0
   m_ConstraintCount: 2
 --- !u!4 &1706297254 stripped
@@ -9390,6 +9391,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jumpForce: 8
+  jumpForceWithBoot: 12
   maxSpeed: 4.5
   friction: 0.5
   speed: 0

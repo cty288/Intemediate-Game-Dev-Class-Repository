@@ -18,6 +18,8 @@ namespace Week4{
         [SerializeField]
         private float jumpForce = 5;
 
+        [SerializeField] private float jumpForceWithBoot = 8;
+
         //[SerializeField] 
        // private float acceleration = 0.5f;
         [SerializeField] 
@@ -150,7 +152,13 @@ namespace Week4{
         {
             if (Grounded)
             {
-                mRigidbody.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+                if (GameManager.Singleton.HasBoot()) {
+                    mRigidbody.AddForce(Vector2.up * jumpForceWithBoot, ForceMode2D.Impulse);
+                }
+                else {
+                    mRigidbody.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+                }
+                
             }
         }
 
