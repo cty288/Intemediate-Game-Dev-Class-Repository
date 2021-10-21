@@ -11,7 +11,7 @@ namespace Week4
         Patrol,
         Chasing
     }
-    public class Enemy : MonoBehaviour {
+    public class Enemy : MonoBehaviour, IDamageable {
         protected Animator animator;
         protected EnemyState state = EnemyState.Patrol;
         protected EnemyState lastState = EnemyState.Patrol;
@@ -19,6 +19,9 @@ namespace Week4
         protected float targetX;
         protected Rigidbody2D mRigidbody;
         protected PlayerControl player;
+
+        protected Transform healthBarCanvasTr;
+        protected float healthBarInitialScale;
         
         protected bool directionSwitched = false;
 
@@ -30,6 +33,11 @@ namespace Week4
 
         [SerializeField] 
         protected int health = 100;
+        public int Health => health;
+
+        
+        protected int maxHealth;
+        public int MaxHealth => maxHealth;
 
         [SerializeField] 
         protected Vector2 posXLimit;
@@ -64,12 +72,14 @@ namespace Week4
         private void Awake() {
             animator = GetComponent<Animator>();
             mRigidbody = GetComponent<Rigidbody2D>();
-           
+            maxHealth = health;
+            healthBarCanvasTr = GetComponentInChildren<Canvas>().transform;
         }
 
         protected virtual void Start() {
             targetX = posXLimit.y;
             player = GameManager.Singleton.Player;
+            healthBarInitialScale = healthBarCanvasTr.localScale.x;
             SimpleEventSystem.OnPlayerStateUpdate += OnPlayerStateUpdate;
             SimpleEventSystem.OnPlayerRespawn += OnPlayerRespawn;
         }
@@ -162,8 +172,16 @@ namespace Week4
             if (other.collider.CompareTag("Player") && Alive) {
                 player.PlayerState = PlayerState.Dead;
             }
+        }
 
-            
+       
+
+        public void DealDamage(int damage) {
+            health -= damage;
+            if (health <= 0) {
+                OnKilled();
+                OnEnemyDie?.Invoke(this);
+            }
         }
 
         private void CheckStateSwitch() {
@@ -187,10 +205,14 @@ namespace Week4
             float distanceToTargetX = targetX - transform.position.x;
             if (distanceToTargetX > 0) {
                 transform.rotation = Quaternion.Euler(0,-180,0);
+                healthBarCanvasTr.localScale = new Vector3(-healthBarInitialScale, healthBarInitialScale,
+                    healthBarInitialScale);
             }
 
             if (distanceToTargetX < 0) {
                 transform.rotation = Quaternion.Euler(0, 0, 0);
+                healthBarCanvasTr.localScale = new Vector3(healthBarInitialScale, healthBarInitialScale,
+                    healthBarInitialScale);
             }
         }
 

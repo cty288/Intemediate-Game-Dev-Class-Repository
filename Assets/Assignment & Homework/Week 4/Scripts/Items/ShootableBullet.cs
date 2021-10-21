@@ -11,6 +11,9 @@ namespace Week4
 
         private Rigidbody2D rigidbody;
 
+        [SerializeField] 
+        private int damage = 20;
+
         private void Awake() {
             rigidbody = GetComponent<Rigidbody2D>();
         }
@@ -29,6 +32,9 @@ namespace Week4
 
             if (!ignored) {
                 SimpleEventSystem.OnShot?.Invoke(other.gameObject.name);
+                if (other.gameObject.GetComponent<IDamageable>() != null) {
+                    other.gameObject.GetComponent<IDamageable>().DealDamage(damage);
+                }
                 GameObject.Destroy(this.gameObject);
             }
         }
