@@ -51,17 +51,25 @@ namespace Week4
                 messageBoxUI = GameObject.Find("MessageBox").GetComponent<MessageBox>();
             }
 
-            if (page >= 0) {
-                player.PlayerState = PlayerState.Talking;
-                switch (currentDialogueType)
+            if (player.PlayerState != PlayerState.Dead) {
+                if (page >= 0)
                 {
-                    case DialogueType.Bubble:
-                        UpdateBubbleUI();
-                        break;
-                    case DialogueType.Textbox:
-                        break;
+                    player.PlayerState = PlayerState.Talking;
+                    switch (currentDialogueType)
+                    {
+                        case DialogueType.Bubble:
+                            UpdateBubbleUI();
+                            break;
+                        case DialogueType.Textbox:
+                            break;
+                    }
                 }
             }
+            else {
+                player.PlayerState = PlayerState.Dead;
+                CloseUI();
+            }
+           
            
         }
 

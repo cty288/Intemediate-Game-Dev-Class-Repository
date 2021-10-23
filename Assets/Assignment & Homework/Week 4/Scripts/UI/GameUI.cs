@@ -81,7 +81,7 @@ namespace Week4
         }
 
         private void OnGameEnds(int heartAdded, int levelNum) {
-            GameObject gamePassBG = GameObject.Find("LevelPassBG");
+            GameObject gamePassBG = transform.Find("LevelPassBG").gameObject;
             gamePassBG.gameObject.SetActive(true);
             gamePassBG.GetComponent<Animation>().Play();
             gamePassBG.transform.Find("InfoText").GetComponent<Text>().text = $"Level {levelNum} Passed!";

@@ -46,14 +46,15 @@ namespace Week4 {
 
         private void CheckNull() {
             int index = 0;
+            bool isNull = false;
             foreach (Collider2D collider in colliders) {
                 if (!collider) {
-                    colliders.RemoveAt(index);
+                    isNull = true;
                 }
-                else {
-                    index++;
-                }
+            }
 
+            if (isNull) {
+                colliders.Clear();
             }
         }
 

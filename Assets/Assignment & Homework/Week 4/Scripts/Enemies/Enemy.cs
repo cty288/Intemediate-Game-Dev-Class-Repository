@@ -144,6 +144,7 @@ namespace Week4
                     velocity.y<=0) {
                     health = 0;
                     OnKilled();
+                    player.GetComponent<Rigidbody2D>().velocity += new Vector2(0, 10);
                     OnEnemyDie?.Invoke(this);
                 }
                
@@ -160,8 +161,9 @@ namespace Week4
            
 
             GetComponent<CircleCollider2D>().isTrigger = true;
-            GetComponent<Rigidbody2D>().velocity = new Vector2(0, -15);
-            player.GetComponent<Rigidbody2D>().velocity += new Vector2(0, 10);
+            GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
+            GetComponent<Rigidbody2D>().velocity = new Vector2(0, -20);
+           
             Destroy(this.gameObject,5);
         }
 

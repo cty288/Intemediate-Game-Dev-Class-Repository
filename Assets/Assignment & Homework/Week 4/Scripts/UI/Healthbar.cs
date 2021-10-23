@@ -15,7 +15,7 @@ namespace Week4
         
         private void Awake() {
             healthSlider = GetComponentInChildren<Slider>();
-            parent = GetComponentInParent<Enemy>();
+            parent = GetComponentInParent<IDamageable>();
         }
 
         private void Update() {
