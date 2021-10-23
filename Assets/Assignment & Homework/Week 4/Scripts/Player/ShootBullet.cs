@@ -31,7 +31,7 @@ namespace Week4
                 player.PlayerState != PlayerState.Dead && player.PlayerState != PlayerState.End) {
 
                 if (GameManager.Singleton.CanShoot()) {
-                    if (timer >= shootInterval) {
+                    if (timer >= Mathf.Max(0.05f, shootInterval- (GameManager.Singleton.Bullet-1)*0.05f)) {
                         timer = 0;
                         Shoot();
                     }

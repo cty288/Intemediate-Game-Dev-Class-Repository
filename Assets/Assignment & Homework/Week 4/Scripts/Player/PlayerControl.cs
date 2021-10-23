@@ -153,7 +153,8 @@ namespace Week4{
             if (Grounded)
             {
                 if (GameManager.Singleton.HasBoot()) {
-                    mRigidbody.AddForce(Vector2.up * jumpForceWithBoot, ForceMode2D.Impulse);
+                    mRigidbody.AddForce(Vector2.up * 
+                                        (jumpForceWithBoot + (GameManager.Singleton.Boot-1)*jumpForceWithBoot/6), ForceMode2D.Impulse);
                 }
                 else {
                     mRigidbody.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);

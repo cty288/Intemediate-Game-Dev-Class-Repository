@@ -159,7 +159,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47efb11cbadd87949921198366d92ce4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetX: 0
   health: 100
   posXLimit: {x: 16.9, y: 23.9}
   viewDistance: 8
@@ -168,6 +167,7 @@ MonoBehaviour:
   playerDetectorTransform: {fileID: 7269894315230277606}
   groundDetectorTransform: {fileID: 7269894315487314869}
   awardDiamondCount: 1
+  smokePrefab: {fileID: 677621276041421784, guid: 96b265cbf89910145a62b6e3c3e6d298, type: 3}
 --- !u!61 &7269894314951988545
 BoxCollider2D:
   m_ObjectHideFlags: 0

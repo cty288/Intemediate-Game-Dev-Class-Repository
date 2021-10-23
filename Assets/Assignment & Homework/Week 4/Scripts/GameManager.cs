@@ -32,6 +32,10 @@ namespace Week4
 
         public List<ItemType> ItemsPicked = new List<ItemType>();
 
+        private int bullet = 0;
+        public int Bullet => bullet;
+        private int boot = 0;
+        public int Boot => boot;
 
         private void Awake() {
             if (Singleton != null) {
@@ -162,6 +166,16 @@ namespace Week4
                     {
                         ItemsPicked.Add(itemPicked.ItemType);
                     }
+
+                    switch (itemPicked.ItemType) {
+                        case ItemType.Boot:
+                            boot++;
+                            break;
+                        case ItemType.Bullet:
+                            bullet++;
+                            break;
+                        
+                    }
                     SimpleEventSystem.OnPlayerPickItem?.Invoke(itemPicked.ItemType);
                 }
             }
@@ -185,8 +199,14 @@ namespace Week4
             player.PlayerState = PlayerState.Idle;
 
             player.GetComponent<Rigidbody2D>().simulated = true;
-            ItemsPicked.Clear();
+            ClearInventory();
             SimpleEventSystem.OnPlayerRespawn?.Invoke();
+        }
+
+        public void ClearInventory() {
+            ItemsPicked.Clear();
+            bullet = 0;
+            boot = 0;
         }
 
         public void SetRespawnInfo(Vector2 respawnPoint) {

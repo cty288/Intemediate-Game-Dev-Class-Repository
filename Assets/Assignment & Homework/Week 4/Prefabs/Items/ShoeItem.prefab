@@ -114,7 +114,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d009946856aff0643a0d87efca0635a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canPickMultipleTime: 0
+  canPickMultipleTime: 1
   itemType: 1
 --- !u!61 &1332373835718052827
 BoxCollider2D:

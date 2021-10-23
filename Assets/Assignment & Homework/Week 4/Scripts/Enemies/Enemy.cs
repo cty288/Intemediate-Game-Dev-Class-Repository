@@ -15,7 +15,7 @@ namespace Week4
         protected Animator animator;
         protected EnemyState state = EnemyState.Patrol;
         protected EnemyState lastState = EnemyState.Patrol;
-        [SerializeField]
+        
         protected float targetX;
         protected Rigidbody2D mRigidbody;
         protected PlayerControl player;
@@ -69,6 +69,9 @@ namespace Week4
 
         public Action<Enemy> OnEnemyDie;
 
+        [SerializeField] 
+        protected GameObject smokePrefab;
+
         private void Awake() {
             animator = GetComponent<Animator>();
             mRigidbody = GetComponent<Rigidbody2D>();
@@ -84,15 +87,15 @@ namespace Week4
             SimpleEventSystem.OnPlayerRespawn += OnPlayerRespawn;
         }
 
-        
 
-        private void OnPlayerRespawn() {
+
+        protected void OnPlayerRespawn() {
             animator.SetTrigger("PlayerRespawn");
            // transform.position = new Vector2(posXLimit.y,transform.position.x);
             mRigidbody.simulated = true;
         }
 
-        private void OnPlayerStateUpdate(PlayerState old, PlayerState state) {
+        protected void OnPlayerStateUpdate(PlayerState old, PlayerState state) {
             if (state == PlayerState.Dead) {
                 animator.SetTrigger("Idle");
                 mRigidbody.simulated = false;
@@ -141,7 +144,7 @@ namespace Week4
             if (other.gameObject.name=="Player" && Alive)
             {
                 if (GameManager.Singleton.Player.GetComponent<Rigidbody2D>().
-                    velocity.y<=0) {
+                    velocity.y<0) {
                     health = 0;
                     OnKilled();
                     player.GetComponent<Rigidbody2D>().velocity += new Vector2(0, 10);
@@ -151,7 +154,7 @@ namespace Week4
             }
         }
 
-        private void OnKilled() {
+        protected virtual void OnKilled() {
             
             for (int i = 0; i < awardDiamondCount; i++) {
                 float randomPos = Random.Range(-1f, 1f);
@@ -163,6 +166,8 @@ namespace Week4
             GetComponent<CircleCollider2D>().isTrigger = true;
             GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
             GetComponent<Rigidbody2D>().velocity = new Vector2(0, -20);
+
+            Instantiate(smokePrefab, transform.position, Quaternion.identity);
            
             Destroy(this.gameObject,5);
         }
