@@ -15336,6 +15336,10 @@ PrefabInstance:
       propertyPath: m_Animation
       value: 
       objectReference: {fileID: 7400000, guid: 17833d81d74629f4183921e9ecc3c2a2, type: 2}
+    - target: {fileID: 632120609583507759, guid: 9bba0b5e456539e4d89bd0f50e7208a0, type: 3}
+      propertyPath: minimumTriggerDistance
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 3584978751825053198, guid: 9bba0b5e456539e4d89bd0f50e7208a0, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0

@@ -14,6 +14,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Assignment & Homework/Week 4/Scenes/Level3.unity
     guid: bd9756c5264b0234f9a7e8d4bf8251ae
+  - enabled: 1
+    path: Assets/Assignment & Homework/Week 4/Scenes/Level4.unity
+    guid: d6399c7cd27740e468c51a441710cfbc
   - enabled: 0
     path: Assets/In-Class/Week4/Scenes/Scene1.unity
     guid: fccead23dda009443b0154158efa4a0d
