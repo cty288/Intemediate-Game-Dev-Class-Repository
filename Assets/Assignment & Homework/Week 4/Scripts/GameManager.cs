@@ -187,7 +187,8 @@ namespace Week4
             
             int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
             int totalScenes = SceneManager.sceneCountInBuildSettings;
-
+            player.PlayerState = PlayerState.Idle;
+            DialogueManager.Singleton.CloseUI();
             SceneManager.LoadScene((currentSceneIndex+1) % totalScenes);
         }
 
@@ -197,7 +198,7 @@ namespace Week4
 
             player.transform.position = respawnInfo.RespawnPoint;
             player.PlayerState = PlayerState.Idle;
-
+            
             player.GetComponent<Rigidbody2D>().simulated = true;
             ClearInventory();
             SimpleEventSystem.OnPlayerRespawn?.Invoke();

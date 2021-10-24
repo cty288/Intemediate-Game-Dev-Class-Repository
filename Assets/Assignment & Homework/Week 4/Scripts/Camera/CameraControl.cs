@@ -31,6 +31,10 @@ namespace Week4
             player = GameManager.Singleton.GetPlayer();
             SimpleEventSystem.OnPlayerStateUpdate += OnPlayerStateUpdate;
             SimpleEventSystem.OnGameStart += OnGameStart;
+            if (GameManager.Singleton.GetCurrentLevelNum() > 1) {
+                gameCamera = true;
+                currentLerpSpeed = lerpSpeed;
+            }
         }
 
         private void OnGameStart() {
