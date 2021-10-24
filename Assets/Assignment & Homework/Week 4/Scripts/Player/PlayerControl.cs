@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace Week4{
     public enum PlayerState {
+        Menu,
         Idle,
         Run,
         Jump,
@@ -64,28 +65,39 @@ namespace Week4{
         }
 
         private void Start() {
-            playerState = PlayerState.Idle;
+            if (GameManager.Singleton.GetCurrentLevelNum() == 1) {
+                playerState = PlayerState.Menu;
+            }
+            else {
+                playerState = PlayerState.Idle;
+            }
+           
             lastState = playerState;
         }
 
         private void FixedUpdate() {
-            if (moveX != 0) {
-                speed = moveX * maxSpeed;
-            }
-            
-            speed = Mathf.Clamp(speed, -maxSpeed, maxSpeed);
-            if (moveX == 0) {
-                speed *= friction;
-            }
-
-            if (Mathf.Abs(mRigidbody.velocity.x) >= 0.5 || Grounded || Mathf.Abs(moveX) >= 0)
-            {
-                if (!wallCheck.Triggered)
+            if (playerState != PlayerState.Menu) {
+                if (moveX != 0)
                 {
-                    mRigidbody.velocity = new Vector2(speed, mRigidbody.velocity.y);
+                    speed = moveX * maxSpeed;
                 }
 
+                speed = Mathf.Clamp(speed, -maxSpeed, maxSpeed);
+                if (moveX == 0)
+                {
+                    speed *= friction;
+                }
+
+                if (Mathf.Abs(mRigidbody.velocity.x) >= 0.5 || Grounded || Mathf.Abs(moveX) >= 0)
+                {
+                    if (!wallCheck.Triggered)
+                    {
+                        mRigidbody.velocity = new Vector2(speed, mRigidbody.velocity.y);
+                    }
+
+                }
             }
+          
 
         }
 
@@ -94,8 +106,12 @@ namespace Week4{
         private void Update()
         {
             Time.timeScale = 1;
-            MovementControl();
-            UpdateState();
+
+            if (playerState != PlayerState.Menu) {
+                MovementControl();
+                UpdateState();
+            }
+        
             
         }
 

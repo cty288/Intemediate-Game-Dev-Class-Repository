@@ -48,8 +48,22 @@ namespace Week4
 
             SimpleEventSystem.OnGameEnds += OnGameEnds;
             SimpleEventSystem.OnPlayerRespawn += OnPlayerRespawn;
-
             SimpleEventSystem.OnPlayerPickItem += OnPlayerPickItem;
+
+            SimpleEventSystem.OnGameStart += OnGameStart;
+        }
+
+        private void OnGameStart() {
+            StartCoroutine(FromMenuToGame());
+        }
+
+        private IEnumerator FromMenuToGame() {
+            yield return new WaitForSeconds(1f);
+            heartLayoutGroup.gameObject.SetActive(true);
+            diamondCountText.transform.parent.gameObject.SetActive(true);
+            keyCountText.transform.parent.gameObject.SetActive(true);
+            transform.Find("Backpack").gameObject.SetActive(true);
+            itemLayoutGroup.gameObject.SetActive(true);
         }
 
         private void OnPlayerPickItem(ItemType item) {
@@ -114,6 +128,7 @@ namespace Week4
             SimpleEventSystem.OnPlayerRespawn -= OnPlayerRespawn;
             SimpleEventSystem.OnPlayerPickItem -= OnPlayerPickItem;
             SimpleEventSystem.OnGameEnds -= OnGameEnds;
+            SimpleEventSystem.OnGameStart -= OnGameStart;
         }
 
         void OnLifeChanged(int oldlife, int newLife) {

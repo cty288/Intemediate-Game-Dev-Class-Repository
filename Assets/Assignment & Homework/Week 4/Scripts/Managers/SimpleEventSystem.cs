@@ -26,5 +26,7 @@ namespace Week4
         public static Action<ItemType> OnPlayerPickItem;
 
         public static Action<string> OnShot;
+
+        public static Action OnGameStart;
     }
 }
