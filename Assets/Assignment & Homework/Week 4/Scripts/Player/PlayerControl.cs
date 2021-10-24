@@ -119,7 +119,7 @@ namespace Week4{
 
             }
 
-            if (transform.position.y <= -20)
+            if (transform.position.y <= -8)
             {
                 playerState = PlayerState.Dead;
             }
