@@ -113,6 +113,7 @@ namespace Week4
             SimpleEventSystem.OnKeyChange -= OnKeyChanged;
             SimpleEventSystem.OnPlayerRespawn -= OnPlayerRespawn;
             SimpleEventSystem.OnPlayerPickItem -= OnPlayerPickItem;
+            SimpleEventSystem.OnGameEnds -= OnGameEnds;
         }
 
         void OnLifeChanged(int oldlife, int newLife) {
@@ -148,7 +149,7 @@ namespace Week4
                     
                     Debug.Log("Lose all life");
                     GameManager.Singleton.ResetToFirstLevel();
-                    GameManager.Singleton.AddLife(5);
+                    
                 });
 
             }
