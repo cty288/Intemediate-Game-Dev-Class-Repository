@@ -153,9 +153,14 @@ namespace Week4{
             if (playerState != PlayerState.Talking && playerState!= PlayerState.Dead && playerState!=PlayerState.End) {
                 moveX = Input.GetAxis("Horizontal");
 
-                if (Input.GetKeyDown(KeyCode.Space))
+                if (Input.GetKey(KeyCode.Space))
                 {
                     Jump();
+                }
+
+                if (Input.GetKeyUp(KeyCode.Space)) {
+                    jumping = false;
+                    jumpTimer = 0;
                 }
             }
             else {
@@ -164,18 +169,46 @@ namespace Week4{
           
         }
 
+        private bool jumping = false;
+        [SerializeField]
+        private float minimumJumpHoldTime = 0.8f;
+
+        [SerializeField]
+        private float minimumJumpForce = 2f;
+        [SerializeField]
+        private float minimumJumpForceWithBoot = 4f;
+        private float jumpTimer = 0;
         private void Jump()
         {
-            if (Grounded)
-            {
+            if (Grounded) {
+                if (!jumping) {
+                    float force = 0;
+                    if (GameManager.Singleton.HasBoot())
+                    {
+                        force = (minimumJumpForceWithBoot + (GameManager.Singleton.Boot - 1) * jumpForceWithBoot / 6);
+                    }
+                    else
+                    {
+                        force = minimumJumpForce;
+                    }
+                    mRigidbody.AddForce(Vector2.up * force, ForceMode2D.Impulse);
+                }
+                jumping = true;
+            }
+
+            if (jumping) {
+                float force = 0;
                 if (GameManager.Singleton.HasBoot()) {
-                    mRigidbody.AddForce(Vector2.up * 
-                                        (jumpForceWithBoot + (GameManager.Singleton.Boot-1)*jumpForceWithBoot/6), ForceMode2D.Impulse);
+                    force = (jumpForceWithBoot + (GameManager.Singleton.Boot - 1) * jumpForceWithBoot / 6);
                 }
                 else {
-                    mRigidbody.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+                    force = jumpForce;
                 }
-                
+
+                jumpTimer += Time.deltaTime;
+                if (jumpTimer <= minimumJumpHoldTime) {
+                    mRigidbody.AddForce(Vector2.up * force, ForceMode2D.Impulse);
+                }
             }
         }
 

@@ -161,9 +161,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 100
   posXLimit: {x: 16.9, y: 23.9}
-  viewDistance: 8
-  chasingSpeed: 4
-  patrolSpeed: 2
+  viewDistance: 6
+  chasingSpeed: 3
+  patrolSpeed: 1.5
   playerDetectorTransform: {fileID: 7269894315230277606}
   groundDetectorTransform: {fileID: 7269894315487314869}
   awardDiamondCount: 1
