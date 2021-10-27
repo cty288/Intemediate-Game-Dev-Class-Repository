@@ -2732,6 +2732,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1388606795042035741, guid: 6ca638646d70d544a8be4e8015a8b1aa, type: 3}
+      propertyPath: jumpForce
+      value: 75
+      objectReference: {fileID: 0}
+    - target: {fileID: 1388606795042035741, guid: 6ca638646d70d544a8be4e8015a8b1aa, type: 3}
+      propertyPath: minimumJumpForce
+      value: 75
+      objectReference: {fileID: 0}
+    - target: {fileID: 1388606795042035741, guid: 6ca638646d70d544a8be4e8015a8b1aa, type: 3}
+      propertyPath: jumpForceWithBoot
+      value: 85
+      objectReference: {fileID: 0}
+    - target: {fileID: 1388606795042035741, guid: 6ca638646d70d544a8be4e8015a8b1aa, type: 3}
+      propertyPath: minimumJumpForceWithBoot
+      value: 85
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6ca638646d70d544a8be4e8015a8b1aa, type: 3}
 --- !u!1 &556027615

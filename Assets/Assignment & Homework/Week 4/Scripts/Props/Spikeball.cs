@@ -21,7 +21,7 @@ namespace Week4
 
         private void OnCollisionEnter2D(Collision2D other) {
             if (other.collider.gameObject.name == "Player") {
-                GameManager.Singleton.GetPlayer().PlayerState = PlayerState.Dead;
+                GameManager.Singleton.GetPlayer().KillPlayer();
             }else if (other.collider.GetComponent<Enemy>()) {
                 other.collider.GetComponent<Enemy>().DealDamage(500);
             }

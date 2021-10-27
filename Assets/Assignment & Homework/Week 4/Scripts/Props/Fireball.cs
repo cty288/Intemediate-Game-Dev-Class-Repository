@@ -29,7 +29,7 @@ namespace Week4
                 animator.SetTrigger("Explode");
                 if (other.gameObject.name == "Player")
                 {
-                    GameManager.Singleton.GetPlayer().PlayerState = PlayerState.Dead;
+                    GameManager.Singleton.GetPlayer().KillPlayer();
                 }
             }
           

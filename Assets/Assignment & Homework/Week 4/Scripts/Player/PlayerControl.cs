@@ -38,6 +38,9 @@ namespace Week4{
 
         private TriggerCheck jumpCheck;
 
+        private bool invincible = false;
+
+
         [SerializeField] private PlayerState playerState;
         [SerializeField]
         private PlayerState lastState;
@@ -51,6 +54,10 @@ namespace Week4{
 
         private TriggerCheck wallCheck;
 
+        private SpriteRenderer spriteRenderer;
+
+        private float invincibleTimer = 0;
+
         public bool Grounded {
             get {
                 return jumpCheck.Triggered;
@@ -62,6 +69,7 @@ namespace Week4{
             mRigidbody = GetComponent<Rigidbody2D>();
             jumpCheck = transform.Find("JumpCheck").GetComponent<TriggerCheck>();
             wallCheck = transform.Find("WallCheck").GetComponent<TriggerCheck>();
+            spriteRenderer = GetComponent<SpriteRenderer>();
         }
 
         private void Start() {
@@ -111,10 +119,26 @@ namespace Week4{
                 MovementControl();
                 UpdateState();
             }
+
+            if (invincible) {
+                invincibleTimer += Time.deltaTime;
+                if (invincibleTimer >= 0.3f) {
+                    invincibleTimer = 0;
+                    Color color = spriteRenderer.color;
+                    spriteRenderer.color = new Color(color.r, color.g, color.b,
+                        Mathf.Abs(color.a - 1));
+
+                }
+            }
         
             
         }
 
+        public void KillPlayer() {
+            if (!invincible) {
+                playerState = PlayerState.Dead;
+            }
+        }
         private void UpdateState() {
             
 
@@ -142,10 +166,25 @@ namespace Week4{
 
 
             if (lastState != playerState) {
+                if (lastState == PlayerState.Dead)
+                {
+                    //invincible
+                    invincible = true;
+                    StartCoroutine(StopInvincible());
+                }
                 SimpleEventSystem.OnPlayerStateUpdate?.Invoke(lastState, playerState);
                 lastState = playerState;
-
+                
             }
+        }
+
+
+        IEnumerator StopInvincible() {
+            yield return new WaitForSeconds(5);
+            invincible = false;
+            Color spriteRendererColor = spriteRenderer.color;
+            spriteRenderer.color = new Color(spriteRendererColor.r, spriteRendererColor.g,
+                spriteRendererColor.b, 1);
         }
 
         private void MovementControl()
@@ -168,7 +207,7 @@ namespace Week4{
             }
           
         }
-
+        [SerializeField]
         private bool jumping = false;
         [SerializeField]
         private float minimumJumpHoldTime = 0.8f;
@@ -191,7 +230,7 @@ namespace Week4{
                     {
                         force = minimumJumpForce;
                     }
-                    mRigidbody.AddForce(Vector2.up * force, ForceMode2D.Impulse);
+                    mRigidbody.AddForce(Vector2.up * force * Time.deltaTime, ForceMode2D.Impulse);
                 }
                 jumping = true;
             }
@@ -207,7 +246,7 @@ namespace Week4{
 
                 jumpTimer += Time.deltaTime;
                 if (jumpTimer <= minimumJumpHoldTime) {
-                    mRigidbody.AddForce(Vector2.up * force, ForceMode2D.Impulse);
+                    mRigidbody.AddForce(Vector2.up * force * Time.deltaTime, ForceMode2D.Impulse);
                 }
             }
         }

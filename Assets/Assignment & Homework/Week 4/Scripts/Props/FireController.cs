@@ -34,7 +34,7 @@ namespace Week4
         private void OnTriggerStay2D(Collider2D other) {
             if (isOn) {
                 if (other.gameObject.name == "Player") {
-                    GameManager.Singleton.GetPlayer().PlayerState = PlayerState.Dead;
+                    GameManager.Singleton.GetPlayer().KillPlayer();
                 }
             }
         }

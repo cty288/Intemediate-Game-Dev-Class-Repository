@@ -20,31 +20,39 @@ namespace Week4
         }
 
         protected override void MovementControl() {
-            float distanceToTargetX = 0;
+            if (Alive) {
+                float distanceToTargetX = 0;
 
-            if (state == EnemyState.Patrol) {
-                targetX = stayAtX;
-                distanceToTargetX = targetX - transform.position.x;
+                if (state == EnemyState.Patrol)
+                {
+                    targetX = stayAtX;
+                    distanceToTargetX = targetX - transform.position.x;
 
-                if (Mathf.Abs(distanceToTargetX) <= 1) {
-                    moveSpeed = 0;
-                }else {
-                    moveSpeed = patrolSpeed;
+                    if (Mathf.Abs(distanceToTargetX) <= 1)
+                    {
+                        moveSpeed = 0;
+                    }
+                    else
+                    {
+                        moveSpeed = patrolSpeed;
 
+                    }
                 }
-            }
-            else
-            {
-                moveSpeed = chasingSpeed;
-                targetX = player.transform.position.x + 2;
-                distanceToTargetX = targetX - transform.position.x;
-                if (Mathf.Abs(distanceToTargetX) <= 0.1) {
-                    moveSpeed = 0;
+                else
+                {
+                    moveSpeed = chasingSpeed;
+                    targetX = player.transform.position.x + 2;
+                    distanceToTargetX = targetX - transform.position.x;
+                    if (Mathf.Abs(distanceToTargetX) <= 0.1)
+                    {
+                        moveSpeed = 0;
+                    }
+                    OnChasingPlayer();
                 }
-                OnChasingPlayer();
-            }
 
-            mRigidbody.velocity = new Vector2(Mathf.Sign(distanceToTargetX) * moveSpeed, mRigidbody.velocity.y);
+                mRigidbody.velocity = new Vector2(Mathf.Sign(distanceToTargetX) * moveSpeed, mRigidbody.velocity.y);
+            }
+           
         }
 
         protected override void OnChasingPlayer() {
@@ -86,6 +94,30 @@ namespace Week4
             if (other.gameObject.name == "Player" && Alive)
             {
                 state = EnemyState.Patrol;
+            }
+        }
+
+        private void OnCollisionEnter2D(Collision2D other) {
+            if (other.gameObject.name == "Player" && Alive)
+            {
+                if (GameManager.Singleton.GetPlayer().GetComponent<Rigidbody2D>().
+                    velocity.y < 0 && GameManager.Singleton.GetPlayer().transform.position.y >= transform.position.y)
+                {
+                    health = 0;
+                    OnKilled();
+                    player.GetComponent<Rigidbody2D>().velocity += new Vector2(0, 10);
+                    OnEnemyDie?.Invoke(this);
+                }
+
+            }
+
+        }
+
+        protected override void OnCollisionStay2D(Collision2D other) {
+           
+            if (other.collider.CompareTag("Player") && Alive)
+            {
+                player.KillPlayer();
             }
         }
 

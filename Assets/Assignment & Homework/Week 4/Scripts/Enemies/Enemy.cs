@@ -174,10 +174,10 @@ namespace Week4
 
        
 
-        private void OnCollisionStay2D(Collision2D other) {
+        protected virtual void OnCollisionStay2D(Collision2D other) {
            
             if (other.collider.CompareTag("Player") && Alive) {
-                player.PlayerState = PlayerState.Dead;
+                player.KillPlayer();
             }
         }
 

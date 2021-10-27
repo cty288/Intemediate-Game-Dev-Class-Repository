@@ -25,16 +25,30 @@ namespace Week4
         [SerializeField] 
         private int maxEnemyConcurrence = 4;
 
+        private SpriteRenderer indicator;
+        private float indicateTimer = 0;
         private void Awake() {
             aliveEnemies = new List<Enemy>();
+            indicator = transform.Find("Indicator").GetComponent<SpriteRenderer>();
         }
 
         private void Update() {
             timer += Time.deltaTime;
             if (timer >= spawnInterval) {
                 timer = 0;
+                indicator.color = new Color(1, 0, 0);
+                indicateTimer = 0;
                 if (aliveEnemies.Count < maxEnemyConcurrence) {
                     SpawnEnemy();
+                }
+            }
+
+            if (timer >= spawnInterval * 0.7f) {
+                indicateTimer += Time.deltaTime;
+                if (indicateTimer >= 0.1f) {
+                    indicateTimer = 0;
+                    Color color = indicator.color;
+                    indicator.color = new Color(Mathf.Abs(color.r - 1), 0, 0);
                 }
             }
         }

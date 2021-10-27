@@ -64,7 +64,7 @@ namespace Week4
         private void OnTriggerEnter2D(Collider2D other) {
             if (other.gameObject.name=="Player") {
                 if (!down) {
-                    player.PlayerState = PlayerState.Dead;
+                    player.KillPlayer();
                 }
                 
             }
