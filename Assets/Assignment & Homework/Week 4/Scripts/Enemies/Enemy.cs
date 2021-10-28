@@ -102,7 +102,7 @@ namespace Week4
             }
         }
 
-        private void OnDestroy() {
+        protected virtual void OnDestroy() {
             SimpleEventSystem.OnPlayerStateUpdate -= OnPlayerStateUpdate;
             SimpleEventSystem.OnPlayerRespawn -= OnPlayerRespawn;
         }

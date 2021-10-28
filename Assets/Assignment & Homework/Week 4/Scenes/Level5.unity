@@ -1452,6 +1452,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &540165616 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4960509459655904165, guid: 9c22d0dd290874f4daa414fc13b50900, type: 3}
+  m_PrefabInstance: {fileID: 640668674}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f39f85975d33c0f47ad0c93c2423c14b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &555342087
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2793,9 +2804,13 @@ MonoBehaviour:
   groundDetectorTransform: {fileID: 0}
   awardDiamondCount: 1
   smokePrefab: {fileID: 677621276041421784, guid: 96b265cbf89910145a62b6e3c3e6d298, type: 3}
+  bossState: 0
   dialogueTrigger: {fileID: 1429900677}
   minimumChaseTime: 5
   minimumShootFireballTime: 5
+  chaseAndShootSwitchDistance: 6
+  damageWhenKicked: 30
+  ignoreChaseOrShootConditionTime: 3
 --- !u!1 &1397286372
 GameObject:
   m_ObjectHideFlags: 0
@@ -4230,6 +4245,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7800169780220640729}
   - component: {fileID: 2399917404825409315}
+  - component: {fileID: 1194772488616799865}
   m_Layer: 5
   m_Name: HealthBar
   m_TagString: Untagged
@@ -4237,6 +4253,20 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &1194772488616799865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1194772488616799864}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7e51435da6c5e240ae3b6bc9b00d0eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthbar: {fileID: 540165616}
+  lerp: 0.2
 --- !u!114 &1647436021389134794
 MonoBehaviour:
   m_ObjectHideFlags: 0

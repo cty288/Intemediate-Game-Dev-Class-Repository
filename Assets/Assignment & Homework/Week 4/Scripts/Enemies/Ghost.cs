@@ -29,14 +29,35 @@ namespace Week4
         private float currentTargetTime = 0;
 
         private float damageReceived;
-        
+
+        [SerializeField] 
+        private List<Vector2> FloorXRanges = new List<Vector2>();
+
+        [SerializeField] 
+        private List<float> FloorY = new List<float>();
+
+        private Collider2D[] colliders;
         protected override void Start() {
             base.Start();
             bossState = BossState.ShootFireball;
             lastBossState = bossState;
             timer = 0;
             currentTargetTime = minimumChaseTime;
-            
+            SimpleEventSystem.OnPlayerFloorChange += OnPlayerFloorChange;
+            colliders = GetComponents<Collider2D>();
+        }
+
+        protected override void AnimationControl() {
+          
+        }
+
+        private void OnPlayerFloorChange(int oldFloor, int newFloor) {
+            ChangeToState(BossState.Teleport);
+        }
+
+        protected override void OnDestroy() {
+            base.OnDestroy();
+            SimpleEventSystem.OnPlayerFloorChange -= OnPlayerFloorChange;
         }
 
         protected override void OnDamaged(int damageAmount) {
@@ -92,7 +113,7 @@ namespace Week4
                        
                         break;
                     case BossState.Teleport:
-                       
+                        moveSpeed = 0;
                         break;
                 }
 
@@ -150,22 +171,53 @@ namespace Week4
                     break;
                 case BossState.SummonEnemies:
                     //change state:
-                    //instantly after 2 sec -> random state (no code here)
+                    //instantly after 2 sec -> random state 
 
                     break;
                 case BossState.Teleport:
                     //change state:
-                    //instantly after 0.4 sec -> random state (no code here)
+                    //instantly after 1.7 sec -> random state
+                    if (!isTeleporting) {
+                        isTeleporting = true;
+                        StartCoroutine(StartTeleport());
+                    }
+                   
                     break;
             }
         }
 
+        private bool isTeleporting = false;
+        private IEnumerator StartTeleport() {
+            animator.SetTrigger("disappear");
+            CollidersSwitch(false);
+            
+            yield return new WaitForSeconds(0.8f);
+            TeleportToPlayer();
+            animator.SetTrigger("appear");
+            yield return new WaitForSeconds(0.7f);
+            CollidersSwitch(true);
+            
+        }
+
+        private void TeleportToPlayer() {
+            int playerFloor = BossLevelManager.Singleton.Floor;
+            float teleportX = Random.Range(FloorXRanges[playerFloor - 1].x, FloorXRanges[playerFloor - 1].y);
+            transform.position = new Vector3(teleportX, FloorY[playerFloor - 1], transform.position.z);
+        }
+
+        private void CollidersSwitch(bool isOn) {
+            foreach (Collider2D collider in colliders) {
+                collider.enabled = isOn;
+            }
+            transform.Find("EnemyHealthBarCanvas").gameObject.SetActive(isOn);
+        }
 
         [SerializeField] private float ignoreChaseOrShootConditionTime = 3f;
         private float ignoreTimer = 0;
         private void ChangeToState(BossState newState) {
             bossState = newState;
             timer = 0;
+            isTeleporting = false;
             switch (newState) {
                 case BossState.ChasePlayer:
                     currentTargetTime = minimumChaseTime + Random.Range(0f, 5f);
@@ -179,7 +231,7 @@ namespace Week4
                     currentTargetTime = 2f;
                     break;
                 case BossState.Teleport:
-                    currentTargetTime = 0.4f;
+                    currentTargetTime = 1.5f;
                     break;
             }
         }

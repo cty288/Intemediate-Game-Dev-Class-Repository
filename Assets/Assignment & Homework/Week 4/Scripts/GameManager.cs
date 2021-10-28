@@ -37,6 +37,7 @@ namespace Week4
         private int boot = 0;
         public int Boot => boot;
 
+
         private void Awake() {
             if (Singleton != null) {
                 DestroyImmediate(this.gameObject);
@@ -137,12 +138,17 @@ namespace Week4
         }
 
         public void ResetToFirstLevel() {
+            ResetData();
+            SceneManager.LoadScene(0);
+        }
+
+        public void ResetData() {
             diamond = 0;
             key = 0;
             respawnInfo = null;
             life = 5;
             ItemsPicked.Clear();
-            SceneManager.LoadScene(0);
+            ClearInventory();
         }
 
         public void PickItem(Item itemPicked) {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -28,5 +29,7 @@ namespace Week4
         public static Action<string> OnShot;
 
         public static Action OnGameStart;
+
+        public static Action<int, int> OnPlayerFloorChange;
     }
 }
