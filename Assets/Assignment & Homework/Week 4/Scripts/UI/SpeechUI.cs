@@ -92,6 +92,7 @@ namespace Week4
             currentCharacterPos = -1;
         }
 
+      
         public void SetColor(Color color) {
             speechText.color = color;
         }

@@ -83,9 +83,10 @@ namespace Week4
             currentDialogue = dialogueTexts;
             SetDialogueUIText(currentDialogue[page]);
             
-            
             this.npcBubblePosition = NPCSpeechPosition;
         }
+
+      
 
         public void StartNewDialogue(DialogueType type, List<string> dialogueTexts)
         {

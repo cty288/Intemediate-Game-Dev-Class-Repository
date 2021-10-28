@@ -121,6 +121,7 @@ namespace Week4{
             }
 
             if (invincible) {
+                this.gameObject.layer = 13;
                 invincibleTimer += Time.deltaTime;
                 if (invincibleTimer >= 0.3f) {
                     invincibleTimer = 0;
@@ -129,6 +130,9 @@ namespace Week4{
                         Mathf.Abs(color.a - 1));
 
                 }
+            }
+            else {
+                this.gameObject.layer = 0;
             }
         
             

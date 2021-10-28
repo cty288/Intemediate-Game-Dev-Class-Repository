@@ -71,7 +71,7 @@ namespace Week4
                 }
                
 
-                if (Input.GetKeyDown(KeyCode.F)) {
+                if (Input.GetKeyDown(KeyCode.F) || (Input.GetKeyDown(KeyCode.Space) && dialogueTriggered)) {
 
                     if (dialogues.Count > 0) {
                         if (!dialogueTriggered)
@@ -80,7 +80,7 @@ namespace Week4
                             DialogueManager.Singleton.StartNewDialogue(dialogueType, dialogues,
                                 bubbleDialoguePosition);
                         }
-                        else
+                        else 
                         {
                             ShowDialogue();
                         }

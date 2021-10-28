@@ -30,6 +30,7 @@ namespace Week4
         private void Awake() {
             aliveEnemies = new List<Enemy>();
             indicator = transform.Find("Indicator").GetComponent<SpriteRenderer>();
+
         }
 
         private void Update() {
@@ -40,6 +41,7 @@ namespace Week4
                 indicateTimer = 0;
                 if (aliveEnemies.Count < maxEnemyConcurrence) {
                     SpawnEnemy();
+                    
                 }
             }
 

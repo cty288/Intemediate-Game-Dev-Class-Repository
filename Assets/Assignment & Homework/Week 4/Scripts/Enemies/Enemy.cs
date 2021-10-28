@@ -107,7 +107,7 @@ namespace Week4
             SimpleEventSystem.OnPlayerRespawn -= OnPlayerRespawn;
         }
 
-        private void Update() {
+        protected virtual void Update() {
             if (!player) {
                 player = GameManager.Singleton.GetPlayer();
             }
@@ -185,13 +185,15 @@ namespace Week4
 
         public void DealDamage(int damage) {
             health -= damage;
+            OnDamaged(damage);
             if (health <= 0) {
                 OnKilled();
                 OnEnemyDie?.Invoke(this);
             }
         }
 
-        private void CheckStateSwitch() {
+        protected virtual void OnDamaged(int damageAmount) { }
+        protected virtual void CheckStateSwitch() {
             if (lastState != state) {
                 OnStateChanged(lastState,state);
                 lastState = state;

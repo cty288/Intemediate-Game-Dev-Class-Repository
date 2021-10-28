@@ -12,6 +12,9 @@ namespace Week4
 
         [SerializeField] 
         private float lerp = 0.2f;
+
+        private float targetValue;
+        public float TargetValue => targetValue;
         
         private void Awake() {
             healthSlider = GetComponentInChildren<Slider>();
@@ -19,7 +22,7 @@ namespace Week4
         }
 
         private void Update() {
-            float targetValue = (float)parent.Health / parent.MaxHealth;
+            targetValue = (float)parent.Health / parent.MaxHealth;
             healthSlider.value = Mathf.Lerp(healthSlider.value, targetValue, lerp);
         }
     }
