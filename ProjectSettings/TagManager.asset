@@ -9,6 +9,8 @@ TagManager:
   - RaycastButton
   - KillEnemyCollider
   - Bullet
+  - InvincibleKillEnemy
+  - Diamond
   layers:
   - Default
   - TransparentFX
@@ -24,8 +26,8 @@ TagManager:
   - Enemy
   - Items
   - InvinsiblePlayer
-  - 
-  - 
+  - Fireball
+  - IgnoreFireball
   - 
   - 
   - 

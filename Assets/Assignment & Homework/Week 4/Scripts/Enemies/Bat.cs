@@ -98,7 +98,7 @@ namespace Week4
         }
 
         private void OnCollisionEnter2D(Collision2D other) {
-            if (other.gameObject.name == "Player" && Alive)
+            if (other.collider.gameObject.name == "Player" && Alive)
             {
                 if (GameManager.Singleton.GetPlayer().GetComponent<Rigidbody2D>().
                     velocity.y < 0 && GameManager.Singleton.GetPlayer().transform.position.y >= transform.position.y)
@@ -109,6 +109,21 @@ namespace Week4
                     OnEnemyDie?.Invoke(this);
                 }
 
+            }
+
+            if (player.Invincible)
+            {
+                if (other.collider.gameObject.CompareTag("InvincibleKillEnemy"))
+                {
+                    if (GameManager.Singleton.GetPlayer().GetComponent<Rigidbody2D>().
+                        velocity.y < 0 && GameManager.Singleton.GetPlayer().transform.position.y >= transform.position.y)
+                    {
+                        health = 0;
+                        OnKilled();
+                        player.GetComponent<Rigidbody2D>().velocity += new Vector2(0, 10);
+                        OnEnemyDie?.Invoke(this);
+                    }
+                }
             }
 
         }

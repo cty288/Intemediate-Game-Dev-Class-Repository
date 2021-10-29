@@ -39,6 +39,7 @@ namespace Week4{
         private TriggerCheck jumpCheck;
 
         private bool invincible = false;
+        public bool Invincible => invincible;
 
 
         [SerializeField] private PlayerState playerState;
@@ -120,6 +121,10 @@ namespace Week4{
                 UpdateState();
             }
 
+            if (Input.GetKeyDown(KeyCode.I)) {
+                invincible = !invincible;
+            }
+
             if (invincible) {
                 this.gameObject.layer = 13;
                 invincibleTimer += Time.deltaTime;
@@ -133,6 +138,9 @@ namespace Week4{
             }
             else {
                 this.gameObject.layer = 0;
+                Color color = spriteRenderer.color;
+                spriteRenderer.color = new Color(color.r, color.g, color.b,
+                    1);
             }
         
             

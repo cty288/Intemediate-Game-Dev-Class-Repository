@@ -27,9 +27,12 @@ namespace Week4
                 Destroy(this.gameObject, 1f);
                 Speed = 0;
                 animator.SetTrigger("Explode");
+
                 if (other.gameObject.name == "Player")
                 {
                     GameManager.Singleton.GetPlayer().KillPlayer();
+                }else if (other.gameObject.TryGetComponent<Enemy>(out Enemy enemy)) {
+                    enemy.DealDamage(20);
                 }
             }
           

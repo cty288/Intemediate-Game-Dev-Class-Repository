@@ -150,7 +150,19 @@ namespace Week4
                     player.GetComponent<Rigidbody2D>().velocity += new Vector2(0, 10);
                     OnEnemyDie?.Invoke(this);
                 }
-               
+            }
+            
+            if (player.Invincible) {
+                if (other.gameObject.CompareTag("InvincibleKillEnemy")) {
+                    if (player.GetComponent<Rigidbody2D>().
+                        velocity.y < 0)
+                    {
+                        health = 0;
+                        OnKilled();
+                        player.GetComponent<Rigidbody2D>().velocity += new Vector2(0, 10);
+                        OnEnemyDie?.Invoke(this);
+                    }
+                }
             }
         }
 
@@ -212,13 +224,13 @@ namespace Week4
 
         protected virtual void ChangeDirection() {
             float distanceToTargetX = targetX - transform.position.x;
-            if (distanceToTargetX > 0) {
+            if (distanceToTargetX > 1) {
                 transform.rotation = Quaternion.Euler(0,-180,0);
                 healthBarCanvasTr.localScale = new Vector3(-healthBarInitialScale, healthBarInitialScale,
                     healthBarInitialScale);
             }
 
-            if (distanceToTargetX < 0) {
+            if (distanceToTargetX < -1) {
                 transform.rotation = Quaternion.Euler(0, 0, 0);
                 healthBarCanvasTr.localScale = new Vector3(healthBarInitialScale, healthBarInitialScale,
                     healthBarInitialScale);

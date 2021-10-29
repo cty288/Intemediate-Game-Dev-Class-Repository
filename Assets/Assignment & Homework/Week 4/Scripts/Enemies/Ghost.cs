@@ -49,6 +49,18 @@ namespace Week4
         private SpeechUI speechUI;
 
         [SerializeField] private List<float> randomStateSwitchPossibility = new List<float>();
+
+        [SerializeField] 
+        private float fireballShootInterval = 1f;
+        private float fireballShootTimer;
+
+        [SerializeField] 
+        private Transform fireballStartPos;
+
+        [SerializeField] private GameObject fireballPrefab;
+
+
+        [SerializeField] private float shootFireballMoveSpeed;
         protected override void Start() {
             base.Start();
             bossState = BossState.ShootFireball;
@@ -115,12 +127,36 @@ namespace Week4
                         distanceToTargetX = targetX - transform.position.x;
                         break;
                     case BossState.ShootFireball:
+                        //1: facing player, player outside range: no change, still face player, stay still
+                        //2: opposite to player, player outside range: face player, stay still
+                        //3: facing player, player inside range: move backward, still face player
+                        //4: opposite to player, player inside range: face player, move backward
 
-                       
+
+                        distanceToTargetX = transform.position.x - player.transform.position.x;
+                        //1: player on the left; -1: player on the right
+                        int playerRelativeDirection = (int) Mathf.Sign(distanceToTargetX);
+                        //1: facing left; -1: facing right
+                        int selfFacing = transform.rotation.eulerAngles.y == 0 ? 1 : -1;
+
+
+                        bool isOpposite = playerRelativeDirection * selfFacing == -1;
+                        bool isInRange = Mathf.Abs(distanceToTargetX) <= chaseAndShootSwitchDistance;
+
+                        /*if (!isOpposite && !isInRange) {
+                            moveSpeed = 0;
+                        }else if (isOpposite && !isInRange) {
+                            moveSpeed = 0;
+                        }else if (!isOpposite && isInRange) {
+                            moveSpeed = 
+                        }*/
+
+                        moveSpeed = isInRange ? shootFireballMoveSpeed : 0;
+
                         break;
                     case BossState.SummonEnemies:
 
-                       
+                        moveSpeed = 0;
                         break;
                     case BossState.Teleport:
                         moveSpeed = 0;
@@ -131,6 +167,56 @@ namespace Week4
                 mRigidbody.velocity = new Vector2(Mathf.Sign(distanceToTargetX) * moveSpeed, mRigidbody.velocity.y);
             }
             
+        }
+
+        protected override void ChangeDirection() {
+            switch (bossState) {
+                case BossState.ShootFireball:
+                    //1: facing player, player outside range: no change, still face player, stay still
+                    //2: opposite to player, player outside range: face player, stay still
+                    //3: facing player, player inside range: move backward, still face player
+                    //4: opposite to player, player inside range: face player, move backward
+
+                    float distanceToPlayer = transform.position.x - player.transform.position.x;
+                    //1: player on the left; -1: player on the right
+                    int playerRelativeDirection = (int)Mathf.Sign(distanceToPlayer);
+                    //1: facing left; -1: facing right
+                    int selfFacing = transform.rotation.eulerAngles.y == 0 ? 1 : -1;
+
+
+                    bool isOpposite = playerRelativeDirection * selfFacing == -1;
+                    bool isInRange = Mathf.Abs(distanceToPlayer) <= chaseAndShootSwitchDistance;
+
+
+                    if (isOpposite) {
+                        if (Mathf.Abs(distanceToPlayer) >= 1) {
+                            float rotateDegree = playerRelativeDirection == 1 ? 0 : -180;
+                            transform.rotation = Quaternion.Euler(0, rotateDegree, 0);
+
+                            healthBarCanvasTr.localScale = new Vector3(-healthBarInitialScale, healthBarInitialScale,
+                                healthBarInitialScale);
+                        }
+                    }
+                   
+
+                    break;
+                case BossState.SummonEnemies:
+                case BossState.Teleport:
+                case BossState.ChasePlayer:
+                    float distanceToTargetX = targetX - transform.position.x;
+                    if (distanceToTargetX > 1) {
+                        transform.rotation = Quaternion.Euler(0, -180, 0);
+                        healthBarCanvasTr.localScale = new Vector3(-healthBarInitialScale, healthBarInitialScale,
+                            healthBarInitialScale);
+                    }
+
+                    if (distanceToTargetX < -1) {
+                        transform.rotation = Quaternion.Euler(0, 0, 0);
+                        healthBarCanvasTr.localScale = new Vector3(healthBarInitialScale, healthBarInitialScale,
+                            healthBarInitialScale);
+                    }
+                    break;
+            }
         }
 
         private void ChangeStateCheck() {
@@ -160,6 +246,12 @@ namespace Week4
                     }
                     break;
                 case BossState.ShootFireball:
+                    fireballShootTimer += Time.deltaTime;
+                    if (fireballShootTimer >= fireballShootInterval) {
+                        fireballShootTimer = 0;
+                        ShootFireball();
+                    }
+
                     if (damageReceived >= 60)
                     {
                         damageReceived = 0;
@@ -202,6 +294,23 @@ namespace Week4
                    
                     break;
             }
+        }
+
+        private void ShootFireball() {
+            if (dialogueTrigger.DialogueFinished) {
+                Fireball fireBall = Instantiate(fireballPrefab, fireballStartPos.position,
+                    Quaternion.identity).GetComponent<Fireball>();
+
+                Vector2 angleDiff = Vector3.Normalize(player.transform.position - fireballStartPos.transform.position);
+                float angle = Mathf.Atan2(angleDiff.y, angleDiff.x);
+                float rotateAngle = angle * 180 / Mathf.PI;
+
+
+                fireBall.transform.Rotate(0, 0, rotateAngle);
+                fireBall.Speed = 8;
+                fireBall.Shooter = this.gameObject;
+            }
+           
         }
 
         private bool isTeleporting = false;
@@ -274,6 +383,7 @@ namespace Week4
             timer = 0;
             isTeleporting = false;
             isSummoning = false;
+            fireballShootTimer = 0;
             switch (newState) {
                 case BossState.ChasePlayer:
                     currentTargetTime = minimumChaseTime + Random.Range(0f, 5f);
@@ -318,6 +428,7 @@ namespace Week4
         }
 
         protected override void OnTriggerEnter2D(Collider2D other) {
+            
             if (other.gameObject.name == "Player" && Alive)
             {
                 if (GameManager.Singleton.Player.GetComponent<Rigidbody2D>().
@@ -327,7 +438,20 @@ namespace Week4
                     Rigidbody2D plaRigidbody = player.GetComponent<Rigidbody2D>();
                     plaRigidbody.velocity = new Vector2(plaRigidbody.velocity.x, 10);
                 }
+            }
 
+            if (player.Invincible)
+            {
+                if (other.gameObject.CompareTag("InvincibleKillEnemy"))
+                {
+                    if (player.GetComponent<Rigidbody2D>().
+                        velocity.y < 0)
+                    {
+                        DealDamage(damageWhenKicked);
+                        Rigidbody2D plaRigidbody = player.GetComponent<Rigidbody2D>();
+                        plaRigidbody.velocity = new Vector2(plaRigidbody.velocity.x, 10);
+                    }
+                }
             }
         }
     }
