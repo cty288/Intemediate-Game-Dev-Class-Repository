@@ -37,6 +37,18 @@ namespace Week4
         private List<float> FloorY = new List<float>();
 
         private Collider2D[] colliders;
+
+        [SerializeField] private Vector3 speechBubbleRelativePosition;
+
+        [SerializeField] private float minimumSummonedSpawnerTime = 10;
+
+        [SerializeField]
+        private GameObject enemySpawnerPrefab;
+
+        [SerializeField] 
+        private SpeechUI speechUI;
+
+        [SerializeField] private List<float> randomStateSwitchPossibility = new List<float>();
         protected override void Start() {
             base.Start();
             bossState = BossState.ShootFireball;
@@ -101,8 +113,6 @@ namespace Week4
                         moveSpeed = chasingSpeed;
                         targetX = player.transform.position.x;
                         distanceToTargetX = targetX - transform.position.x;
-
-                     
                         break;
                     case BossState.ShootFireball:
 
@@ -172,7 +182,15 @@ namespace Week4
                 case BossState.SummonEnemies:
                     //change state:
                     //instantly after 2 sec -> random state 
+                    if (!isSummoning) {
+                        isSummoning = true;
+                        StartCoroutine(StartSummoning());
+                    }
+                    else {
+                        speechUI.transform.position = transform.position + speechBubbleRelativePosition;
+                    }
 
+                    
                     break;
                 case BossState.Teleport:
                     //change state:
@@ -199,6 +217,43 @@ namespace Week4
             
         }
 
+        private bool isSummoning = false;
+
+        private IEnumerator StartSummoning() {
+            speechUI.Activate(true);
+            speechUI.SetText("Dwae apq$!@%&* !!!");
+            yield return new WaitForSeconds(2);
+            speechUI.Activate(false);
+            speechUI.ResetMsg();
+            StartCoroutine(SpawnEnemySpawner());
+        }
+
+        private IEnumerator SpawnEnemySpawner() {
+            int playerFloor = BossLevelManager.Singleton.Floor;
+            Vector2 floorXRange = FloorXRanges[playerFloor - 1];
+            float spawnX = Random.Range(floorXRange.x, floorXRange.y);
+            float spawnY = FloorY[playerFloor - 1] - 1.4f;
+
+            GameObject spawner = Instantiate(enemySpawnerPrefab, new Vector3(spawnX, spawnY),
+                Quaternion.identity);
+
+            Animator spawnerAnimator = spawner.GetComponent<Animator>();
+            EnemySpawner enemySpawner = spawner.GetComponent<EnemySpawner>();
+
+            float spawnLastTime = minimumSummonedSpawnerTime + Random.Range(0f, 10f);
+           
+            enemySpawner.SpawnXLimits = floorXRange;
+
+            yield return new WaitForSeconds(spawnLastTime);
+
+            spawnerAnimator.SetTrigger("Despawn");
+
+            yield return new WaitForSeconds(1f);
+
+            Destroy(spawner);
+        }
+
+
         private void TeleportToPlayer() {
             int playerFloor = BossLevelManager.Singleton.Floor;
             float teleportX = Random.Range(FloorXRanges[playerFloor - 1].x, FloorXRanges[playerFloor - 1].y);
@@ -218,6 +273,7 @@ namespace Week4
             bossState = newState;
             timer = 0;
             isTeleporting = false;
+            isSummoning = false;
             switch (newState) {
                 case BossState.ChasePlayer:
                     currentTargetTime = minimumChaseTime + Random.Range(0f, 5f);
@@ -237,10 +293,27 @@ namespace Week4
         }
 
         private void ChangeStateRandom() {
-            int index = Random.Range(0, 4);
-            while (index == (int) bossState) {
-                index = Random.Range(0, 4);
-            }
+          
+            int index;
+
+            do {
+                int possibility = Random.Range(0, 101);
+                if (possibility >= 0 && possibility < randomStateSwitchPossibility[0]) {
+                    index = 0;
+                }
+                else if (possibility >= randomStateSwitchPossibility[0] &&
+                         possibility < randomStateSwitchPossibility[1]) {
+                    index = 1;
+                }
+                else if (possibility >= randomStateSwitchPossibility[1] &&
+                         possibility < randomStateSwitchPossibility[2]) {
+                    index = 2;
+                }
+                else {
+                    index = 3;
+                }
+            } while (index == (int) bossState);
+
             ChangeToState((BossState) index);
         }
 

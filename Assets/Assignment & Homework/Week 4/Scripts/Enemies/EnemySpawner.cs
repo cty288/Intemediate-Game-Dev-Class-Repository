@@ -15,15 +15,26 @@ namespace Week4
 
         [SerializeField] 
         private Vector2 spawnXLimits;
+        public Vector2 SpawnXLimits {
+            get => spawnXLimits;
+            set => spawnXLimits = value;
+        }
 
         [SerializeField] 
         private Transform spawnPosition;
 
         [SerializeField] 
         private float spawnInterval = 5f;
+        public float SpawnInterval {
+            get => spawnInterval;
+            set => spawnInterval = value;
+        }
+
 
         [SerializeField] 
         private int maxEnemyConcurrence = 4;
+
+        
 
         private SpriteRenderer indicator;
         private float indicateTimer = 0;
