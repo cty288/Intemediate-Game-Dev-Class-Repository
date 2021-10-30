@@ -54,6 +54,9 @@ namespace Week4
         private float fireballShootInterval = 1f;
         private float fireballShootTimer;
 
+        
+        private float damagedColorTimer = 0f;
+
         [SerializeField] 
         private Transform fireballStartPos;
 
@@ -61,6 +64,8 @@ namespace Week4
 
 
         [SerializeField] private float shootFireballMoveSpeed;
+
+        private SpriteRenderer renderer;
         protected override void Start() {
             base.Start();
             bossState = BossState.ShootFireball;
@@ -69,10 +74,17 @@ namespace Week4
             currentTargetTime = minimumChaseTime;
             SimpleEventSystem.OnPlayerFloorChange += OnPlayerFloorChange;
             colliders = GetComponents<Collider2D>();
+            renderer = GetComponent<SpriteRenderer>();
         }
 
         protected override void AnimationControl() {
-          
+            damagedColorTimer -= Time.deltaTime;
+            if (damagedColorTimer <= 0) {
+                renderer.color = Color.white;
+            }
+            else {
+                renderer.color = Color.red;
+            }
         }
 
         private void OnPlayerFloorChange(int oldFloor, int newFloor) {
@@ -86,6 +98,12 @@ namespace Week4
 
         protected override void OnDamaged(int damageAmount) {
             damageReceived += damageAmount;
+            damagedColorTimer = 0.2f;
+        }
+
+        protected override void OnKilled() {
+            base.OnKilled();
+            SimpleEventSystem.OnBossDie?.Invoke();
         }
 
         protected override void DetectPlayer() {
@@ -93,21 +111,26 @@ namespace Week4
         }
 
         protected override void CheckStateSwitch() {
-            timer += Time.deltaTime;
-            if (timer >= currentTargetTime) {
-                ChangeStateRandom();
-                timer = 0;
-            }
-            else {
-                ChangeStateCheck();
-            }
+            if (dialogueTrigger.DialogueFinished) {
+                timer += Time.deltaTime;
+                if (timer >= currentTargetTime)
+                {
+                    ChangeStateRandom();
+                    timer = 0;
+                }
+                else
+                {
+                    ChangeStateCheck();
+                }
 
 
-            if (lastBossState != bossState)
-            {
-                OnStateChanged(lastBossState, bossState);
-                lastState = state;
+                if (lastBossState != bossState)
+                {
+                    OnStateChanged(lastBossState, bossState);
+                    lastState = state;
+                }
             }
+            
         }
 
         private void OnStateChanged(BossState lastBossState, BossState newState) {
@@ -220,79 +243,88 @@ namespace Week4
         }
 
         private void ChangeStateCheck() {
-            ignoreTimer += Time.deltaTime;
-            switch (bossState)
-            {
-                case BossState.ChasePlayer:
-                    if (damageReceived >= 60)
-                    {
-                        damageReceived = 0;
-                        ChangeToState(BossState.Teleport);
-                    }
-                    if (ignoreTimer >= ignoreChaseOrShootConditionTime) {
-                        //change state:
-                        //1. Player changes their floor -> to teleport
-                        //2. Timer up -> random new state
-                        //3. Lose health >60 -> teleport
-                        //4. distance > a distance -> to shoot fireballs
-
-                        if (Mathf.Abs(this.transform.position.x - player.transform.position.x) >=
-                            chaseAndShootSwitchDistance)
+            if (dialogueTrigger.DialogueFinished) {
+                ignoreTimer += Time.deltaTime;
+                switch (bossState)
+                {
+                    case BossState.ChasePlayer:
+                        if (damageReceived >= 60)
                         {
-                            ChangeToState(BossState.ShootFireball);
+                            damageReceived = 0;
+                            ChangeToState(BossState.Teleport);
+                        }
+                        if (ignoreTimer >= ignoreChaseOrShootConditionTime)
+                        {
+                            //change state:
+                            //1. Player changes their floor -> to teleport
+                            //2. Timer up -> random new state
+                            //3. Lose health >60 -> teleport
+                            //4. distance > a distance -> to shoot fireballs
+
+                            if (Mathf.Abs(this.transform.position.x - player.transform.position.x) >=
+                                chaseAndShootSwitchDistance)
+                            {
+                                ChangeToState(BossState.ShootFireball);
+                            }
+
+                            //change floor
+                        }
+                        break;
+                    case BossState.ShootFireball:
+                        fireballShootTimer += Time.deltaTime;
+                        if (fireballShootTimer >= fireballShootInterval)
+                        {
+                            fireballShootTimer = 0;
+                            ShootFireball();
                         }
 
-                        //change floor
-                    }
-                    break;
-                case BossState.ShootFireball:
-                    fireballShootTimer += Time.deltaTime;
-                    if (fireballShootTimer >= fireballShootInterval) {
-                        fireballShootTimer = 0;
-                        ShootFireball();
-                    }
-
-                    if (damageReceived >= 60)
-                    {
-                        damageReceived = 0;
-                        ChangeToState(BossState.Teleport);
-                    }
-                    if (ignoreTimer >= ignoreChaseOrShootConditionTime) {
-                        //change state:
-                        //1. Player changes their floor -> to teleport
-                        //2. Timer up -> random new state
-                        //3. Lose health >60 -> teleport
-                        //4. distance < a distance -> to chase player
-                        if (Mathf.Abs(this.transform.position.x - player.transform.position.x) <=
-                            chaseAndShootSwitchDistance)
+                        if (damageReceived >= 60)
                         {
-                            ChangeToState(BossState.ChasePlayer);
+                            damageReceived = 0;
+                            ChangeToState(BossState.Teleport);
                         }
-                    }
-                   
-                    break;
-                case BossState.SummonEnemies:
-                    //change state:
-                    //instantly after 2 sec -> random state 
-                    if (!isSummoning) {
-                        isSummoning = true;
-                        StartCoroutine(StartSummoning());
-                    }
-                    else {
-                        speechUI.transform.position = transform.position + speechBubbleRelativePosition;
-                    }
+                        if (ignoreTimer >= ignoreChaseOrShootConditionTime)
+                        {
+                            //change state:
+                            //1. Player changes their floor -> to teleport
+                            //2. Timer up -> random new state
+                            //3. Lose health >60 -> teleport
+                            //4. distance < a distance -> to chase player
+                            if (Mathf.Abs(this.transform.position.x - player.transform.position.x) <=
+                                chaseAndShootSwitchDistance)
+                            {
+                                ChangeToState(BossState.ChasePlayer);
+                            }
+                        }
 
-                    
-                    break;
-                case BossState.Teleport:
-                    //change state:
-                    //instantly after 1.7 sec -> random state
-                    if (!isTeleporting) {
-                        isTeleporting = true;
-                        StartCoroutine(StartTeleport());
-                    }
-                   
-                    break;
+                        break;
+                    case BossState.SummonEnemies:
+                        //change state:
+                        //instantly after 2 sec -> random state 
+                        if (!isSummoning)
+                        {
+                            isSummoning = true;
+                            StartCoroutine(StartSummoning());
+                        }
+                        else
+                        {
+                            speechUI.transform.position = transform.position + speechBubbleRelativePosition;
+                        }
+
+
+                        break;
+                    case BossState.Teleport:
+                        //change state:
+                        //instantly after 1.7 sec -> random state
+                        if (!isTeleporting)
+                        {
+                            isTeleporting = true;
+                            StartCoroutine(StartTeleport());
+                        }
+
+                        break;
+                }
+           
             }
         }
 

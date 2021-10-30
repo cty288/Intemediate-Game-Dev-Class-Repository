@@ -86,8 +86,9 @@ namespace Week4
                 case PlayerState.Menu:
                     currentSprites = idleSprites;
                     break;
-                    
-                
+                case PlayerState.GamePass:
+                    currentSprites = idleSprites;
+                    break;
             }
 
            

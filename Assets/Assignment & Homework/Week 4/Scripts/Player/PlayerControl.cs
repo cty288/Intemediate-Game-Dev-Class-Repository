@@ -11,7 +11,8 @@ namespace Week4{
         Jump,
         Talking,
         End,
-        Dead
+        Dead,
+        GamePass
     }
     //control improvement
     public class PlayerControl : MonoBehaviour {
@@ -154,7 +155,8 @@ namespace Week4{
         private void UpdateState() {
             
 
-            if (playerState != PlayerState.Talking && playerState!= PlayerState.Dead && playerState!=PlayerState.End) {
+            if (playerState != PlayerState.Talking && playerState!= PlayerState.Dead && playerState!=PlayerState.End
+            && playerState!=PlayerState.GamePass) {
                 if (Mathf.Abs(speed) <= 0.5 && Mathf.Abs(mRigidbody.velocity.y) <= 0.5 && playerState != PlayerState.Dead)
                 {
                     playerState = PlayerState.Idle;
@@ -201,7 +203,8 @@ namespace Week4{
 
         private void MovementControl()
         {
-            if (playerState != PlayerState.Talking && playerState!= PlayerState.Dead && playerState!=PlayerState.End) {
+            if (playerState != PlayerState.Talking && playerState!= PlayerState.Dead && playerState!=PlayerState.End
+            && playerState!= PlayerState.GamePass) {
                 moveX = Input.GetAxis("Horizontal");
 
                 if (Input.GetKey(KeyCode.Space))

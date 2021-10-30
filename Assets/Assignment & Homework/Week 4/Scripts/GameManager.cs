@@ -128,8 +128,12 @@ namespace Week4
             return GameObject.Find("Player").GetComponent<PlayerControl>();
         }
 
+        public int TotalDiamondGet = 0;
         public void AddDiamond(int num) {
             diamond += num;
+            if (num >= 0) {
+                TotalDiamondGet += num;
+            }
             SimpleEventSystem.OnDiamondChange?.Invoke(diamond - num, diamond);
         }
 
@@ -146,10 +150,15 @@ namespace Week4
             diamond = 0;
             key = 0;
             respawnInfo = null;
+            TotalEnemiesKilled = 0;
             life = 5;
+            TotalRespawnTime = 0;
             ItemsPicked.Clear();
+            TotalDiamondGet = 0;
             ClearInventory();
         }
+
+        public int TotalEnemiesKilled = 0;
 
         public void PickItem(Item itemPicked) {
             bool canPick = true;
@@ -198,7 +207,9 @@ namespace Week4
             SceneManager.LoadScene((currentSceneIndex+1) % totalScenes);
         }
 
+        public int TotalRespawnTime = 0;
         public void Respawn() {
+            TotalRespawnTime++;
             player.GetComponent<Rigidbody2D>().simulated = false;
             player.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
 

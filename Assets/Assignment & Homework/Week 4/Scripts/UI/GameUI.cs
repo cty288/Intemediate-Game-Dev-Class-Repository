@@ -51,6 +51,7 @@ namespace Week4
             SimpleEventSystem.OnPlayerPickItem += OnPlayerPickItem;
 
             SimpleEventSystem.OnGameStart += OnGameStart;
+            SimpleEventSystem.OnEntireGameEnds += OnEntireGameEnds;
         }
 
         private void OnGameStart() {
@@ -129,6 +130,11 @@ namespace Week4
             SimpleEventSystem.OnPlayerPickItem -= OnPlayerPickItem;
             SimpleEventSystem.OnGameEnds -= OnGameEnds;
             SimpleEventSystem.OnGameStart -= OnGameStart;
+            SimpleEventSystem.OnEntireGameEnds -= OnEntireGameEnds;
+        }
+
+        private void OnEntireGameEnds() {
+            this.gameObject.SetActive(false);
         }
 
         void OnLifeChanged(int oldlife, int newLife) {

@@ -202,7 +202,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jumpForce: 75
-  jumpForceWithBoot: 85
+  jumpForceWithBoot: 120
   maxSpeed: 4.5
   friction: 0.5
   speed: 0
@@ -210,8 +210,8 @@ MonoBehaviour:
   lastState: 1
   jumping: 1
   minimumJumpHoldTime: 0.1
-  minimumJumpForce: 75
-  minimumJumpForceWithBoot: 85
+  minimumJumpForce: 100
+  minimumJumpForceWithBoot: 120
 --- !u!114 &1388606795042035738
 MonoBehaviour:
   m_ObjectHideFlags: 0

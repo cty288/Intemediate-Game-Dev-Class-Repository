@@ -10601,7 +10601,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: You can alsoJump on an enemy's head to kill it !
+  m_text: You can also jump on an enemy's head to kill it !
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d36f90963030cdf4d9c94792f415db2b, type: 2}
   m_sharedMaterial: {fileID: -6156678236544870392, guid: d36f90963030cdf4d9c94792f415db2b, type: 2}

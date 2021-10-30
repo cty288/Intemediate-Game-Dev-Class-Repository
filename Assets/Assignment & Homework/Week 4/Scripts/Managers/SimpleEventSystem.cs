@@ -31,5 +31,9 @@ namespace Week4
         public static Action OnGameStart;
 
         public static Action<int, int> OnPlayerFloorChange;
+
+        public static Action OnBossDie;
+
+        public static Action OnEntireGameEnds;
     }
 }

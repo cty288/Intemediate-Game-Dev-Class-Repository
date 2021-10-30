@@ -85,6 +85,7 @@ namespace Week4
             healthBarInitialScale = healthBarCanvasTr.localScale.x;
             SimpleEventSystem.OnPlayerStateUpdate += OnPlayerStateUpdate;
             SimpleEventSystem.OnPlayerRespawn += OnPlayerRespawn;
+            SimpleEventSystem.OnBossDie += OnBossDie;
         }
 
 
@@ -105,6 +106,13 @@ namespace Week4
         protected virtual void OnDestroy() {
             SimpleEventSystem.OnPlayerStateUpdate -= OnPlayerStateUpdate;
             SimpleEventSystem.OnPlayerRespawn -= OnPlayerRespawn;
+            SimpleEventSystem.OnBossDie -= OnBossDie;
+        }
+
+        protected virtual void OnBossDie() {
+            if (Alive) {
+                OnKilled();
+            }
         }
 
         protected virtual void Update() {
@@ -167,7 +175,8 @@ namespace Week4
         }
 
         protected virtual void OnKilled() {
-            
+            health = 0;
+            GameManager.Singleton.TotalEnemiesKilled++;
             for (int i = 0; i < awardDiamondCount; i++) {
                 float randomPos = Random.Range(-1f, 1f);
                 GameManager.Singleton.SpawnDiamond(transform.position + new Vector3(0, 2.5f, 0) +

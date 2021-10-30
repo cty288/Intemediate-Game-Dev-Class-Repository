@@ -13,22 +13,45 @@ namespace Week4
         private Animator animator;
         private float timer = 0;
 
+        private bool gameEnds = false;
         private void Awake() {
             animator = GetComponent<Animator>();
         }
 
+        private void Start() {
+            SimpleEventSystem.OnBossDie += OnBossDie;
+        }
+
+        private void OnDestroy() {
+            SimpleEventSystem.OnBossDie -= OnBossDie;
+        }
+
+        private void OnBossDie() {
+            gameEnds = true;
+        }
+
         private void Update() {
-            timer += Time.deltaTime;
-            if (timer >= period) {
-                timer = 0;
-                isOn = !isOn;
-                if (isOn) {
-                    animator.SetTrigger("On");
-                }
-                else {
-                    animator.SetTrigger("Off");
+            if (!gameEnds) {
+                timer += Time.deltaTime;
+                if (timer >= period)
+                {
+                    timer = 0;
+                    isOn = !isOn;
+                    if (isOn)
+                    {
+                        animator.SetTrigger("On");
+                    }
+                    else
+                    {
+                        animator.SetTrigger("Off");
+                    }
                 }
             }
+            else {
+                isOn = false;
+                animator.SetTrigger("Off");
+            }
+            
         }
 
         private void OnTriggerStay2D(Collider2D other) {

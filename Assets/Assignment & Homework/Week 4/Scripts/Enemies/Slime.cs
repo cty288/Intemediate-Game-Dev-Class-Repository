@@ -26,6 +26,7 @@ namespace Week4
             healthBarInitialScale = healthBarCanvasTr.localScale.x;
             SimpleEventSystem.OnPlayerStateUpdate += OnPlayerStateUpdate;
             SimpleEventSystem.OnPlayerRespawn += OnPlayerRespawn;
+            SimpleEventSystem.OnBossDie += OnBossDie;
             currentAnimationSpeed = defaultAnimationSpeed;
         }
 
@@ -41,6 +42,28 @@ namespace Week4
             animator.speed = currentAnimationSpeed;
         }
 
+        protected override void OnBossDie() {
+            if (Alive)
+            {
+                health = 0;
+                for (int i = 0; i < awardDiamondCount; i++)
+                {
+                    float randomPos = Random.Range(-1f, 1f);
+                    GameManager.Singleton.SpawnDiamond(transform.position + new Vector3(0, 2.5f, 0) +
+                                                       new Vector3(randomPos, randomPos, randomPos));
+                }
+
+
+                GetComponent<CircleCollider2D>().isTrigger = true;
+                GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
+                GetComponent<Rigidbody2D>().velocity = new Vector2(0, -50);
+
+                Instantiate(smokePrefab, transform.position, Quaternion.identity);
+
+                Destroy(this.gameObject, 5);
+            }
+        }
+
         protected override void OnKilled() {
             Instantiate(smokePrefab, transform.position, Quaternion.identity);
             for (int i = 0; i < awardDiamondCount; i++)
@@ -50,6 +73,7 @@ namespace Week4
                                                    new Vector3(randomPos, randomPos, randomPos));
             }
 
+            GameManager.Singleton.TotalEnemiesKilled++;
             GetComponent<CircleCollider2D>().isTrigger = true;
             GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
 

@@ -2738,15 +2738,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1388606795042035741, guid: 6ca638646d70d544a8be4e8015a8b1aa, type: 3}
       propertyPath: minimumJumpForce
-      value: 75
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 1388606795042035741, guid: 6ca638646d70d544a8be4e8015a8b1aa, type: 3}
       propertyPath: jumpForceWithBoot
-      value: 85
+      value: 120
       objectReference: {fileID: 0}
     - target: {fileID: 1388606795042035741, guid: 6ca638646d70d544a8be4e8015a8b1aa, type: 3}
       propertyPath: minimumJumpForceWithBoot
-      value: 85
+      value: 120
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6ca638646d70d544a8be4e8015a8b1aa, type: 3}
