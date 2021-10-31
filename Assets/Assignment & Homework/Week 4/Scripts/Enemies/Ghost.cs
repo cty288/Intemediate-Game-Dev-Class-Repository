@@ -243,7 +243,7 @@ namespace Week4
         }
 
         private void ChangeStateCheck() {
-            if (dialogueTrigger.DialogueFinished) {
+            if (dialogueTrigger.DialogueFinished && Alive) {
                 ignoreTimer += Time.deltaTime;
                 switch (bossState)
                 {
