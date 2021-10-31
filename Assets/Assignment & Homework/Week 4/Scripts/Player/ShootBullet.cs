@@ -16,6 +16,7 @@ namespace Week4
         [SerializeField] 
         private float shootInterval = 0.2f;
 
+        [SerializeField] private AudioClip shootSound;
         private float timer;
 
         
@@ -41,6 +42,7 @@ namespace Week4
         }
 
         private void Shoot() {
+            AudioManager.Singleton.PlayObjectSounds(shootSound,0.8f);
             int facing = player.transform.localScale.x > 0 ? 1 : -1; 
             GameObject bullet = Instantiate(ShootingBulletPrefab, shootPosition.position,
                 Quaternion.identity);

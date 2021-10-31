@@ -65,6 +65,7 @@ namespace Week4
         }
 
         protected override void OnKilled() {
+            AudioManager.Singleton.PlayObjectSounds(playerHopSound, 1f);
             Instantiate(smokePrefab, transform.position, Quaternion.identity);
             for (int i = 0; i < awardDiamondCount; i++)
             {

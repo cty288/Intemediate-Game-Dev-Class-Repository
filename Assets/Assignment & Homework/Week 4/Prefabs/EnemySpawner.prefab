@@ -248,3 +248,4 @@ MonoBehaviour:
   spawnPosition: {fileID: 736136480791510324}
   spawnInterval: 5
   maxEnemyConcurrence: 8
+  indicatorAudio: {fileID: 8300000, guid: 4de4ebcd8d6b53c49ad8595d19653514, type: 3}

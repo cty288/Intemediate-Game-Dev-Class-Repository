@@ -132,6 +132,7 @@ MonoBehaviour:
   bubbleDialoguePosition: {x: 0, y: 0, z: 0}
   canRepeatTrigger: 1
   minimumTriggerDistance: 3
+  interactingSound: {fileID: 8300000, guid: 189fbebbf2e8ef04c8cc55707ac1a99e, type: 3}
   defaultDialogues:
   - 'P: I need a key to open this gate'
 --- !u!61 &4030017560642712779

@@ -122,6 +122,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8518038edc38e554f93024bead59c172, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerHopSound: {fileID: 8300000, guid: cf09328b6195a074982c1882f0d66452, type: 3}
   health: 60
   posXLimit: {x: 0, y: 0}
   viewDistance: 5

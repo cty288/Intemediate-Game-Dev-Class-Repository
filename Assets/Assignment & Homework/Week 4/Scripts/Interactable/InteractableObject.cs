@@ -32,6 +32,7 @@ namespace Week4
 
         [SerializeField] protected float minimumTriggerDistance = 3;
 
+        [SerializeField] protected AudioClip interactingSound;
         private bool triggeredBefore = false;
 
         private int stage = 0;

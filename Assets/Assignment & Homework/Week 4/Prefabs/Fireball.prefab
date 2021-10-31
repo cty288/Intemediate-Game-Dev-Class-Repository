@@ -166,6 +166,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Shooter: {fileID: 0}
+  explodeAudioClip: {fileID: 8300000, guid: fcda7f4e6e5fd1e47b0e5c42566ee340, type: 3}
   Speed: 5
 --- !u!50 &7189820666259871149
 Rigidbody2D:

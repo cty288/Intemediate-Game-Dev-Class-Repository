@@ -26,6 +26,9 @@ namespace Week4
 
         private MessageBox messageBoxUI;
 
+        [SerializeField] protected AudioClip bubbleAudio;
+        [SerializeField] protected AudioClip nextPageAudio;
+
         private void Awake() {
             if (Singleton != null) {
                 DestroyImmediate(this.gameObject);
@@ -82,7 +85,7 @@ namespace Week4
             page = 0;
             currentDialogue = dialogueTexts;
             SetDialogueUIText(currentDialogue[page]);
-            
+            AudioManager.Singleton.PlayObjectSounds(bubbleAudio,0.7f);
             this.npcBubblePosition = NPCSpeechPosition;
         }
 
@@ -103,6 +106,7 @@ namespace Week4
             page++;
             if (page < currentDialogue.Count) {
                 SetDialogueUIText(currentDialogue[page]);
+                AudioManager.Singleton.PlayObjectSounds(nextPageAudio, 0.7f);
             }
             else {
                 page = -1;

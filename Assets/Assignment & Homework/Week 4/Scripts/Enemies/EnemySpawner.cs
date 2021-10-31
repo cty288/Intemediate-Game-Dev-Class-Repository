@@ -41,6 +41,8 @@ namespace Week4
 
         private bool gameEnds = false;
 
+        [SerializeField] private AudioClip indicatorAudio;
+
 
         private void Awake() {
             aliveEnemies = new List<Enemy>();
@@ -79,6 +81,10 @@ namespace Week4
                     indicateTimer += Time.deltaTime;
                     if (indicateTimer >= 0.1f)
                     {
+                        if (Vector2.Distance(transform.position, GameManager.Singleton.GetPlayer()
+                            .transform.position) <= 10) {
+                            AudioManager.Singleton.PlayObjectSounds(indicatorAudio,0.7f);
+                        }
                         indicateTimer = 0;
                         Color color = indicator.color;
                         indicator.color = new Color(Mathf.Abs(color.r - 1), 0, 0);

@@ -39,6 +39,7 @@ namespace Week4
                 if (anim) {
                     anim.Play();
                 }
+                AudioManager.Singleton.PlayObjectSounds(interactingSound,0.7f);
             }
         }
 

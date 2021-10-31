@@ -95,6 +95,10 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 736136482026458382, guid: 544d78a415f15d346a83eb4de90f6705, type: 3}
+      propertyPath: indicatorAudio
+      value: 
+      objectReference: {fileID: 8300000, guid: 4de4ebcd8d6b53c49ad8595d19653514, type: 3}
+    - target: {fileID: 736136482026458382, guid: 544d78a415f15d346a83eb4de90f6705, type: 3}
       propertyPath: spawnPrefabs.Array.size
       value: 3
       objectReference: {fileID: 0}

@@ -25,6 +25,8 @@ namespace Week4
         
         protected bool directionSwitched = false;
 
+        [SerializeField] protected AudioClip playerHopSound;
+
         public bool Alive {
             get {
                 return health > 0;
@@ -153,6 +155,7 @@ namespace Week4
             {
                 if (GameManager.Singleton.Player.GetComponent<Rigidbody2D>().
                     velocity.y<0) {
+                    AudioManager.Singleton.PlayObjectSounds(playerHopSound, 1f);
                     health = 0;
                     OnKilled();
                     player.GetComponent<Rigidbody2D>().velocity += new Vector2(0, 10);
@@ -165,6 +168,7 @@ namespace Week4
                     if (player.GetComponent<Rigidbody2D>().
                         velocity.y < 0)
                     {
+                        AudioManager.Singleton.PlayObjectSounds(playerHopSound, 1f);
                         health = 0;
                         OnKilled();
                         player.GetComponent<Rigidbody2D>().velocity += new Vector2(0, 10);
@@ -176,6 +180,7 @@ namespace Week4
 
         protected virtual void OnKilled() {
             health = 0;
+            AudioManager.Singleton.PlayObjectSounds(playerHopSound, 1f);
             GameManager.Singleton.TotalEnemiesKilled++;
             for (int i = 0; i < awardDiamondCount; i++) {
                 float randomPos = Random.Range(-1f, 1f);

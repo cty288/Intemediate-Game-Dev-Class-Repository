@@ -29,6 +29,9 @@ namespace Week4{
         [SerializeField] 
         private float friction = 0.3f;
 
+        [SerializeField] private AudioClip walkSound;
+
+        [SerializeField] private AudioClip jumpSound;
 
         private Rigidbody2D mRigidbody;
         private float moveX = 0;
@@ -201,6 +204,8 @@ namespace Week4{
                 spriteRendererColor.b, 1);
         }
 
+        [SerializeField] private float walkTimerInterval = 0.2f;
+        private float walkTimer = 0; 
         private void MovementControl()
         {
             if (playerState != PlayerState.Talking && playerState!= PlayerState.Dead && playerState!=PlayerState.End
@@ -216,6 +221,16 @@ namespace Week4{
                     jumping = false;
                     jumpTimer = 0;
                 }
+
+                if (moveX != 0 && Grounded) {
+                    walkTimer += Time.deltaTime;
+                    if (walkTimer >= walkTimerInterval) {
+                        walkTimer = 0;
+                        AudioManager.Singleton.PlayObjectSounds(walkSound, 0.8f);
+                    }
+                   
+                }
+
             }
             else {
                 moveX = 0;
@@ -245,6 +260,7 @@ namespace Week4{
                     {
                         force = minimumJumpForce;
                     }
+                    AudioManager.Singleton.PlayObjectSounds(jumpSound,0.8f);
                     mRigidbody.AddForce(Vector2.up * force * Time.deltaTime, ForceMode2D.Impulse);
                 }
                 jumping = true;

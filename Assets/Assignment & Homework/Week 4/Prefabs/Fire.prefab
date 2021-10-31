@@ -210,6 +210,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   period: 3
+  fireAudio: {fileID: 8300000, guid: 5f6951c9575f3b347974005ff029b241, type: 3}
 --- !u!95 &7033368299892285102
 Animator:
   serializedVersion: 3

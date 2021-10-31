@@ -13,6 +13,7 @@ namespace Week4
         private Animator animator;
         private float timer = 0;
 
+        [SerializeField] private AudioClip fireAudio;
         private bool gameEnds = false;
         private void Awake() {
             animator = GetComponent<Animator>();
@@ -39,6 +40,10 @@ namespace Week4
                     isOn = !isOn;
                     if (isOn)
                     {
+                        if (Vector2.Distance(this.transform.position,
+                            GameManager.Singleton.GetPlayer().transform.position) <= 10) {
+                            AudioManager.Singleton.PlayObjectSounds(fireAudio,0.5f);
+                        }
                         animator.SetTrigger("On");
                     }
                     else

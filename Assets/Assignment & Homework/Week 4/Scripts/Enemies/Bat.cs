@@ -14,6 +14,7 @@ namespace Week4
 
         [SerializeField] private GameObject fireballPrefab;
 
+        [SerializeField] private AudioClip fireballClip;
         private float timer = 0;
         protected override void Start() {
             base.Start();
@@ -64,6 +65,7 @@ namespace Week4
         }
 
         private void ShootFireBall() {
+            AudioManager.Singleton.PlayObjectSounds(fireballClip,0.8f);
             Fireball fireBall = Instantiate(fireballPrefab, GetComponentInChildren<Transform>().position,
                 Quaternion.identity).GetComponent<Fireball>();
             Vector2 angleDiff = Vector3.Normalize(player.transform.position - transform.position);
@@ -103,6 +105,7 @@ namespace Week4
                 if (GameManager.Singleton.GetPlayer().GetComponent<Rigidbody2D>().
                     velocity.y < 0 && GameManager.Singleton.GetPlayer().transform.position.y >= transform.position.y)
                 {
+                    AudioManager.Singleton.PlayObjectSounds(playerHopSound, 1f);
                     health = 0;
                     OnKilled();
                     player.GetComponent<Rigidbody2D>().velocity += new Vector2(0, 10);
@@ -118,6 +121,7 @@ namespace Week4
                     if (GameManager.Singleton.GetPlayer().GetComponent<Rigidbody2D>().
                         velocity.y < 0 && GameManager.Singleton.GetPlayer().transform.position.y >= transform.position.y)
                     {
+                        AudioManager.Singleton.PlayObjectSounds(playerHopSound, 1f);
                         health = 0;
                         OnKilled();
                         player.GetComponent<Rigidbody2D>().velocity += new Vector2(0, 10);

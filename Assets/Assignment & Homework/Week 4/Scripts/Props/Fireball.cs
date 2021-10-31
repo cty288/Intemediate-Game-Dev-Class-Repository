@@ -10,6 +10,8 @@ namespace Week4
 
         public GameObject Shooter;
 
+        [SerializeField] private AudioClip explodeAudioClip;
+
         public float Speed;
 
         private void Awake() {
@@ -27,6 +29,8 @@ namespace Week4
                 Destroy(this.gameObject, 1f);
                 Speed = 0;
                 animator.SetTrigger("Explode");
+
+                AudioManager.Singleton.PlayObjectSounds(explodeAudioClip,0.7f);
 
                 if (other.gameObject.name == "Player")
                 {

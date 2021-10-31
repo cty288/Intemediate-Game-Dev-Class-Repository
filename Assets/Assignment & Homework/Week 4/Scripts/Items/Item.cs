@@ -23,6 +23,9 @@ namespace Week4
         private SpriteRenderer spriteRenderer;
         private Collider2D collider;
 
+        [SerializeField] 
+        protected AudioClip pickUpSound;
+
         private void Awake()
         {
             spriteRenderer = GetComponent<SpriteRenderer>();
@@ -50,6 +53,7 @@ namespace Week4
             {
                 GameManager.Singleton.PickItem(this);
 
+                AudioManager.Singleton.PlayObjectSounds(pickUpSound,1);
                 DisActive();
             }
         }

@@ -235,6 +235,7 @@ MonoBehaviour:
   bubbleDialoguePosition: {x: 0, y: 0, z: 0}
   canRepeatTrigger: 1
   minimumTriggerDistance: 2
+  interactingSound: {fileID: 8300000, guid: b604e64ce9ec1e241a89a321952a6281, type: 3}
   defaultDialogues:
   - 'P: I need a key to open this gate'
   - 'P: or are there other ways?'
@@ -266,6 +267,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f729aae84eaec642bb291646f69acd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damagedSound: {fileID: 8300000, guid: 0f24b883a1bb55d4d8d29ff5c3ef5202, type: 3}
 --- !u!1001 &632120608661731594
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -5,8 +5,8 @@ using UnityEngine;
 
 namespace Week4
 {
-    public class DamagableDoor : MonoBehaviour,IDamageable
-    {
+    public class DamagableDoor : MonoBehaviour,IDamageable {
+        [SerializeField] private AudioClip damagedSound;
         private void Awake() {
             health = MaxHealth;
         }
@@ -14,6 +14,7 @@ namespace Week4
         public void DealDamage(int damage) {
             health -= damage;
             if (health <= 0) {
+                AudioManager.Singleton.PlayObjectSounds(damagedSound,0.5f);
                 Destroy(this.gameObject);
             }
         }

@@ -328,8 +328,10 @@ namespace Week4
             }
         }
 
+        [SerializeField] private AudioClip fireballClip;
         private void ShootFireball() {
             if (dialogueTrigger.DialogueFinished) {
+                AudioManager.Singleton.PlayObjectSounds(fireballClip, 0.8f);
                 Fireball fireBall = Instantiate(fireballPrefab, fireballStartPos.position,
                     Quaternion.identity).GetComponent<Fireball>();
 
@@ -345,17 +347,23 @@ namespace Week4
            
         }
 
+
+        [SerializeField] private AudioClip teleportAppearAudioClip;
+        [SerializeField] private AudioClip teleportDisappearAudioClip;
+
         private bool isTeleporting = false;
         private IEnumerator StartTeleport() {
             animator.SetTrigger("disappear");
             CollidersSwitch(false);
-            
+            AudioManager.Singleton.PlayObjectSounds(teleportDisappearAudioClip,0.8f);
             yield return new WaitForSeconds(0.8f);
             TeleportToPlayer();
             animator.SetTrigger("appear");
+            AudioManager.Singleton.PlayObjectSounds(teleportAppearAudioClip, 0.8f);
             yield return new WaitForSeconds(0.7f);
             CollidersSwitch(true);
             
+
         }
 
         private bool isSummoning = false;
@@ -466,6 +474,7 @@ namespace Week4
                 if (GameManager.Singleton.Player.GetComponent<Rigidbody2D>().
                     velocity.y < 0)
                 {
+                    AudioManager.Singleton.PlayObjectSounds(playerHopSound, 1f);
                     DealDamage(damageWhenKicked);
                     Rigidbody2D plaRigidbody = player.GetComponent<Rigidbody2D>();
                     plaRigidbody.velocity = new Vector2(plaRigidbody.velocity.x, 10);
@@ -479,6 +488,7 @@ namespace Week4
                     if (player.GetComponent<Rigidbody2D>().
                         velocity.y < 0)
                     {
+                        AudioManager.Singleton.PlayObjectSounds(playerHopSound, 1f);
                         DealDamage(damageWhenKicked);
                         Rigidbody2D plaRigidbody = player.GetComponent<Rigidbody2D>();
                         plaRigidbody.velocity = new Vector2(plaRigidbody.velocity.x, 10);

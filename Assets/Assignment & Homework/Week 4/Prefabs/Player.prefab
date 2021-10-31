@@ -205,9 +205,12 @@ MonoBehaviour:
   jumpForceWithBoot: 120
   maxSpeed: 4.5
   friction: 0.5
+  walkSound: {fileID: 8300000, guid: 8c655c591a17edd4eb6f8759a9dd63d7, type: 3}
+  jumpSound: {fileID: 8300000, guid: 6f3ac96f49b11e04791647942f0c7008, type: 3}
   speed: 0
   playerState: 1
   lastState: 1
+  walkTimerInterval: 0.2
   jumping: 1
   minimumJumpHoldTime: 0.1
   minimumJumpForce: 100
@@ -286,6 +289,7 @@ MonoBehaviour:
   shootSpeed: 10
   shootAngle: {x: 1, y: 0.5}
   shootInterval: 0.3
+  shootSound: {fileID: 8300000, guid: 63eeaf0bf56bd98469388f4fdc4ed3b1, type: 3}
 --- !u!1 &1388606795348070865
 GameObject:
   m_ObjectHideFlags: 0

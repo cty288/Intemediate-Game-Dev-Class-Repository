@@ -116,6 +116,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canPickMultipleTime: 1
   itemType: 1
+  pickUpSound: {fileID: 8300000, guid: e77d471a7c3d68545ad49929f3d9cabd, type: 3}
 --- !u!61 &1332373835718052827
 BoxCollider2D:
   m_ObjectHideFlags: 0

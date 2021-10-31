@@ -8,7 +8,8 @@ namespace Week4
     public class Diamond : MonoBehaviour {
 
         public bool useRigidbody = false;
-
+        [SerializeField]
+        protected AudioClip pickUpSound;
         private void Update() {
             GetComponent<Rigidbody2D>().bodyType = useRigidbody ? RigidbodyType2D.Dynamic : RigidbodyType2D.Static;
         }
@@ -17,6 +18,7 @@ namespace Week4
             if (other.collider.gameObject.name == "Player")
             {
                 GameManager.Singleton.AddDiamond(1);
+                //AudioManager.Singleton.PlayObjectSounds(pickUpSound,1);
                 Destroy(this.gameObject);
             }
         }
@@ -25,6 +27,7 @@ namespace Week4
             if (other.gameObject.name=="Player")
             {
                 GameManager.Singleton.AddDiamond(1);
+                //AudioManager.Singleton.PlayObjectSounds(pickUpSound, 1);
                 Destroy(this.gameObject);
             }
         }

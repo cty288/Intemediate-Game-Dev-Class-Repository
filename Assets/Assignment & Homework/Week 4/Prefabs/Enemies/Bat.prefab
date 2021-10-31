@@ -102,6 +102,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b32f079b219e19d49bc4c52735b5a001, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerHopSound: {fileID: 8300000, guid: cf09328b6195a074982c1882f0d66452, type: 3}
   health: 100
   posXLimit: {x: 0, y: 0}
   viewDistance: 5
@@ -114,6 +115,7 @@ MonoBehaviour:
   stayAtX: 3.17
   fireballShootPeriod: 2
   fireballPrefab: {fileID: 7189820666259871187, guid: f8859d6ffccd5a34788669da7cdb4af1, type: 3}
+  fireballClip: {fileID: 8300000, guid: 8bdfd86957422a44cbf6123580f0be86, type: 3}
 --- !u!58 &7902808847326169567
 CircleCollider2D:
   m_ObjectHideFlags: 0
